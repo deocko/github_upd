@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universidad Politécnica Digital — Fiat Lux</title>
+  <meta name="description" content="Universidad Politécnica Digital (UPD) — Educación superior de clase mundial 100% en línea. Más de 50 programas académicos, campus virtual innovador. FIAT LUX.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🎓</text></svg>">
+</head>
+<body>
+
+  <!-- ════════════ HEADER ════════════ -->
+  <header class="header" id="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="29" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <path d="M15 42V18h8c3 0 5.5.8 7.2 2.4 1.7 1.6 2.6 3.8 2.6 6.6 0 2.8-.9 5-2.6 6.6C28.5 35.2 26 36 23 36h-3.5v6H15zm4.5-10.2H23c1.8 0 3.2-.5 4.1-1.4.9-1 1.4-2.3 1.4-4 0-1.7-.5-3-1.4-4-.9-.9-2.3-1.4-4.1-1.4h-3.5v10.8z" fill="white"/>
+          <path d="M33 42V18h8.5c2.8 0 5 .7 6.5 2.1S50 23.5 50 26c0 2-.5 3.7-1.5 5-.3.4-.7.8-1.1 1.1L50.8 42h-5l-3-9H37.5v9H33zm4.5-13.2H41c1.6 0 2.8-.4 3.6-1.2.8-.8 1.2-2 1.2-3.5s-.4-2.6-1.2-3.4c-.8-.8-2-1.2-3.6-1.2h-3.5v9.3z" fill="rgba(201,168,76,0.9)"/>
+          <text x="30" y="55" text-anchor="middle" font-family="serif" font-size="5.5" fill="rgba(255,255,255,0.7)" letter-spacing="3">FIAT LUX</text>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name">Universidad Politécnica Digital</span>
+          <span class="logo-motto">Fiat Lux</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#inicio">Inicio</a>
+        <a href="#programas">Programas</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="#contacto">Contacto</a>
+        <a href="login.html" class="nav-cta">Campus Virtual</a>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ════════════ HERO ════════════ -->
+  <section class="hero" id="inicio">
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-decoration hero-decoration-1"></div>
+    <div class="hero-decoration hero-decoration-2"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l2 5h5.5l-4.5 3.5 1.7 5.5L8 11l-4.7 3 1.7-5.5L.5 5H6L8 0z"/></svg>
+        #1 Universidad Digital en Latinoamérica
+      </div>
+      <h1 class="hero-title">
+        Iluminando el <span class="highlight">Futuro</span> de la Educación Superior
+      </h1>
+      <p class="hero-description">
+        Más de 100,000 estudiantes en 30 países confían en nuestra plataforma de educación de vanguardia. 
+        Descubre programas académicos de clase mundial, desde ingeniería hasta humanidades, 
+        con un campus virtual interactivo único en su tipo.
+      </p>
+      <div class="hero-buttons">
+        <a href="#programas" class="btn btn-gold">
+          Explorar Programas
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="login.html" class="btn btn-secondary">
+          Acceder al Campus Virtual
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ════════════ PROGRAMS ════════════ -->
+  <section class="programs" id="programas">
+    <div class="container">
+      <h2 class="section-title reveal">Programas Académicos</h2>
+      <p class="section-subtitle reveal">Formación de excelencia con reconocimiento internacional en las áreas de mayor demanda profesional</p>
+      
+      <div class="programs-grid">
+        <div class="program-card reveal">
+          <div class="program-icon"><span>💻</span></div>
+          <h3>Ingeniería en Software</h3>
+          <p>Desarrolla soluciones tecnológicas de vanguardia con IA, cloud computing y metodologías ágiles.</p>
+          <span class="program-tag">Licenciatura • 4 años</span>
+        </div>
+
+        <div class="program-card reveal">
+          <div class="program-icon"><span>📊</span></div>
+          <h3>Ciencia de Datos & IA</h3>
+          <p>Domina el análisis de datos, machine learning y la inteligencia artificial aplicada a negocios.</p>
+          <span class="program-tag">Maestría • 2 años</span>
+        </div>
+
+        <div class="program-card reveal">
+          <div class="program-icon"><span>🏛️</span></div>
+          <h3>MBA Digital</h3>
+          <p>Liderazgo empresarial con enfoque en transformación digital, e-commerce y estrategia global.</p>
+          <span class="program-tag">Maestría • 18 meses</span>
+        </div>
+
+        <div class="program-card reveal">
+          <div class="program-icon"><span>⚖️</span></div>
+          <h3>Derecho Digital</h3>
+          <p>Regulación tecnológica, protección de datos, ciberseguridad jurídica y propiedad intelectual digital.</p>
+          <span class="program-tag">Licenciatura • 4 años</span>
+        </div>
+
+        <div class="program-card reveal">
+          <div class="program-icon"><span>🎨</span></div>
+          <h3>Diseño UX/UI</h3>
+          <p>Crea experiencias digitales memorables con design thinking, prototipado y research de usuarios.</p>
+          <span class="program-tag">Licenciatura • 3.5 años</span>
+        </div>
+
+        <div class="program-card reveal">
+          <div class="program-icon"><span>🔐</span></div>
+          <h3>Ciberseguridad</h3>
+          <p>Protege infraestructuras críticas con ethical hacking, análisis forense digital y gestión de riesgos.</p>
+          <span class="program-tag">Maestría • 2 años</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ STATS ════════════ -->
+  <section class="stats" id="estadisticas">
+    <div class="container">
+      <h2 class="section-title reveal">Nuestra Comunidad Global</h2>
+      <p class="section-subtitle reveal">Impactando vidas y transformando el futuro profesional de miles de estudiantes alrededor del mundo</p>
+      
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-number" data-target="100000">0</div>
+          <div class="stat-label">Estudiantes Activos</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number" data-target="54">0</div>
+          <div class="stat-label">Programas Académicos</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number" data-target="32">0</div>
+          <div class="stat-label">Países con Presencia</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number" data-target="98">0</div>
+          <div class="stat-label">% Satisfacción Estudiantil</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ WHY SECTION ════════════ -->
+  <section class="why-section" id="nosotros">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-content reveal">
+          <h2>¿Por qué elegir la Universidad Politécnica Digital?</h2>
+          <p>Somos la primera universidad 100% digital de Latinoamérica con un campus virtual interactivo que simula la experiencia presencial. Nuestro modelo educativo combina tecnología de punta con pedagogía innovadora.</p>
+          
+          <div class="why-features">
+            <div class="why-feature">
+              <div class="why-feature-icon">🌐</div>
+              <div class="why-feature-text">
+                <h4>Campus Virtual Interactivo</h4>
+                <p>Navega por un mapa 2D/3D con edificios, bibliotecas y laboratorios virtuales</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-icon">🤖</div>
+              <div class="why-feature-text">
+                <h4>IA Personalizada</h4>
+                <p>Tutor virtual con inteligencia artificial que adapta tu ruta de aprendizaje</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-icon">🎓</div>
+              <div class="why-feature-text">
+                <h4>Doble Titulación</h4>
+                <p>Acuerdos con universidades de Europa y EE.UU. para titulación internacional</p>
+              </div>
+            </div>
+            <div class="why-feature">
+              <div class="why-feature-icon">💼</div>
+              <div class="why-feature-text">
+                <h4>Bolsa de Trabajo Global</h4>
+                <p>Conectamos a nuestros egresados con las mejores empresas del mundo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="why-visual reveal">
+          <div class="why-image-wrapper">
+            <!-- Gradient placeholder image -->
+            <div style="width:100%;height:450px;background:linear-gradient(135deg, #1A3A6C 0%, #2B5EA7 50%, #4A7EC7 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;">
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <circle cx="60" cy="60" r="55" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+                <circle cx="60" cy="60" r="40" stroke="rgba(201,168,76,0.3)" stroke-width="1.5"/>
+                <path d="M60 20L75 50H45L60 20Z" fill="rgba(201,168,76,0.6)"/>
+                <path d="M35 55L60 90L85 55" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none"/>
+                <circle cx="60" cy="60" r="8" fill="rgba(201,168,76,0.8)"/>
+                <text x="60" y="110" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="serif" font-size="8" letter-spacing="4">FIAT LUX</text>
+              </svg>
+              <span style="color:rgba(255,255,255,0.5);font-size:0.9rem;font-family:var(--font-serif);">Innovación · Excelencia · Futuro</span>
+            </div>
+          </div>
+          
+          <div class="why-floating-card card-1">
+            <div class="card-icon">✅</div>
+            <div class="card-info">
+              <strong>97.3%</strong>
+              <span>Tasa de Graduación</span>
+            </div>
+          </div>
+          <div class="why-floating-card card-2">
+            <div class="card-icon">🏆</div>
+            <div class="card-info">
+              <strong>Top 10</strong>
+              <span>Ranking LATAM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ TESTIMONIALS ════════════ -->
+  <section class="testimonials" id="testimonios">
+    <div class="container">
+      <h2 class="section-title reveal">Lo que dicen nuestros estudiantes</h2>
+      <p class="section-subtitle reveal">Historias reales de transformación profesional y personal</p>
+
+      <div class="testimonials-carousel reveal">
+        <div class="testimonial-track" id="testimonialTrack">
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <p>La Universidad Politécnica Digital transformó mi carrera. El campus virtual es increíble — se siente como estar en una universidad real. Los profesores son de clase mundial y la flexibilidad me permitió seguir trabajando mientras estudiaba.</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">MR</div>
+                <div class="testimonial-info">
+                  <strong>María Rodríguez</strong>
+                  <span>Egresada de Ingeniería en Software • México</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <p>El MBA Digital me abrió puertas que nunca imaginé. La red de contactos internacionales y las masterclasses con CEOs de empresas Fortune 500 son incomparables. Hoy lidero un equipo de 50 personas gracias a esta formación.</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">CL</div>
+                <div class="testimonial-info">
+                  <strong>Carlos López</strong>
+                  <span>Egresado MBA Digital • Colombia</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <p>Como madre de dos hijos, necesitaba flexibilidad total. UPD no solo me la dio, sino que la experiencia de aprendizaje superó mis expectativas. Los laboratorios virtuales de ciberseguridad son tan realistas como los presenciales.</p>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">AS</div>
+                <div class="testimonial-info">
+                  <strong>Ana Sánchez</strong>
+                  <span>Estudiante de Ciberseguridad • Argentina</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevBtn" aria-label="Anterior">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="carousel-dots" id="carouselDots">
+            <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
+            <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
+            <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+          </div>
+          <button class="carousel-btn" id="nextBtn" aria-label="Siguiente">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ CTA ════════════ -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content reveal">
+        <h2>Comienza tu transformación hoy</h2>
+        <p>Inscripciones abiertas para el ciclo 2026-2. Becas disponibles del 30% al 100% para estudiantes destacados.</p>
+        <div class="hero-buttons">
+          <a href="login.html" class="btn btn-gold">
+            Ingresar al Campus
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+          </a>
+          <a href="#programas" class="btn btn-secondary">Ver Programas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ FOOTER ════════════ -->
+  <footer class="footer" id="contacto">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text">
+            <span class="logo-name">Universidad Politécnica Digital</span>
+            <span class="logo-motto">Fiat Lux</span>
+          </div>
+          <p>Educación superior de clase mundial, accesible desde cualquier lugar del planeta. Transformamos vidas a través de la innovación educativa.</p>
+          <div class="footer-social">
+            <a href="#" class="social-icon" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="Twitter">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="white"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Programas</h4>
+          <ul>
+            <li><a href="#">Licenciaturas</a></li>
+            <li><a href="#">Maestrías</a></li>
+            <li><a href="#">Doctorados</a></li>
+            <li><a href="#">Diplomados</a></li>
+            <li><a href="#">Educación Continua</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Universidad</h4>
+          <ul>
+            <li><a href="#">Sobre Nosotros</a></li>
+            <li><a href="#">Modelo Educativo</a></li>
+            <li><a href="#">Investigación</a></li>
+            <li><a href="#">Acreditaciones</a></li>
+            <li><a href="#">Trabaja con Nosotros</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Soporte</h4>
+          <ul>
+            <li><a href="#">Centro de Ayuda</a></li>
+            <li><a href="#">Admisiones</a></li>
+            <li><a href="#">Becas</a></li>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Universidad Politécnica Digital. Todos los derechos reservados.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Aviso de Privacidad</a>
+          <a href="#">Términos de Uso</a>
+          <a href="#">RVOE</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

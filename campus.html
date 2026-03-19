@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Virtual — Universidad Politécnica Digital</title>
+    <meta name="description"
+        content="Campus Virtual interactivo de la Universidad Politécnica Digital. Explora edificios, aulas y servicios universitarios.">
+    <link rel="stylesheet" href="campus.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🎓</text></svg>">
+</head>
+
+<body>
+
+    <!-- ════════════ WELCOME OVERLAY ════════════ -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-content">
+            <h1>Bienvenido al <span class="gold">Campus Virtual</span></h1>
+            <p>Preparando tu experiencia universitaria...</p>
+            <div class="welcome-spinner"></div>
+        </div>
+    </div>
+
+    <!-- ════════════ DASHBOARD HEADER ════════════ -->
+    <header class="campus-header">
+        <div class="campus-header-left">
+            <a href="index.html" class="campus-logo-mini">
+                <svg viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="18" r="17" fill="#1A3A6C" stroke="rgba(201,168,76,0.4)" stroke-width="1" />
+                    <text x="18" y="23" text-anchor="middle" font-family="serif" font-size="14" font-weight="bold"
+                        fill="white">PD</text>
+                </svg>
+                <span>UPD Campus</span>
+            </a>
+            <span class="campus-badge">🟢 EN LÍNEA</span>
+        </div>
+
+        <div class="campus-header-right">
+            <button class="header-icon-btn" title="Notificaciones" id="notifBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 01-3.46 0" />
+                </svg>
+                <span class="notif-dot"></span>
+            </button>
+            <button class="header-icon-btn" title="Configuración">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                        d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+                </svg>
+            </button>
+            <div class="user-menu" id="userMenu">
+                <div class="user-avatar" id="userAvatar">E</div>
+                <span class="user-name" id="userName">Estudiante</span>
+            </div>
+            <button class="logout-btn" id="logoutBtn">Salir</button>
+        </div>
+    </header>
+
+    <!-- ════════════ CAMPUS MAP ════════════ -->
+    <main class="campus-main">
+        <div class="campus-map-container">
+            <div class="campus-map-title">
+                <h2>🏛️ Mapa del Campus Virtual</h2>
+                <p>Haz clic en cualquier edificio para explorar sus servicios</p>
+            </div>
+
+            <svg class="campus-svg" viewBox="0 0 1100 700" fill="none" xmlns="http://www.w3.org/2000/svg"
+                id="campusMap">
+                <!-- ════ GROUND & LANDSCAPE ══════ -->
+                <defs>
+                    <radialGradient id="groundGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="rgba(43,94,167,0.08)" />
+                        <stop offset="100%" stop-color="transparent" />
+                    </radialGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="3" result="blur" />
+                        <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="rgba(201,168,76,0.1)" />
+                        <stop offset="50%" stop-color="rgba(201,168,76,0.3)" />
+                        <stop offset="100%" stop-color="rgba(201,168,76,0.1)" />
+                    </linearGradient>
+                    <linearGradient id="roofGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="rgba(201,168,76,0.4)" />
+                        <stop offset="100%" stop-color="rgba(201,168,76,0.15)" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Ground base -->
+                <ellipse cx="550" cy="620" rx="480" ry="60" fill="url(#groundGlow)" />
+
+                <!-- ══════ PATHS / WALKWAYS ══════ -->
+                <!-- Main horizontal path -->
+                <rect x="100" y="440" width="900" height="12" rx="6" fill="rgba(255,255,255,0.04)"
+                    stroke="rgba(255,255,255,0.06)" stroke-width="0.5" />
+                <!-- Vertical paths -->
+                <rect x="260" y="250" width="10" height="200" rx="5" fill="rgba(255,255,255,0.03)" />
+                <rect x="540" y="200" width="10" height="250" rx="5" fill="rgba(255,255,255,0.03)" />
+                <rect x="830" y="250" width="10" height="200" rx="5" fill="rgba(255,255,255,0.03)" />
+
+                <!-- Animated path highlights -->
+                <rect x="100" y="442" width="60" height="8" rx="4" fill="url(#pathGrad)">
+                    <animateTransform attributeName="transform" type="translate" values="0,0;840,0;0,0" dur="12s"
+                        repeatCount="indefinite" />
+                </rect>
+
+                <!-- ══════ TREES / DECORATIONS ══════ -->
+                <!-- Tree cluster left -->
+                <g opacity="0.7">
+                    <circle cx="80" cy="385" r="18" fill="rgba(16,185,129,0.15)" />
+                    <circle cx="95" cy="375" r="14" fill="rgba(16,185,129,0.12)" />
+                    <rect x="85" y="398" width="4" height="14" rx="2" fill="rgba(139,90,43,0.25)" />
+                </g>
+                <!-- Tree cluster right -->
+                <g opacity="0.7">
+                    <circle cx="1020" cy="385" r="18" fill="rgba(16,185,129,0.15)" />
+                    <circle cx="1005" cy="375" r="14" fill="rgba(16,185,129,0.12)" />
+                    <rect x="1015" y="398" width="4" height="14" rx="2" fill="rgba(139,90,43,0.25)" />
+                </g>
+                <!-- Central fountain -->
+                <g opacity="0.6">
+                    <circle cx="550" cy="480" r="30" fill="rgba(43,94,167,0.1)" stroke="rgba(43,94,167,0.2)"
+                        stroke-width="1" />
+                    <circle cx="550" cy="480" r="18" fill="rgba(43,94,167,0.08)" stroke="rgba(43,94,167,0.15)"
+                        stroke-width="1" />
+                    <circle cx="550" cy="480" r="6" fill="rgba(74,126,199,0.3)">
+                        <animate attributeName="r" values="4;8;4" dur="3s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.5;0.2;0.5" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+                <text x="550" y="525" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.3)"
+                    font-family="Inter, sans-serif">Plaza Central</text>
+
+                <!-- Lampposts -->
+                <g opacity="0.5">
+                    <rect x="188" y="420" width="3" height="25" fill="rgba(255,255,255,0.15)" />
+                    <circle cx="189" cy="418" r="5" fill="rgba(201,168,76,0.3)">
+                        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="4s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+                <g opacity="0.5">
+                    <rect x="448" y="420" width="3" height="25" fill="rgba(255,255,255,0.15)" />
+                    <circle cx="449" cy="418" r="5" fill="rgba(201,168,76,0.3)">
+                        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="3.5s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+                <g opacity="0.5">
+                    <rect x="648" y="420" width="3" height="25" fill="rgba(255,255,255,0.15)" />
+                    <circle cx="649" cy="418" r="5" fill="rgba(201,168,76,0.3)">
+                        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="4.5s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+                <g opacity="0.5">
+                    <rect x="908" y="420" width="3" height="25" fill="rgba(255,255,255,0.15)" />
+                    <circle cx="909" cy="418" r="5" fill="rgba(201,168,76,0.3)">
+                        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="3.8s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+
+                <!-- ══════════════════════════════════════════
+             BUILDINGS — Interactive
+             ══════════════════════════════════════════ -->
+
+                <!-- ── 1. RECTORÍA (Center, most prominent) ── -->
+                <g class="building-group" data-building="rectoria" id="building-rectoria">
+                    <!-- Main structure -->
+                    <rect class="building-body" x="440" y="200" width="220" height="200" rx="6"
+                        fill="rgba(43,94,167,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+                    <!-- Columns -->
+                    <rect x="460" y="240" width="10" height="140" rx="3" fill="rgba(255,255,255,0.1)" />
+                    <rect x="490" y="240" width="10" height="140" rx="3" fill="rgba(255,255,255,0.1)" />
+                    <rect x="600" y="240" width="10" height="140" rx="3" fill="rgba(255,255,255,0.1)" />
+                    <rect x="630" y="240" width="10" height="140" rx="3" fill="rgba(255,255,255,0.1)" />
+                    <!-- Pediment / Roof -->
+                    <polygon points="430,206 550,150 670,206" fill="url(#roofGold)" stroke="rgba(201,168,76,0.4)"
+                        stroke-width="1" />
+                    <!-- Windows row 1 -->
+                    <rect x="475" y="250" width="20" height="28" rx="3" fill="rgba(201,168,76,0.2)">
+                        <animate attributeName="fill-opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="510" y="250" width="20" height="28" rx="3" fill="rgba(201,168,76,0.2)">
+                        <animate attributeName="fill-opacity" values="0.2;0.5;0.2" dur="5s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="570" y="250" width="20" height="28" rx="3" fill="rgba(201,168,76,0.2)">
+                        <animate attributeName="fill-opacity" values="0.2;0.5;0.2" dur="3.5s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <rect x="605" y="250" width="20" height="28" rx="3" fill="rgba(201,168,76,0.2)">
+                        <animate attributeName="fill-opacity" values="0.2;0.5;0.2" dur="4.5s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <!-- Windows row 2 -->
+                    <rect x="475" y="300" width="20" height="28" rx="3" fill="rgba(74,126,199,0.15)" />
+                    <rect x="510" y="300" width="20" height="28" rx="3" fill="rgba(74,126,199,0.15)" />
+                    <rect x="570" y="300" width="20" height="28" rx="3" fill="rgba(74,126,199,0.15)" />
+                    <rect x="605" y="300" width="20" height="28" rx="3" fill="rgba(74,126,199,0.15)" />
+                    <!-- Main Door -->
+                    <rect x="525" y="345" width="50" height="55" rx="25 25 0 0" fill="rgba(201,168,76,0.12)"
+                        stroke="rgba(201,168,76,0.3)" stroke-width="1" />
+                    <!-- Clock -->
+                    <circle cx="550" cy="180" r="16" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)"
+                        stroke-width="1" />
+                    <line x1="550" y1="180" x2="550" y2="170" stroke="rgba(255,255,255,0.4)" stroke-width="1.5">
+                        <animateTransform attributeName="transform" type="rotate" from="0 550 180" to="360 550 180"
+                            dur="60s" repeatCount="indefinite" />
+                    </line>
+                    <line x1="550" y1="180" x2="556" y2="180" stroke="rgba(255,255,255,0.3)" stroke-width="1">
+                        <animateTransform attributeName="transform" type="rotate" from="0 550 180" to="360 550 180"
+                            dur="3600s" repeatCount="indefinite" />
+                    </line>
+                    <!-- Flag -->
+                    <rect x="548" y="135" width="2" height="20" fill="rgba(255,255,255,0.3)" />
+                    <rect x="550" y="135" width="18" height="12" rx="1" fill="rgba(201,168,76,0.4)">
+                        <animate attributeName="width" values="18;16;18" dur="2s" repeatCount="indefinite" />
+                    </rect>
+                    <!-- Label -->
+                    <text class="building-label" x="550" y="425" text-anchor="middle" font-size="13"
+                        fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-weight="600">🏛️
+                        Rectoría</text>
+                </g>
+
+                <!-- ── 2. BIBLIOTECA DIGITAL (Left) ── -->
+                <g class="building-group" data-building="biblioteca" id="building-biblioteca">
+                    <rect class="building-body" x="80" y="240" width="160" height="150" rx="6"
+                        fill="rgba(74,126,199,0.12)" stroke="rgba(74,126,199,0.25)" stroke-width="1.5" />
+                    <!-- Roof -->
+                    <rect x="75" y="232" width="170" height="14" rx="4" fill="rgba(74,126,199,0.2)" />
+                    <!-- Book shelves visual -->
+                    <rect x="100" y="270" width="50" height="6" rx="2" fill="rgba(201,168,76,0.2)" />
+                    <rect x="100" y="282" width="50" height="6" rx="2" fill="rgba(201,168,76,0.15)" />
+                    <rect x="100" y="294" width="50" height="6" rx="2" fill="rgba(201,168,76,0.1)" />
+                    <!-- Windows -->
+                    <rect x="170" y="260" width="24" height="32" rx="3" fill="rgba(74,126,199,0.2)">
+                        <animate attributeName="fill-opacity" values="0.2;0.4;0.2" dur="3s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="200" y="260" width="24" height="32" rx="3" fill="rgba(74,126,199,0.2)">
+                        <animate attributeName="fill-opacity" values="0.2;0.4;0.2" dur="3.8s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <!-- Door -->
+                    <rect x="140" y="345" width="40" height="45" rx="4" fill="rgba(74,126,199,0.1)"
+                        stroke="rgba(74,126,199,0.2)" stroke-width="1" />
+                    <!-- Label -->
+                    <text class="building-label" x="160" y="425" text-anchor="middle" font-size="12"
+                        fill="rgba(255,255,255,0.5)" font-family="Inter, sans-serif" font-weight="600">📚 Biblioteca
+                        Digital</text>
+                </g>
+
+                <!-- ── 3. LABORATORIOS VIRTUALES (Right) ── -->
+                <g class="building-group" data-building="laboratorios" id="building-laboratorios">
+                    <rect class="building-body" x="860" y="240" width="160" height="150" rx="6"
+                        fill="rgba(16,185,129,0.1)" stroke="rgba(16,185,129,0.25)" stroke-width="1.5" />
+                    <!-- Tech roof accent -->
+                    <rect x="855" y="232" width="170" height="14" rx="4" fill="rgba(16,185,129,0.15)" />
+                    <!-- Screen/monitor visuals -->
+                    <rect x="885" y="270" width="30" height="22" rx="3" fill="rgba(16,185,129,0.2)"
+                        stroke="rgba(16,185,129,0.3)" stroke-width="0.5">
+                        <animate attributeName="fill-opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="925" y="270" width="30" height="22" rx="3" fill="rgba(16,185,129,0.2)"
+                        stroke="rgba(16,185,129,0.3)" stroke-width="0.5">
+                        <animate attributeName="fill-opacity" values="0.1;0.3;0.1" dur="2.5s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <rect x="965" y="270" width="30" height="22" rx="3" fill="rgba(16,185,129,0.2)"
+                        stroke="rgba(16,185,129,0.3)" stroke-width="0.5">
+                        <animate attributeName="fill-opacity" values="0.1;0.3;0.1" dur="1.8s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <!-- More screens row 2 -->
+                    <rect x="885" y="310" width="30" height="22" rx="3" fill="rgba(16,185,129,0.15)" />
+                    <rect x="925" y="310" width="30" height="22" rx="3" fill="rgba(16,185,129,0.15)" />
+                    <rect x="965" y="310" width="30" height="22" rx="3" fill="rgba(16,185,129,0.15)" />
+                    <!-- Door -->
+                    <rect x="920" y="345" width="40" height="45" rx="4" fill="rgba(16,185,129,0.08)"
+                        stroke="rgba(16,185,129,0.2)" stroke-width="1" />
+                    <!-- Label -->
+                    <text class="building-label" x="940" y="425" text-anchor="middle" font-size="12"
+                        fill="rgba(255,255,255,0.5)" font-family="Inter, sans-serif" font-weight="600">💻
+                        Laboratorios</text>
+                </g>
+
+                <!-- ── 4. AULAS DE CLASE (Far left) ── -->
+                <g class="building-group" data-building="aulas" id="building-aulas">
+                    <rect class="building-body" x="80" y="490" width="180" height="120" rx="6"
+                        fill="rgba(245,158,11,0.1)" stroke="rgba(245,158,11,0.2)" stroke-width="1.5" />
+                    <!-- Roof -->
+                    <polygon points="75,495 170,460 265,495" fill="rgba(245,158,11,0.15)" stroke="rgba(245,158,11,0.25)"
+                        stroke-width="0.8" />
+                    <!-- Windows / classroom boards -->
+                    <rect x="100" y="510" width="35" height="25" rx="3" fill="rgba(245,158,11,0.15)">
+                        <animate attributeName="fill-opacity" values="0.1;0.25;0.1" dur="3s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="145" y="510" width="35" height="25" rx="3" fill="rgba(245,158,11,0.15)">
+                        <animate attributeName="fill-opacity" values="0.1;0.25;0.1" dur="4s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="190" y="510" width="35" height="25" rx="3" fill="rgba(245,158,11,0.15)">
+                        <animate attributeName="fill-opacity" values="0.1;0.25;0.1" dur="3.5s"
+                            repeatCount="indefinite" />
+                    </rect>
+                    <!-- Door -->
+                    <rect x="150" y="565" width="30" height="45" rx="3" fill="rgba(245,158,11,0.08)"
+                        stroke="rgba(245,158,11,0.2)" stroke-width="1" />
+                    <!-- Label -->
+                    <text class="building-label" x="170" y="635" text-anchor="middle" font-size="12"
+                        fill="rgba(255,255,255,0.5)" font-family="Inter, sans-serif" font-weight="600">🎓 Aulas de
+                        Clase</text>
+                </g>
+
+                <!-- ── 5. CENTRO DEPORTIVO (center-left bottom) ── -->
+                <g class="building-group" data-building="deportivo" id="building-deportivo">
+                    <rect class="building-body" x="310" y="500" width="150" height="100" rx="8"
+                        fill="rgba(239,68,68,0.08)" stroke="rgba(239,68,68,0.2)" stroke-width="1.5" />
+                    <!-- Curved roof (gym look) -->
+                    <ellipse cx="385" cy="502" rx="80" ry="15" fill="rgba(239,68,68,0.12)" stroke="rgba(239,68,68,0.2)"
+                        stroke-width="0.8" />
+                    <!-- Track lines -->
+                    <line x1="330" y1="540" x2="440" y2="540" stroke="rgba(239,68,68,0.15)" stroke-width="1"
+                        stroke-dasharray="4,4" />
+                    <line x1="330" y1="555" x2="440" y2="555" stroke="rgba(239,68,68,0.15)" stroke-width="1"
+                        stroke-dasharray="4,4" />
+                    <line x1="330" y1="570" x2="440" y2="570" stroke="rgba(239,68,68,0.15)" stroke-width="1"
+                        stroke-dasharray="4,4" />
+                    <!-- Running figure -->
+                    <circle cx="370" cy="553" r="5" fill="rgba(239,68,68,0.25)">
+                        <animateTransform attributeName="transform" type="translate" values="0,0;40,0;0,0" dur="4s"
+                            repeatCount="indefinite" />
+                    </circle>
+                    <!-- Label -->
+                    <text class="building-label" x="385" y="635" text-anchor="middle" font-size="12"
+                        fill="rgba(255,255,255,0.5)" font-family="Inter, sans-serif" font-weight="600">🏋️ Centro
+                        Deportivo</text>
+                </g>
+
+                <!-- ── 6. CAFETERÍA (center-right bottom) ── -->
+                <g class="building-group" data-building="cafeteria" id="building-cafeteria">
+                    <rect class="building-body" x="640" y="500" width="150" height="100" rx="8"
+                        fill="rgba(168,85,247,0.08)" stroke="rgba(168,85,247,0.2)" stroke-width="1.5" />
+                    <!-- Awning -->
+                    <path d="M635,505 Q715,480 795,505" fill="none" stroke="rgba(168,85,247,0.3)" stroke-width="2" />
+                    <!-- Tables -->
+                    <circle cx="680" cy="545" r="8" fill="rgba(168,85,247,0.1)" stroke="rgba(168,85,247,0.15)"
+                        stroke-width="0.8" />
+                    <circle cx="715" cy="555" r="8" fill="rgba(168,85,247,0.1)" stroke="rgba(168,85,247,0.15)"
+                        stroke-width="0.8" />
+                    <circle cx="750" cy="545" r="8" fill="rgba(168,85,247,0.1)" stroke="rgba(168,85,247,0.15)"
+                        stroke-width="0.8" />
+                    <!-- Steam from coffee -->
+                    <path d="M695,530 Q698,520 693,512" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none">
+                        <animate attributeName="opacity" values="0.15;0.05;0.15" dur="2s" repeatCount="indefinite" />
+                    </path>
+                    <path d="M735,530 Q738,520 733,512" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none">
+                        <animate attributeName="opacity" values="0.05;0.15;0.05" dur="2.5s" repeatCount="indefinite" />
+                    </path>
+                    <!-- Label -->
+                    <text class="building-label" x="715" y="635" text-anchor="middle" font-size="12"
+                        fill="rgba(255,255,255,0.5)" font-family="Inter, sans-serif" font-weight="600">🍽️
+                        Cafetería</text>
+                </g>
+
+                <!-- ── 7. CENTRO CULTURAL (far right bottom) ── -->
+                <g class="building-group" data-building="cultural" id="building-cultural">
+                    <rect class="building-body" x="860" y="490" width="160" height="120" rx="6"
+                        fill="rgba(236,72,153,0.08)" stroke="rgba(236,72,153,0.2)" stroke-width="1.5" />
+                    <!-- Stage curtains -->
+                    <path d="M880,505 L880,560" stroke="rgba(236,72,153,0.2)" stroke-width="3" />
+                    <path d="M1000,505 L1000,560" stroke="rgba(236,72,153,0.2)" stroke-width="3" />
+                    <path d="M875,505 Q940,495 1005,505" fill="none" stroke="rgba(236,72,153,0.25)" stroke-width="2" />
+                    <!-- Spotlight -->
+                    <circle cx="940" cy="530" r="15" fill="rgba(236,72,153,0.05)">
+                        <animate attributeName="r" values="12;18;12" dur="3s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.08;0.15;0.08" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                    <!-- Music notes -->
+                    <text x="920" y="550" font-size="12" fill="rgba(236,72,153,0.3)">♪</text>
+                    <text x="950" y="540" font-size="10" fill="rgba(236,72,153,0.25)">♫</text>
+                    <!-- Label -->
+                    <text class="building-label" x="940" y="635" text-anchor="middle" font-size="12"
+                        fill="rgba(255,255,255,0.5)" font-family="Inter, sans-serif" font-weight="600">🎭 Centro
+                        Cultural</text>
+                </g>
+
+                <!-- ── 8. SERVICIOS ESTUDIANTILES (top-left) ── -->
+                <g class="building-group" data-building="servicios" id="building-servicios">
+                    <rect class="building-body" x="80" y="80" width="140" height="110" rx="6"
+                        fill="rgba(14,165,233,0.1)" stroke="rgba(14,165,233,0.2)" stroke-width="1.5" />
+                    <!-- Cross (health) -->
+                    <rect x="135" y="110" width="20" height="6" rx="2" fill="rgba(14,165,233,0.3)" />
+                    <rect x="142" y="103" width="6" height="20" rx="2" fill="rgba(14,165,233,0.3)" />
+                    <!-- Windows -->
+                    <rect x="100" y="140" width="18" height="20" rx="2" fill="rgba(14,165,233,0.15)" />
+                    <rect x="125" y="140" width="18" height="20" rx="2" fill="rgba(14,165,233,0.15)" />
+                    <rect x="170" y="140" width="18" height="20" rx="2" fill="rgba(14,165,233,0.15)" />
+                    <!-- Door -->
+                    <rect x="130" y="155" width="28" height="35" rx="3" fill="rgba(14,165,233,0.08)"
+                        stroke="rgba(14,165,233,0.15)" stroke-width="0.8" />
+                    <!-- Label -->
+                    <text class="building-label" x="150" y="215" text-anchor="middle" font-size="11"
+                        fill="rgba(255,255,255,0.5)" font-family="Inter, sans-serif" font-weight="600">🏥 Servicios
+                        Estudiantiles</text>
+                </g>
+
+                <!-- ── 9. AUDITORIO (top-right) ── -->
+                <g class="building-group" data-building="auditorio" id="building-auditorio">
+                    <rect class="building-body" x="880" y="80" width="140" height="110" rx="6"
+                        fill="rgba(251,146,60,0.08)" stroke="rgba(251,146,60,0.2)" stroke-width="1.5" />
+                    <!-- Dome -->
+                    <ellipse cx="950" cy="85" rx="55" ry="20" fill="rgba(251,146,60,0.12)" stroke="rgba(251,146,60,0.2)"
+                        stroke-width="0.8" />
+                    <!-- Seats pattern -->
+                    <rect x="905" y="115" width="90" height="5" rx="2" fill="rgba(251,146,60,0.12)" />
+                    <rect x="900" y="130" width="100" height="5" rx="2" fill="rgba(251,146,60,0.1)" />
+                    <rect x="895" y="145" width="110" height="5" rx="2" fill="rgba(251,146,60,0.08)" />
+                    <!-- Podium -->
+                    <rect x="940" y="160" width="20" height="10" rx="2" fill="rgba(251,146,60,0.2)" />
+                    <!-- Label -->
+                    <text class="building-label" x="950" y="215" text-anchor="middle" font-size="11"
+                        fill="rgba(255,255,255,0.5)" font-family="Inter, sans-serif" font-weight="600">🎤
+                        Auditorio</text>
+                </g>
+
+                <!-- ══════ UPD BRANDING AT CENTER ══════ -->
+                <text x="550" y="165" text-anchor="middle" font-family="serif" font-size="10"
+                    fill="rgba(201,168,76,0.2)" letter-spacing="6">UNIVERSIDAD POLITÉCNICA DIGITAL</text>
+
+            </svg>
+
+            <!-- MAP LEGEND -->
+            <div class="map-legend">
+                <h4>Leyenda</h4>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:rgba(43,94,167,0.5)"></div> Administración
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:rgba(74,126,199,0.5)"></div> Académico
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:rgba(16,185,129,0.5)"></div> Tecnología
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:rgba(245,158,11,0.5)"></div> Educación
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:rgba(236,72,153,0.5)"></div> Cultura
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:rgba(14,165,233,0.5)"></div> Servicios
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="window.location.href='index.html'">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                    </svg>
+                    Inicio
+                </button>
+                <button class="quick-action-btn" id="fullscreenBtn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 3 21 3 21 9" />
+                        <polyline points="9 21 3 21 3 15" />
+                        <line x1="21" y1="3" x2="14" y2="10" />
+                        <line x1="3" y1="21" x2="10" y2="14" />
+                    </svg>
+                    Pantalla Completa
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ════════════ INFO SIDEBAR PANEL ════════════ -->
+    <aside class="info-panel" id="infoPanel">
+        <div class="info-panel-header">
+            <h3 id="infoPanelTitle">Edificio</h3>
+            <button class="info-panel-close" id="infoPanelClose">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div class="info-panel-body" id="infoPanelBody">
+            <!-- Dynamic content injected by JS -->
+        </div>
+    </aside>
+
+    <script src="campus.js"></script>
+</body>
+
+</html>
