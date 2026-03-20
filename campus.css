@@ -36,6 +36,32 @@
     --radius-full: 9999px;
     --transition-base: 300ms ease;
     --transition-fast: 150ms ease;
+
+    /* Theme Semantic Variables (Default: Dark) */
+    --bg-primary: #0B1A30;
+    --bg-header: rgba(15, 36, 71, 0.95);
+    --bg-panel: rgba(15, 36, 71, 0.97);
+    --bg-card: rgba(255, 255, 255, 0.05);
+    --text-primary: var(--white);
+    --text-secondary: var(--gray-400);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --map-gradient: radial-gradient(circle at 30% 40%, rgba(43, 94, 167, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 70% 60%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
+                    linear-gradient(180deg, #0B1A30 0%, #0F2447 40%, #162D56 100%);
+}
+
+/* ── Light Theme Overrides ── */
+body.light-theme {
+    --bg-primary: #F8FAFC;
+    --bg-header: rgba(255, 255, 255, 0.95);
+    --bg-panel: rgba(255, 255, 255, 0.98);
+    --bg-card: var(--white);
+    --text-primary: var(--gray-900);
+    --text-secondary: var(--gray-500);
+    --border-color: var(--gray-200);
+    --map-gradient: radial-gradient(circle at 30% 40%, rgba(43, 94, 167, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 70% 60%, rgba(74, 126, 199, 0.03) 0%, transparent 50%),
+                    linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
 }
 
 *,
@@ -48,10 +74,11 @@
 
 body {
     font-family: var(--font-sans);
-    background: #0B1A30;
-    color: var(--gray-800);
+    background: var(--bg-primary);
+    color: var(--text-primary);
     overflow: hidden;
     height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* ============================================
@@ -63,14 +90,15 @@ body {
     left: 0;
     right: 0;
     height: 64px;
-    background: rgba(15, 36, 71, 0.95);
+    background: var(--bg-header);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 1.5rem;
     z-index: 100;
+    transition: all 0.3s ease;
 }
 
 .campus-header-left {
@@ -95,13 +123,13 @@ body {
     font-family: var(--font-serif);
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .campus-badge {
     background: rgba(201, 168, 76, 0.15);
     border: 1px solid rgba(201, 168, 76, 0.3);
-    color: var(--upd-gold-light);
+    color: var(--upd-gold);
     padding: 0.3rem 0.8rem;
     border-radius: var(--radius-full);
     font-size: 0.7rem;
@@ -208,10 +236,8 @@ body {
     right: 0;
     bottom: 0;
     overflow: hidden;
-    background:
-        radial-gradient(circle at 30% 40%, rgba(43, 94, 167, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 70% 60%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
-        linear-gradient(180deg, #0B1A30 0%, #0F2447 40%, #162D56 100%);
+    background: var(--map-gradient);
+    transition: background 0.5s ease;
 }
 
 .campus-map-container {
@@ -247,58 +273,92 @@ body {
     margin-top: 0.25rem;
 }
 
-/* SVG Campus Map */
-.campus-svg {
+/* Dynamic Campus Image */
+.campus-dynamic-wrapper {
     width: 95%;
-    max-width: 1100px;
-    height: auto;
-    max-height: calc(100vh - 140px);
-    filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.3));
+    max-width: 1400px;
+    height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+    background: rgba(11, 26, 48, 0.3);
+    backdrop-filter: blur(5px);
 }
 
-/* Building interactive areas */
-.building-group {
+.campus-dynamic-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1.5s ease-in-out, transform 0.5s ease;
+}
+
+.campus-dynamic-image:hover {
+    transform: scale(1.02);
+}
+
+/* OVERLAY PINS */
+.interactive-pin {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
     cursor: pointer;
+    z-index: 10;
     transition: all 0.3s ease;
 }
 
-.building-group:hover {
-    filter: brightness(1.3) drop-shadow(0 0 20px rgba(201, 168, 76, 0.4));
-    transform-origin: center;
-}
-
-.building-group:hover .building-body {
-    fill-opacity: 0.25;
-}
-
-.building-group:hover .building-label {
-    fill: var(--upd-gold-light);
-}
-
-.building-body {
+.pin-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(15, 36, 71, 0.85);
+    border: 2px solid var(--upd-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    animation: pinPulse 2s infinite;
     transition: all 0.3s ease;
 }
 
-.building-label {
-    transition: fill 0.3s ease;
+.pin-label {
+    margin-top: 0.4rem;
+    background: rgba(15, 36, 71, 0.9);
+    color: var(--white);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
     pointer-events: none;
+    white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Building pulse animation for active building */
-.building-group.active .building-body {
-    animation: building-pulse 2s ease-in-out infinite;
+.interactive-pin:hover .pin-icon {
+    transform: scale(1.15);
+    background: var(--upd-gold);
+    border-color: var(--white);
+    animation: none;
 }
 
-@keyframes building-pulse {
+.interactive-pin:hover .pin-label {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-    0%,
-    100% {
-        stroke-opacity: 0.4;
-    }
-
-    50% {
-        stroke-opacity: 1;
-    }
+@keyframes pinPulse {
+    0% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(201, 168, 76, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0); }
 }
 
 /* ============================================
@@ -310,14 +370,14 @@ body {
     right: -420px;
     width: 400px;
     height: calc(100vh - 64px);
-    background: rgba(15, 36, 71, 0.97);
+    background: var(--bg-panel);
     backdrop-filter: blur(30px);
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 1px solid var(--border-color);
     z-index: 50;
     transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     display: flex;
     flex-direction: column;
-    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.3);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
 }
 
 .info-panel.open {
@@ -326,7 +386,7 @@ body {
 
 .info-panel-header {
     padding: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -335,7 +395,7 @@ body {
 .info-panel-header h3 {
     font-family: var(--font-serif);
     font-size: 1.3rem;
-    color: var(--white);
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -381,7 +441,7 @@ body {
 }
 
 .info-description {
-    color: var(--gray-400);
+    color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.7;
     margin-bottom: 1.5rem;
@@ -399,9 +459,9 @@ body {
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem;
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--bg-card);
     border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-color);
     transition: all var(--transition-base);
 }
 
@@ -429,13 +489,13 @@ body {
 .info-feature-text strong {
     display: block;
     font-size: 0.9rem;
-    color: var(--gray-200);
+    color: var(--text-primary);
     font-weight: 600;
 }
 
 .info-feature-text span {
     font-size: 0.8rem;
-    color: var(--gray-500);
+    color: var(--text-secondary);
 }
 
 .info-panel-status {
@@ -531,49 +591,7 @@ body {
     color: var(--gray-500);
 }
 
-/* ============================================
-   MAP LEGEND
-   ============================================ */
-.map-legend {
-    position: absolute;
-    bottom: 1.5rem;
-    left: 1.5rem;
-    background: rgba(15, 36, 71, 0.9);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-lg);
-    padding: 1rem 1.25rem;
-    z-index: 10;
-}
-
-.map-legend h4 {
-    font-size: 0.75rem;
-    color: var(--gray-400);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.75rem;
-    font-weight: 600;
-}
-
-.legend-items {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    color: var(--gray-400);
-}
-
-.legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 3px;
-}
+/* Map Legend Removed */
 
 /* ============================================
    MINI QUICK ACTIONS

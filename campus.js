@@ -167,6 +167,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logoutBtn');
     const fullscreenBtn = document.getElementById('fullscreenBtn');
 
+    // ── Theme Toggle Layer ──
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const headerLogo = document.getElementById('headerLogo');
+
+    const updateLogos = (theme) => {
+        const logoSrc = theme === 'light' ? 'assets/logo-light-theme.png' : 'assets/logo-dark-theme.png';
+        if (headerLogo) headerLogo.src = logoSrc;
+    };
+
+    const savedTheme = localStorage.getItem('upd-theme') || 'dark';
+    if (savedTheme === 'light') {
+        body.classList.add('light-theme');
+        updateLogos('light');
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isLight = body.classList.toggle('light-theme');
+            const theme = isLight ? 'light' : 'dark';
+            localStorage.setItem('upd-theme', theme);
+            updateLogos(theme);
+        });
+    }
+
     // ── Load user info from session ──
     const userInfo = JSON.parse(sessionStorage.getItem('upd_user') || '{}');
     if (userInfo.id) {
@@ -290,5 +315,43 @@ document.addEventListener('DOMContentLoaded', () => {
             building.style.transition = 'transform 0.3s ease';
         });
     });
+
+    // ── Dynamic Time-based Campus Image ──
+    const campusDynamicImage = document.getElementById('campusDynamicImage');
+    
+    function updateCampusImageByTime() {
+        if (!campusDynamicImage) return;
+        
+        const currentHour = new Date().getHours();
+        let newSrc = '';
+        
+        // Day: 6 AM to 5:59 PM (06:00 - 17:59)
+        // Afternoon: 6 PM to 7:59 PM (18:00 - 19:59)
+        // Night: 8 PM to 5:59 AM (20:00 - 05:59)
+        
+        if (currentHour >= 6 && currentHour < 18) {
+            newSrc = 'assets/campus-dia.jpg';
+        } else if (currentHour >= 18 && currentHour < 20) {
+            newSrc = 'assets/campus-tarde.jpg';
+        } else {
+            newSrc = 'assets/campus-noche.jpg';
+        }
+        
+        // Only update if it changed to avoid flickering
+        if (!campusDynamicImage.src.endsWith(newSrc)) {
+            // Apply a fade effect
+            campusDynamicImage.style.opacity = '0.8';
+            setTimeout(() => {
+                campusDynamicImage.src = newSrc;
+                campusDynamicImage.style.opacity = '1';
+            }, 300);
+        }
+    }
+    
+    // Initial call
+    updateCampusImageByTime();
+    
+    // Check every minute
+    setInterval(updateCampusImageByTime, 60000);
 
 });

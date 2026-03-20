@@ -68,6 +68,36 @@
   --transition-base: 300ms ease;
   --transition-slow: 500ms ease;
   --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Theme Semantic Variables (Default: Dark) */
+  --bg-primary: var(--gray-900);
+  --bg-secondary: var(--gray-800);
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-input: rgba(255, 255, 255, 0.1);
+  --text-primary: var(--white);
+  --text-secondary: var(--gray-400);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --header-bg: rgba(15, 36, 71, 0.95);
+  --hero-bg: linear-gradient(135deg, var(--upd-blue-deeper) 0%, var(--upd-blue-dark) 40%, var(--upd-blue) 100%);
+  --footer-bg: var(--gray-900);
+  --card-shadow: var(--shadow-lg);
+}
+
+/* ── Light Theme Overrides ── */
+body.light-theme {
+  --bg-primary: var(--white);
+  --bg-secondary: var(--gray-50);
+  --bg-card: var(--white);
+  --bg-input: var(--gray-100);
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-600);
+  --text-muted: var(--gray-500);
+  --border-color: var(--gray-200);
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --hero-bg: linear-gradient(135deg, #F0F5FC 0%, #E8F0FA 100%);
+  --footer-bg: var(--gray-50);
+  --card-shadow: var(--shadow-md);
 }
 
 /* ── Reset & Base ── */
@@ -84,12 +114,13 @@ html {
 
 body {
   font-family: var(--font-sans);
-  color: var(--gray-800);
+  color: var(--text-primary);
   line-height: 1.6;
-  background: var(--white);
+  background: var(--bg-primary);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-base), color var(--transition-base);
 }
 
 a {
@@ -125,14 +156,14 @@ button {
   font-family: var(--font-serif);
   font-size: 2.75rem;
   font-weight: 700;
-  color: var(--upd-blue-dark);
+  color: var(--text-primary);
   text-align: center;
   margin-bottom: var(--space-md);
 }
 
 .section-subtitle {
   font-size: 1.125rem;
-  color: var(--gray-500);
+  color: var(--text-secondary);
   text-align: center;
   max-width: 600px;
   margin: 0 auto var(--space-3xl);
@@ -229,7 +260,7 @@ button {
 }
 
 .header.scrolled {
-  background: rgba(15, 36, 71, 0.95);
+  background: var(--header-bg);
   backdrop-filter: blur(20px);
   box-shadow: 0 4px 30px rgba(0,0,0,0.15);
   padding: var(--space-sm) 0;
@@ -247,13 +278,17 @@ button {
   gap: var(--space-md);
 }
 
-.logo-icon {
-  width: 50px;
-  height: 50px;
-  transition: transform var(--transition-base);
+.logo-img {
+  height: 36px;
+  width: auto;
+  transition: all var(--transition-base);
 }
 
-.logo:hover .logo-icon {
+.header.scrolled .logo-img {
+  height: 32px;
+}
+
+.logo:hover .logo-img {
   transform: scale(1.05);
 }
 
@@ -266,7 +301,7 @@ button {
   font-family: var(--font-serif);
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--text-primary);
   line-height: 1.2;
 }
 
@@ -285,7 +320,7 @@ button {
 }
 
 .nav-links a {
-  color: rgba(255,255,255,0.8);
+  color: var(--text-secondary);
   font-size: 0.9rem;
   font-weight: 500;
   position: relative;
@@ -304,7 +339,7 @@ button {
 }
 
 .nav-links a:hover {
-  color: var(--white);
+  color: var(--text-primary);
 }
 
 .nav-links a:hover::after {
@@ -363,8 +398,9 @@ button {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, var(--upd-blue-deeper) 0%, var(--upd-blue-dark) 40%, var(--upd-blue) 100%);
+  background: var(--hero-bg);
   overflow: hidden;
+  transition: background var(--transition-slow);
 }
 
 .hero::before {
@@ -447,7 +483,7 @@ button {
   font-family: var(--font-serif);
   font-size: 4rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--text-primary);
   line-height: 1.15;
   margin-bottom: var(--space-lg);
   animation: fadeInUp 0.8s ease 0.4s both;
@@ -467,7 +503,7 @@ button {
 
 .hero-description {
   font-size: 1.2rem;
-  color: rgba(255,255,255,0.75);
+  color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: var(--space-2xl);
   animation: fadeInUp 0.8s ease 0.6s both;
@@ -538,8 +574,9 @@ button {
    ============================================ */
 .programs {
   padding: var(--space-4xl) 0;
-  background: var(--gray-50);
+  background: var(--bg-secondary);
   position: relative;
+  transition: background var(--transition-base);
 }
 
 .programs::before {
@@ -559,13 +596,13 @@ button {
 }
 
 .program-card {
-  background: var(--white);
+  background: var(--bg-card);
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
   position: relative;
   overflow: hidden;
   transition: all var(--transition-base);
-  border: 1px solid var(--gray-200);
+  border: 1px solid var(--border-color);
   cursor: pointer;
 }
 
@@ -617,7 +654,7 @@ button {
 .program-card h3 {
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--gray-800);
+  color: var(--text-primary);
   margin-bottom: var(--space-sm);
 }
 
@@ -677,8 +714,8 @@ button {
   text-align: center;
   padding: var(--space-xl);
   border-radius: var(--radius-lg);
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   backdrop-filter: blur(10px);
   transition: all var(--transition-base);
 }
@@ -709,7 +746,8 @@ button {
    ============================================ */
 .why-section {
   padding: var(--space-4xl) 0;
-  background: var(--white);
+  background: var(--bg-primary);
+  transition: background var(--transition-base);
 }
 
 .why-grid {
@@ -722,13 +760,13 @@ button {
 .why-content h2 {
   font-family: var(--font-serif);
   font-size: 2.5rem;
-  color: var(--upd-blue-dark);
+  color: var(--text-primary);
   margin-bottom: var(--space-lg);
   line-height: 1.2;
 }
 
 .why-content p {
-  color: var(--gray-600);
+  color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: var(--space-xl);
 }
@@ -750,7 +788,7 @@ button {
   height: 48px;
   min-width: 48px;
   border-radius: var(--radius-md);
-  background: var(--upd-blue-pale);
+  background: var(--bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -760,13 +798,13 @@ button {
 .why-feature-text h4 {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--gray-800);
+  color: var(--text-primary);
   margin-bottom: 0.2rem;
 }
 
 .why-feature-text p {
   font-size: 0.9rem;
-  color: var(--gray-500);
+  color: var(--text-secondary);
   margin-bottom: 0;
 }
 
@@ -789,13 +827,15 @@ button {
 
 .why-floating-card {
   position: absolute;
-  background: var(--white);
+  background: var(--bg-card);
   border-radius: var(--radius-md);
   padding: var(--space-md) var(--space-lg);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--card-shadow);
   display: flex;
   align-items: center;
   gap: var(--space-md);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
 }
 
 .why-floating-card.card-1 {
@@ -829,12 +869,12 @@ button {
 .why-floating-card .card-info strong {
   display: block;
   font-size: 1.1rem;
-  color: var(--gray-800);
+  color: var(--text-primary);
 }
 
 .why-floating-card .card-info span {
   font-size: 0.8rem;
-  color: var(--gray-500);
+  color: var(--text-secondary);
 }
 
 /* ============================================
@@ -842,7 +882,8 @@ button {
    ============================================ */
 .testimonials {
   padding: var(--space-4xl) 0;
-  background: var(--gray-50);
+  background: var(--bg-secondary);
+  transition: background var(--transition-base);
 }
 
 .testimonials-carousel {
@@ -863,12 +904,14 @@ button {
 }
 
 .testimonial-card {
-  background: var(--white);
+  background: var(--bg-card);
   border-radius: var(--radius-xl);
   padding: var(--space-2xl) var(--space-3xl);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--card-shadow);
   text-align: center;
   position: relative;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
 }
 
 .testimonial-card::before {
@@ -884,7 +927,7 @@ button {
 
 .testimonial-card p {
   font-size: 1.1rem;
-  color: var(--gray-600);
+  color: var(--text-primary);
   line-height: 1.8;
   font-style: italic;
   margin-bottom: var(--space-xl);
@@ -976,10 +1019,11 @@ button {
    ============================================ */
 .cta-section {
   padding: var(--space-4xl) 0;
-  background: linear-gradient(135deg, var(--upd-blue-dark) 0%, var(--upd-blue) 50%, var(--upd-blue-dark) 100%);
+  background: var(--hero-bg);
   position: relative;
   overflow: hidden;
   text-align: center;
+  transition: background var(--transition-slow);
 }
 
 .cta-section::before {
@@ -1018,9 +1062,11 @@ button {
    FOOTER
    ============================================ */
 .footer {
-  background: var(--gray-900);
-  color: var(--gray-400);
+  background: var(--footer-bg);
+  color: var(--text-secondary);
   padding: var(--space-4xl) 0 var(--space-xl);
+  border-top: 1px solid var(--border-color);
+  transition: all var(--transition-base);
 }
 
 .footer-grid {
@@ -1042,11 +1088,11 @@ button {
 .footer-brand p {
   font-size: 0.9rem;
   line-height: 1.7;
-  color: var(--gray-500);
+  color: var(--text-secondary);
 }
 
 .footer-col h4 {
-  color: var(--white);
+  color: var(--text-primary);
   font-size: 0.95rem;
   font-weight: 700;
   margin-bottom: var(--space-lg);
@@ -1163,3 +1209,38 @@ button {
   .stats-grid { grid-template-columns: 1fr; }
   .cta-content h2 { font-size: 2rem; }
 }
+/* ── Theme Toggle Button ── */
+.theme-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  margin-left: var(--space-md);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: var(--upd-gold);
+  color: var(--white);
+  transform: rotate(15deg);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--transition-bounce);
+}
+
+.theme-toggle .sun-icon { display: none; }
+.theme-toggle .moon-icon { display: block; }
+
+body.light-theme .theme-toggle .sun-icon { display: block; }
+body.light-theme .theme-toggle .moon-icon { display: none; }
