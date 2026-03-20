@@ -598,12 +598,13 @@ button {
 .program-card {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
-  padding: var(--space-2xl);
-  position: relative;
   overflow: hidden;
+  position: relative;
   transition: all var(--transition-base);
   border: 1px solid var(--border-color);
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .program-card::before {
@@ -617,6 +618,7 @@ button {
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--transition-base);
+  z-index: 2;
 }
 
 .program-card:hover {
@@ -629,15 +631,57 @@ button {
   transform: scaleX(1);
 }
 
+/* Image hero inside card */
+.program-card-img {
+  width: 100%;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+  flex-shrink: 0;
+}
+
+.program-card:hover .program-card-img {
+  transform: scale(1.05);
+}
+
+.program-card-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 30%, rgba(11, 26, 48, 0.6) 100%);
+}
+
+.program-card-img .program-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  z-index: 1;
+  background: rgba(43, 94, 167, 0.9);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Card text content area */
+.program-card-body {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .program-icon {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.75rem;
-  margin-bottom: var(--space-lg);
+  font-size: 1.5rem;
+  margin-bottom: var(--space-md);
   background: var(--upd-blue-pale);
   transition: all var(--transition-base);
 }
@@ -652,17 +696,18 @@ button {
 }
 
 .program-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: var(--space-sm);
+  line-height: 1.3;
 }
 
 .program-card p {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--gray-500);
   line-height: 1.6;
-  margin-bottom: var(--space-md);
+  flex: 1;
 }
 
 .program-tag {

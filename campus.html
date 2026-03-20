@@ -28,7 +28,8 @@
     <header class="campus-header">
         <div class="campus-header-left">
             <a href="index.html" class="campus-logo-mini">
-                <img src="assets/logo-dark-theme.png" alt="UPD Logo" class="logo-img" id="headerLogo" style="width: 36px; height: 36px;">
+                <img src="assets/logo-dark-theme.png" alt="UPD Logo" class="logo-img" id="headerLogo"
+                    style="width: 36px; height: 36px;">
                 <span>Campus Virtual</span>
             </a>
             <div class="campus-badge">🟢 EN LÍNEA</div>
@@ -36,8 +37,20 @@
 
         <div class="campus-header-right">
             <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                </svg>
             </button>
 
             <button class="header-icon-btn" title="Notificaciones" id="notifBtn">
@@ -72,34 +85,35 @@
 
             <!-- DYNAMIC CAMPUS IMAGE CONTAINER -->
             <div class="campus-dynamic-wrapper" id="campusWrapper">
-                <img src="assets/campus-dia.jpg" alt="Mapa del Campus Virtual en 3D" id="campusDynamicImage" class="campus-dynamic-image">
-                
+                <img src="assets/campus-dia.jpg" alt="Mapa del Campus Virtual en 3D" id="campusDynamicImage"
+                    class="campus-dynamic-image">
+
                 <!-- OVERLAY: Interactive Building Pins -->
-                <div class="building-group interactive-pin" data-building="rectoria" style="top: 45%; left: 50%;">
+                <div class="building-group interactive-pin" data-building="rectoria" style="top: 40%; left: 51%;">
                     <span class="pin-icon">🏛️</span><span class="pin-label">Rectoría</span>
                 </div>
-                <div class="building-group interactive-pin" data-building="biblioteca" style="top: 35%; left: 35%;">
+                <div class="building-group interactive-pin" data-building="biblioteca" style="top: 45%; left: 70%;">
                     <span class="pin-icon">📚</span><span class="pin-label">Biblioteca</span>
                 </div>
-                <div class="building-group interactive-pin" data-building="laboratorios" style="top: 35%; left: 65%;">
+                <div class="building-group interactive-pin" data-building="laboratorios" style="top: 35%; left: 25%;">
                     <span class="pin-icon">💻</span><span class="pin-label">Laboratorios</span>
                 </div>
-                <div class="building-group interactive-pin" data-building="aulas" style="top: 55%; left: 25%;">
+                <div class="building-group interactive-pin" data-building="aulas" style="top: 45%; left: 35%;">
                     <span class="pin-icon">🎓</span><span class="pin-label">Aulas</span>
                 </div>
-                <div class="building-group interactive-pin" data-building="deportivo" style="top: 75%; left: 35%;">
+                <div class="building-group interactive-pin" data-building="deportivo" style="top: 82%; left: 53%;">
                     <span class="pin-icon">🏋️</span><span class="pin-label">Deportivo</span>
                 </div>
-                <div class="building-group interactive-pin" data-building="cafeteria" style="top: 70%; left: 55%;">
+                <div class="building-group interactive-pin" data-building="cafeteria" style="top: 81%; left: 34%;">
                     <span class="pin-icon">🍽️</span><span class="pin-label">Cafetería</span>
                 </div>
-                <div class="building-group interactive-pin" data-building="cultural" style="top: 75%; left: 75%;">
+                <div class="building-group interactive-pin" data-building="cultural" style="top: 72%; left: 92%;">
                     <span class="pin-icon">🎭</span><span class="pin-label">Cultural</span>
                 </div>
-                <div class="building-group interactive-pin" data-building="servicios" style="top: 20%; left: 25%;">
+                <div class="building-group interactive-pin" data-building="servicios" style="top: 55%; left: 15%;">
                     <span class="pin-icon">🏥</span><span class="pin-label">Servicios</span>
                 </div>
-                <div class="building-group interactive-pin" data-building="auditorio" style="top: 20%; left: 75%;">
+                <div class="building-group interactive-pin" data-building="auditorio" style="top: 70%; left: 75%;">
                     <span class="pin-icon">🎤</span><span class="pin-label">Auditorio</span>
                 </div>
             </div>
