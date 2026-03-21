@@ -234,6 +234,18 @@ button {
   box-shadow: 0 8px 25px rgba(201, 168, 76, 0.5);
 }
 
+.btn-primary-gradient {
+  background: linear-gradient(135deg, var(--upd-blue), var(--upd-blue-light));
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(43, 94, 167, 0.4);
+}
+
+.btn-primary-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(43, 94, 167, 0.6);
+  background: linear-gradient(135deg, var(--upd-blue-light), var(--upd-blue));
+}
+
 /* ── Animate on scroll ── */
 .reveal {
   opacity: 0;
@@ -359,6 +371,20 @@ button {
 .nav-cta:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 15px rgba(201, 168, 76, 0.4);
+}
+
+.nav-enroll {
+  background: linear-gradient(135deg, var(--upd-blue), var(--upd-blue-light)) !important;
+  color: var(--white) !important;
+  padding: 0.6rem 1.4rem !important;
+  border-radius: var(--radius-full) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 12px rgba(43, 94, 167, 0.3);
+}
+
+.nav-enroll:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(43, 94, 167, 0.5);
 }
 
 /* Mobile Menu */

@@ -1,7 +1,9 @@
 /* ============================================
-   LOGIN PAGE — JavaScript
+   LOGIN PAGE — JavaScript (FIREBASE ENABLED)
    Universidad Politécnica Digital
    ============================================ */
+
+import { login } from './firebase-auth-utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -33,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const form = document.getElementById('loginForm');
-    const studentId = document.getElementById('studentId');
+    const studentId = document.getElementById('studentId'); // Usado como Email
     const password = document.getElementById('password');
     const loginBtn = document.getElementById('loginBtn');
     const idError = document.getElementById('idError');
@@ -59,18 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         let valid = true;
 
-        // Validate student ID
         if (!studentId.value.trim()) {
             studentId.classList.add('error');
             idError.classList.add('visible');
             valid = false;
         }
 
-        // Validate password
         if (!password.value.trim()) {
             password.classList.add('error');
             passError.classList.add('visible');
@@ -79,35 +79,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!valid) return;
 
-        // Show loading state
         loginBtn.classList.add('loading');
+        loginBtn.disabled = true;
 
-        // Mock authentication — simulate API call
-        setTimeout(() => {
-            // Accept any student ID with password "upd2026" or any password for demo
-            const isValidCredentials = password.value === 'upd2026' || true; // Demo: accept all
+        try {
+            // FIREBASE LOGIN
+            const result = await login(studentId.value.trim(), password.value);
+            
+            showAlert('✅ Autenticación exitosa. Redirigiendo...', 'success');
+            
+            setTimeout(() => {
+                window.location.href = 'campus.html';
+            }, 1000);
 
-            if (isValidCredentials) {
-                showAlert('✅ Autenticación exitosa. Redirigiendo al campus...', 'success');
-
-                // Store user info for campus page
-                sessionStorage.setItem('upd_user', JSON.stringify({
-                    id: studentId.value,
-                    name: 'Estudiante UPD',
-                    loggedIn: true,
-                    loginTime: new Date().toISOString()
-                }));
-
-                setTimeout(() => {
-                    window.location.href = 'campus.html';
-                }, 1500);
-            } else {
-                loginBtn.classList.remove('loading');
-                showAlert('❌ Credenciales incorrectas. Verifica tu matrícula y contraseña.');
-                password.value = '';
-                password.focus();
-            }
-        }, 1800);
+        } catch (error) {
+            loginBtn.classList.remove('loading');
+            loginBtn.disabled = false;
+            
+            let errorMsg = '❌ Credenciales incorrectas.';
+            if (error.code === 'auth/user-not-found') errorMsg = '❌ El usuario no existe.';
+            if (error.code === 'auth/wrong-password') errorMsg = '❌ Contraseña incorrecta.';
+            if (error.code === 'auth/invalid-email') errorMsg = '❌ Formato de correo inválido.';
+            
+            showAlert(errorMsg);
+            password.value = '';
+            password.focus();
+        }
     });
 
     // Enter key support

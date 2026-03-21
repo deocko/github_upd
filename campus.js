@@ -1,21 +1,24 @@
 /* ============================================
-   CAMPUS VIRTUAL — JavaScript
+   CAMPUS VIRTUAL — JavaScript (FIREBASE ENABLED)
    Universidad Politécnica Digital
    Interactive Map + Building Info Panels
    ============================================ */
 
+import { monitorAuthState, logout } from './firebase-auth-utils.js';
+import { db } from './firebase-config.js';
+import { getDoc, doc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ── Building Data ──
+    // ── Building Data (Manteniendo por ahora como estático o cargando de Firestore) ──
     const buildingsData = {
         rectoria: {
             title: '🏛️ Rectoría',
-            description: 'El corazón administrativo de la Universidad Politécnica Digital. Aquí se gestionan todos los procesos institucionales, desde la dirección general hasta asuntos académicos y la planeación estratégica de la universidad.',
+            description: 'El corazón administrativo de la Universidad Politécnica Digital. Aquí se gestionan todos los procesos institucionales.',
             status: 'Abierto 24/7',
             features: [
                 { icon: '📋', name: 'Trámites Académicos', desc: 'Inscripciones, bajas y cambios' },
                 { icon: '📜', name: 'Certificaciones', desc: 'Constancias y certificados oficiales' },
-                { icon: '💳', name: 'Pagos y Finanzas', desc: 'Portal de pagos y becas' },
                 { icon: '📞', name: 'Atención al Estudiante', desc: 'Chat, email y videollamada' }
             ],
             schedule: [
