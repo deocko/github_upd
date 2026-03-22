@@ -14,10 +14,16 @@
     --upd-gold-light: #E0CB7E;
     --upd-gold-dark: #9A7E2E;
     --white: #FFFFFF;
+    --gray-50: #F8FAFC;
+    --gray-100: #F1F5F9;
+    --gray-200: #E2E8F0;
+    --gray-300: #CBD5E1;
     --gray-400: #94A3B8;
     --gray-500: #64748B;
     --gray-600: #475569;
+    --gray-700: #334155;
     --gray-800: #1E293B;
+    --gray-900: #0F172A;
     --error: #EF4444;
     --success: #10B981;
     --font-sans: 'Inter', -apple-system, sans-serif;
@@ -61,11 +67,43 @@ body.light-theme {
 body {
     font-family: var(--font-sans);
     min-height: 100vh;
-    overflow: hidden;
     background: var(--bg-primary);
     color: var(--text-primary);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color var(--transition-base), color var(--transition-base);
+    margin: 0;
 }
+
+/* ── Theme Toggle ── */
+.theme-toggle {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    backdrop-filter: blur(10px);
+}
+
+.theme-toggle:hover {
+    background: var(--bg-input);
+    transform: scale(1.1);
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+.sun-icon { display: none; }
+.moon-icon { display: block; }
+
+body.light-theme .sun-icon { display: block; }
+body.light-theme .moon-icon { display: none; }
 
 /* ── Full page layout ── */
 .login-page {
@@ -134,12 +172,12 @@ body {
 .visual-title h2 {
     font-family: var(--font-serif);
     font-size: 2rem;
-    color: var(--white);
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 
 .visual-title p {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
     font-size: 1rem;
     max-width: 350px;
     line-height: 1.6;
@@ -254,7 +292,7 @@ body {
     letter-spacing: 0.3em;
     text-transform: uppercase;
     margin-top: 0.3rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .login-welcome {
@@ -341,8 +379,9 @@ body {
     font-size: 0.75rem;
     color: var(--upd-blue);
     background: var(--bg-primary);
-    padding: 0 0.3rem;
-    font-weight: 600;
+    padding: 0 0.5rem;
+    font-weight: 700;
+    z-index: 5;
 }
 
 .form-error {
@@ -523,7 +562,7 @@ body {
 
     .login-form-panel {
         flex: 1;
-        background: linear-gradient(180deg, #F8FAFC 0%, var(--white) 100%);
+        background: var(--bg-primary);
     }
 }
 
