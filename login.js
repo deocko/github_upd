@@ -85,9 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // FIREBASE LOGIN
             const result = await login(studentId.value.trim(), password.value);
-            
+
             showAlert('✅ Autenticación exitosa. Redirigiendo...', 'success');
-            
+
             setTimeout(() => {
                 window.location.href = 'campus.html';
             }, 1000);
@@ -95,12 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             loginBtn.classList.remove('loading');
             loginBtn.disabled = false;
-            
+
             let errorMsg = '❌ Credenciales incorrectas.';
             if (error.code === 'auth/user-not-found') errorMsg = '❌ El usuario no existe.';
             if (error.code === 'auth/wrong-password') errorMsg = '❌ Contraseña incorrecta.';
             if (error.code === 'auth/invalid-email') errorMsg = '❌ Formato de correo inválido.';
-            
+
             showAlert(errorMsg);
             password.value = '';
             password.focus();

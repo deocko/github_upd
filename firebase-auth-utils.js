@@ -6,12 +6,35 @@
 import { auth, db } from './firebase-config.js';
 import { 
     signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword,
     signOut, 
     onAuthStateChanged,
     setPersistence,
     browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { getDoc, doc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { getDoc, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+/**
+ * Registra un nuevo usuario y crea su documento en Firestore
+ */
+export async function registerUser(email, password, userData) {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const uid = userCredential.user.uid;
+        
+        await setDoc(doc(db, 'users', uid), {
+            uid,
+            email,
+            ...userData,
+            createdAt: serverTimestamp()
+        });
+        
+        return uid;
+    } catch (error) {
+        console.error("❌ Error en Registro:", error.code, error.message);
+        throw error;
+    }
+}
 
 /**
  * Autenticación de usuario con Email y Password

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurador Standalone — Firebase UPD</title>
+    <style>
+        :root { --primary: #0066ff; --dark: #0f172a; --success: #22c55e; --bg: #f8fafc; }
+        body { font-family: sans-serif; background: var(--bg); display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .card { background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 500px; width: 90%; text-align: center; }
+        .status { margin: 1rem 0; padding: 1rem; border-radius: 0.5rem; background: #f1f5f9; min-height: 40px; display: flex; align-items: center; justify-content: center; }
+        button { background: var(--primary); color: white; border: none; padding: 1rem; border-radius: 0.5rem; font-weight: bold; cursor: pointer; width: 100%; }
+        button:disabled { background: #cbd5e1; cursor: not-allowed; }
+        .log { text-align: left; font-family: monospace; font-size: 0.75rem; background: #1e293b; color: #38bdf8; padding: 1rem; border-radius: 0.5rem; height: 150px; overflow-y: auto; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Configurador (Sin CORS)</h1>
+        <p>Esta versión funciona directamente desde tu carpeta local.</p>
+        <div id="status" class="status">Listo</div>
+        <button id="setupBtn">🚀 Iniciar Configuración</button>
+        <div id="logs" class="log">> Esperando clic...</div>
+    </div>
+
+    <script type="module">
+        // IMPORTAMOS DIRECTAMENTE DE LA WEB PARA EVITAR ERRORES LOCALES
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+        import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+        // TU CONFIGURACION REAL
+        const firebaseConfig = {
+          apiKey: "AIzaSyA9YK8wl85U-AKrG5dd04jQzS92MlJfH-w",
+          authDomain: "bd-udp.firebaseapp.com",
+          projectId: "bd-udp",
+          storageBucket: "bd-udp.firebasestorage.app",
+          messagingSenderId: "632490351120",
+          appId: "1:632490351120:web:ba044394cc2189ed6ec895",
+          measurementId: "G-9QNHB5FBZE"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app, "fs-upd");
+
+        const btn = document.getElementById('setupBtn');
+        const logs = document.getElementById('logs');
+        const status = document.getElementById('status');
+
+        function log(msg) {
+            logs.innerHTML += `<div>> ${msg}</div>`;
+            logs.scrollTop = logs.scrollHeight;
+        }
+
+        btn.onclick = async () => {
+            btn.disabled = true;
+            status.innerText = "Procesando...";
+            log("Conectando con Firebase...");
+
+            try {
+                // 1. Crear Cursos Base
+                log("Creando catálogo de carreras...");
+                const courses = [
+                    { id: 'ing-inf-01', title: 'Ingeniería en Informática', price: 3500, instructor: 'Dr. Alan Turing', rvoe: 'RVOE-2026-001' },
+                    { id: 'lic-psi-01', title: 'Licenciatura en Psicología', price: 3200, instructor: 'Mtra. Carl Rogers', rvoe: 'RVOE-2026-002' },
+                    { id: 'lic-der-01', title: 'Licenciatura en Derecho Digital', price: 3500, instructor: 'Dr. Hans Kelsen', rvoe: 'RVOE-2026-003' }
+                ];
+                for (const c of courses) {
+                    await setDoc(doc(db, "courses", c.id), c);
+                    log(`- Curso "${c.title}" creado.`);
+                }
+
+                // 2. Crear Admin
+                const email = "admin@upd.mx";
+                const pass = "Admin123";
+                log(`Registrando administrador: ${email}...`);
+                
+                try {
+                    const res = await createUserWithEmailAndPassword(auth, email, pass);
+                    await setDoc(doc(db, "users", res.user.uid), {
+                        uid: res.user.uid,
+                        email: email,
+                        displayName: "Admin Master",
+                        role: "admin",
+                        createdAt: serverTimestamp()
+                    });
+                    log("✅ Administrador creado con éxito.");
+                } catch (e) {
+                    if (e.code === 'auth/email-already-in-use') log("⚠️ El admin ya existe.");
+                    else throw e;
+                }
+
+                status.innerText = "✨ ¡LISTO!";
+                log("---");
+                log("Proceso terminado. Ya puedes usar el login.");
+                log(`User: ${email} | Pass: ${pass}`);
+
+            } catch (err) {
+                console.error(err);
+                log(`❌ ERROR: ${err.message}`);
+                status.innerText = "Error";
+                btn.disabled = false;
+            }
+        };
+    </script>
+</body>
+</html>
