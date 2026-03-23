@@ -291,13 +291,13 @@ button {
 }
 
 .logo-img {
-  height: 36px;
+  height: 48px;
   width: auto;
   transition: all var(--transition-base);
 }
 
 .header.scrolled .logo-img {
-  height: 32px;
+  height: 40px;
 }
 
 .logo:hover .logo-img {
@@ -305,8 +305,7 @@ button {
 }
 
 .logo-text {
-  display: flex;
-  flex-direction: column;
+  display: none;
 }
 
 .logo-name {
