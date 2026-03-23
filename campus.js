@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (headerLogo) headerLogo.src = logoSrc;
         if (footerLogo) footerLogo.src = logoSrc;
         if (mainHeroLogo) mainHeroLogo.src = heroLogoSrc;
-        if (visualLogo) visualLogo.src = logoSrc;
+        if (visualLogo) visualLogo.src = heroLogoSrc;
     };
 
     const savedTheme = localStorage.getItem('upd-theme') || 'dark';
