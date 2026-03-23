@@ -114,9 +114,12 @@ body {
     text-decoration: none;
 }
 
-.campus-logo-mini svg {
-    width: 36px;
+.campus-logo-mini svg,
+.campus-logo-mini img {
+    width: auto;
     height: 36px;
+    max-width: 150px;
+    object-fit: contain;
 }
 
 .campus-logo-mini span {
