@@ -8,8 +8,7 @@
     <meta name="description" content="Comienza tu futuro hoy. Inscríbete en los programas académicos de la UPD con validez oficial SEP.">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="inscripcion.css">
-    <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🎓</text></svg>">
+    <link rel="icon" type="image/png" href="assets/logo-white-full.png">
 </head>
 
 <body class="enroll-page">
@@ -293,7 +292,98 @@
         </div>
     </main>
 
-    <script type="module" src="app.js"></script>
+    <!-- ════════════ INFO DRAWER (GLOBAL) ════════════ -->
+    <div class="info-drawer-overlay" id="drawerOverlay"></div>
+    <div class="info-drawer" id="infoDrawer">
+        <div class="drawer-header">
+            <button class="drawer-close" id="closeDrawer" aria-label="Cerrar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h2 class="drawer-title">Solicitar Información</h2>
+            <p class="drawer-subtitle">Transforma tu futuro profesional con UPD. Déjanos tus datos.</p>
+        </div>
+        <div class="drawer-body">
+            <form class="drawer-form" id="leadForm">
+                <div class="drawer-group">
+                    <label for="drawerName">Nombre Completo</label>
+                    <input type="text" id="drawerName" class="drawer-input" placeholder="Ej. Juan Pérez" required>
+                </div>
+                <div class="drawer-group">
+                    <label for="drawerWA">WhatsApp / Teléfono</label>
+                    <input type="tel" id="drawerWA" class="drawer-input" placeholder="+52 ..." required>
+                </div>
+                <div class="drawer-group">
+                    <label for="drawerEmail">Correo Electrónico</label>
+                    <input type="email" id="drawerEmail" class="drawer-input" placeholder="juan@ejemplo.com" required>
+                </div>
+                <div class="drawer-group">
+                    <label for="drawerProgram">Programa de interés</label>
+                    <select id="drawerProgram" class="drawer-input" required>
+                        <option value="" disabled selected>Selecciona un programa</option>
+                        <option value="informatica">Ingeniería en Informática</option>
+                        <option value="psicologia">Licenciatura en Psicología</option>
+                        <option value="derecho">Licenciatura en Derecho</option>
+                        <option value="marketing">Marketing Digital</option>
+                        <option value="administracion">Administración Pública</option>
+                        <option value="ciberseguridad">Ingeniería en Ciberseguridad</option>
+                    </select>
+                </div>
+                <button type="submit" class="drawer-submit">Enviar Solicitud</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ════════════ FLOATING ACTIONS ════════════ -->
+    <div class="floating-actions">
+        <a href="https://wa.me/525512345678" class="fab-btn fab-whatsapp" aria-label="WhatsApp" target="_blank">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9L21 3.5Z"></path>
+            </svg>
+            <span class="fab-tooltip">Chat WhatsApp</span>
+        </a>
+        <button class="fab-btn fab-info" id="openDrawer" aria-label="Solicitar Información">
+            <div class="fab-pulse"></div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="fab-tooltip">Solicitar Info</span>
+        </button>
+    </div>
+
+    <!-- ════════════ ACCESSIBILITY FAB (GLOBAL) ════════════ -->
+    <div class="accessibility-fab" id="accFab">
+        <button class="fab-btn fab-acc" id="accToggle" aria-label="Menú de Accesibilidad">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 8v8M8 12h8"></path>
+            </svg>
+        </button>
+        <div class="acc-menu" id="accMenu">
+            <div class="acc-menu-header">
+                <h3>Accesibilidad</h3>
+            </div>
+            <div class="acc-menu-body">
+                <button class="acc-option" id="toggleContrast">
+                    <span class="acc-icon">🌓</span>
+                    <span>Alto Contraste</span>
+                </button>
+                <button class="acc-option" id="toggleTextSize">
+                    <span class="acc-icon">text_fields</span>
+                    <span>Aumentar Texto</span>
+                </button>
+                <button class="acc-option" id="toggleGrayscale">
+                    <span class="acc-icon">invert_colors</span>
+                    <span>Escala de Grises</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="solicitud.js"></script>
     <script type="module" src="inscripcion.js"></script>
 </body>
 
