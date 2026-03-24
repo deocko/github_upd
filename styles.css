@@ -291,13 +291,13 @@ button {
 }
 
 .logo-img {
-  height: 48px;
+  height: 54px;
   width: auto;
   transition: all var(--transition-base);
 }
 
 .header.scrolled .logo-img {
-  height: 40px;
+  height: 44px;
 }
 
 .logo:hover .logo-img {
