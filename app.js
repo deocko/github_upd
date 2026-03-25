@@ -211,17 +211,34 @@ document.addEventListener('DOMContentLoaded', () => {
       if (btn) {
         // Load state
         if (localStorage.getItem(`acc-${opt.key}`) === 'true') {
-          document.body.classList.add(opt.class);
+          document.documentElement.classList.add(opt.class);
           btn.classList.add('active');
         }
 
         btn.addEventListener('click', () => {
-          const isActive = document.body.classList.toggle(opt.class);
+          const isActive = document.documentElement.classList.toggle(opt.class);
           btn.classList.toggle('active', isActive);
           localStorage.setItem(`acc-${opt.key}`, isActive);
         });
       }
     });
   }
+
+  // ── Sticky Nav: Active Section Indicator ──
+  const navSectionLinks = document.querySelectorAll('.nav-links a[data-section]');
+  const sections = document.querySelectorAll('section[id]');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navSectionLinks.forEach(link => {
+          link.classList.toggle('nav-active', link.dataset.section === id);
+        });
+      }
+    });
+  }, { threshold: 0.35, rootMargin: '-80px 0px -60% 0px' });
+
+  sections.forEach(sec => sectionObserver.observe(sec));
 
 });

@@ -828,7 +828,7 @@ button {
 /* Image hero inside card */
 .program-image {
   width: 100%;
-  height: 200px;
+  height: 280px;
   position: relative;
   overflow: hidden;
 }
@@ -1714,6 +1714,7 @@ body.light-theme .theme-toggle .moon-icon { display: none; }
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
+  color: #2d3748;
 }
 
 .acc-card:hover {
@@ -1754,36 +1755,157 @@ body.light-theme .theme-toggle .moon-icon { display: none; }
 .acc-card.active .acc-card-label { color: white; }
 
 /* Accessibility Modes Persistence Classes */
-body.acc-contrast { filter: contrast(1.15) brightness(1.05); }
-body.acc-contrast:not(.light-theme) {
+html.acc-contrast { filter: contrast(1.15) brightness(1.05); }
+html.acc-contrast body:not(.light-theme) {
   --bg-primary: #000; --bg-secondary: #000; --bg-card: #000;
   --text-primary: #fff; --text-secondary: #fff; --text-muted: #ffff00;
   --border-color: #fff;
 }
 
-body.acc-links a {
+html.acc-links a, html.acc-links a * {
   background: #ffff00 !important; color: #000 !important;
   outline: 3px solid #000 !important; text-decoration: underline !important;
   font-weight: 800 !important;
 }
 
-body.acc-text { font-size: 1.2rem !important; }
-body.acc-spacing { letter-spacing: 0.12em !important; word-spacing: 0.25em !important; }
-body.acc-stop-anim * { animation: none !important; transition: none !important; }
-body.acc-hide-img img, body.acc-hide-img .why-image-wrapper { visibility: hidden !important; }
+/* Base scaling that naturally scales all rem-based typography on the site */
+html.acc-text { font-size: 115% !important; }
 
-body.acc-dyslexia { 
-  font-family: 'Verdana', 'Geneva', sans-serif !important; 
+html.acc-spacing * { 
+  letter-spacing: 0.12em !important; 
+  word-spacing: 0.25em !important; 
+  line-height: 1.8 !important; 
+}
+
+html.acc-stop-anim * { 
+  animation: none !important; 
+  transition: none !important; 
+}
+
+html.acc-hide-img img, 
+html.acc-hide-img svg:not(.acc-card-icon svg):not(.fab-btn svg), 
+html.acc-hide-img .program-image, 
+html.acc-hide-img .why-image-wrapper { 
+  display: none !important; 
+}
+
+html.acc-dyslexia * { 
+  font-family: 'OpenDyslexic', 'Comic Sans MS', 'Verdana', sans-serif !important; 
   letter-spacing: 0.03em !important;
 }
 
-body.acc-cursor {
+html.acc-cursor * {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="black" stroke="white" stroke-width="2"><path d="M7 2l12 12-4 1 5 5-3 3-5-5-1 4z"/></svg>'), auto !important;
 }
-body.acc-cursor a, body.acc-cursor button {
+html.acc-cursor a, html.acc-cursor button, html.acc-cursor a *, html.acc-cursor button * {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="black" stroke="white" stroke-width="2"><path d="M7 2l12 12-4 1 5 5-3 3-5-5-1 4z"/></svg>'), pointer !important;
 }
 
 @media (max-width: 480px) {
   .acc-menu { width: 300px; left: 10px; bottom: 85px; }
+}
+
+/* ══════════════════════════════════════
+   HERO ENTRY ANIMATION
+══════════════════════════════════════ */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-animate {
+  opacity: 0;
+  animation: heroFadeUp 0.7s ease forwards;
+}
+.hero-animate-delay-1 { opacity: 0; animation: heroFadeUp 0.7s ease 0.15s forwards; }
+.hero-animate-delay-2 { opacity: 0; animation: heroFadeUp 0.7s ease 0.3s  forwards; }
+.hero-animate-delay-3 { opacity: 0; animation: heroFadeUp 0.7s ease 0.45s forwards; }
+.hero-animate-delay-4 { opacity: 0; animation: heroFadeUp 0.7s ease 0.6s  forwards; }
+
+/* ══════════════════════════════════════
+   STICKY NAV ACTIVE INDICATOR
+══════════════════════════════════════ */
+.nav-links a[data-section].nav-active {
+  color: var(--upd-gold) !important;
+  position: relative;
+}
+.nav-links a[data-section].nav-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--upd-gold);
+  border-radius: 2px;
+  animation: navLineIn 0.25s ease forwards;
+}
+@keyframes navLineIn {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ══════════════════════════════════════
+   COMPARISON TABLE
+══════════════════════════════════════ */
+.comparison-table {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.comparison-header {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  background: rgba(255,255,255,0.04);
+}
+.comparison-header > div {
+  padding: 16px 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.comp-col-other { color: var(--text-secondary); border-left: 1px solid rgba(255,255,255,0.07); }
+.comp-col-upd   { background: rgba(201,168,76,0.15); color: var(--upd-gold); border-left: 1px solid rgba(201,168,76,0.25); }
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s;
+}
+.comparison-row:hover { background: rgba(255,255,255,0.02); }
+
+.comp-row-label {
+  padding: 14px 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.comp-cell {
+  padding: 14px 20px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-left: 1px solid rgba(255,255,255,0.07);
+  color: var(--text-secondary);
+}
+.comp-cell-upd {
+  background: rgba(201,168,76,0.06);
+  color: var(--text-primary);
+  border-left: 1px solid rgba(201,168,76,0.15);
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .comparison-header,
+  .comparison-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .comp-row-label { display: none; }
+  .comp-cell { padding: 12px 10px; font-size: 0.8rem; }
 }

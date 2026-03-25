@@ -4,7 +4,7 @@ export const programasData = {
     "subtitulo": "Lidera la transformación digital con soluciones tecnológicas de vanguardia.",
     "tag": "Ingeniería",
     "icon": "💻",
-    "imagen": "assets/prog-informatica.png",
+    "imagen": "assets/prog-informatica-real.png",
     "descripcion": "El programa de Ingeniería en Informática de la UPD está diseñado para formar profesionales capaces de diseñar, desarrollar y gestionar sistemas informáticos complejos, software de alta calidad e infraestructuras tecnológicas robustas.",
     "infografia": {
       "url": "assets/infografia-informatica.png",
@@ -43,7 +43,7 @@ export const programasData = {
     "subtitulo": "Comprende la mente humana y promueve el bienestar integral.",
     "tag": "Licenciatura",
     "icon": "🧠",
-    "imagen": "assets/prog-psicologia.png",
+    "imagen": "assets/prog-psicologia-real.png",
     "descripcion": "La Licenciatura en Psicología ofrece una formación científica y humanista para entender el comportamiento humano, los procesos mentales y su impacto en la sociedad actual.",
     "infografia": {
       "url": "assets/infografia-psicologia.png",
@@ -82,7 +82,7 @@ export const programasData = {
     "subtitulo": "Protege el mundo digital contra las amenazas más avanzadas.",
     "tag": "Ingeniería",
     "icon": "🔐",
-    "imagen": "assets/prog-ciberseguridad.png",
+    "imagen": "assets/prog-ciberseguridad-real.png",
     "descripcion": "Especialízate en la defensa de infraestructuras críticas, detección de intrusiones y respuesta ante incidentes en un entorno digital globalizado.",
     "infografia": {
       "url": "assets/infografia-ciberseguridad.png",
@@ -113,7 +113,124 @@ export const programasData = {
       "Bootcamp de nivelación: Agosto 2026",
       "Fecha límite de pago: 31 de Agosto"
     ],
-    "proceso_inscripcion": "Solicitud -> Examen técnico -> Validación de documentos -> Pago -> Inscripción final.",
-    "aviso_privacidad": "Seguridad de datos garantizada con protocolos de cifrado de grado militar."
+    "proceso_inscripcion": "1. Solicitud en línea -> 2. Examen de habilidades -> 3. Entrevista -> 4. Pago y matriculación.",
+    "aviso_privacidad": "Tus datos técnicos y personales se procesan bajo normativas internacionales de protección de la información."
+  },
+  "derecho": {
+    "titulo": "Licenciatura en Derecho",
+    "subtitulo": "Defiende la justicia y domina el marco legal nacional e internacional.",
+    "tag": "Licenciatura",
+    "icon": "⚖️",
+    "imagen": "assets/prog-derecho-real.png",
+    "descripcion": "Formación jurídica integral para la resolución de conflictos, litigación estratégica y asesoramiento corporativo con visión global y ética profesional.",
+    "infografia": {
+      "url": "assets/infografia-derecho.png",
+      "texto": "Explora las áreas de especialidad en el mapa curricular completo."
+    },
+    "programa": [
+      "Derecho Constitucional",
+      "Derecho Penal y Procesal",
+      "Derecho Corporativo y Mercantil",
+      "Derechos Humanos",
+      "Sistemas Jurídicos Contemporáneos",
+      "Argumentación Jurídica y Litigio"
+    ],
+    "requisitos": [
+      "Certificado de bachillerato original y copia.",
+      "Identificación oficial vigente.",
+      "Comprobante de domicilio.",
+      "Capacidad de análisis crítico y expresión oral."
+    ],
+    "costos": {
+      "inscripcion": "$2,800 MXN",
+      "mensualidad": "$3,900 MXN",
+      "duracion": "9 Cuatrimestres",
+      "total_aproximado": "$166,600 MXN (Sujeto a becas)"
+    },
+    "calendario": [
+      "Inicio de clases: Septiembre 2026",
+      "Periodo de recepción de documentos: Junio - Agosto",
+      "Curso propedéutico: Agosto 2026"
+    ],
+    "proceso_inscripcion": "1. Registro en portal -> 2. Evaluación diagnóstica -> 3. Cotejo de documentos -> 4. Firma de convenio y pago.",
+    "aviso_privacidad": "La información es estrictamente confidencial según la Ley Federal de Datos en Posesión de Particulares."
+  },
+  "marketing": {
+    "titulo": "Licenciatura en Marketing Digital",
+    "subtitulo": "Domina el ecosistema digital y lidera estrategias de crecimiento exponencial.",
+    "tag": "Licenciatura",
+    "icon": "📈",
+    "imagen": "assets/prog-marketing-real.png",
+    "descripcion": "Aprende a diseñar campañas de alto impacto, analizar métricas con herramientas avanzadas y posicionar marcas en mercados globales a través de canales digitales.",
+    "infografia": {
+      "url": "assets/infografia-marketing.png",
+      "texto": "Descubre las herramientas y plataformas que dominarás."
+    },
+    "programa": [
+      "Inbound Marketing & SEO",
+      "Analítica Web y Conversion Rate",
+      "Social Media Management",
+      "Comercio Electrónico",
+      "Neuromarketing y Comportamiento del Consumidor",
+      "Growth Hacking"
+    ],
+    "requisitos": [
+      "Certificado de bachillerato oficial.",
+      "Acta de nacimiento.",
+      "Interés por la tecnología y las tendencias digitales.",
+      "Computadora con conexión a internet estable."
+    ],
+    "costos": {
+      "inscripcion": "$2,500 MXN",
+      "mensualidad": "$3,600 MXN",
+      "duracion": "8 Semestres",
+      "total_aproximado": "$175,300 MXN"
+    },
+    "calendario": [
+      "Inicio del programa: Septiembre 2026",
+      "Periodo de inscripción: Mayo a Agosto 2026",
+      "Publicación de resultados de becas: Julio 2026"
+    ],
+    "proceso_inscripcion": "1. Solicitud online -> 2. Envío de documentación digital -> 3. Entrevista de perfil -> 4. Pago de matrícula.",
+    "aviso_privacidad": "Tus datos se gestionan de manera encriptada conforme a las normativas de protección vigentes."
+  },
+  "administracion": {
+    "titulo": "Licenciatura en Administración Pública",
+    "subtitulo": "Lidera la transformación gubernamental y optimiza los recursos públicos.",
+    "tag": "Licenciatura",
+    "icon": "🏢",
+    "imagen": "assets/prog-admon-publica.png",
+    "descripcion": "Especialízate en la gestión gubernamental, diseño de políticas públicas, finanzas estatales y transparencia para generar un impacto positivo en la sociedad.",
+    "infografia": {
+      "url": "assets/infografia-administracion.png",
+      "texto": "Conoce los ejes estructurales de la Administración Pública."
+    },
+    "programa": [
+      "Ciencia Política y Estado",
+      "Finanzas Públicas y Presupuesto",
+      "Diseño y Evaluación de Políticas Públicas",
+      "Derecho Administrativo",
+      "Transparencia y Rendición de Cuentas",
+      "Gestión de Capital Humano en el Sector Público"
+    ],
+    "requisitos": [
+      "Bachillerato general terminado.",
+      "Interés por el ámbito público y social.",
+      "CURP y acta de nacimiento actualizadas.",
+      "Pasar entrevista de admisión."
+    ],
+    "costos": {
+      "inscripcion": "$2,200 MXN",
+      "mensualidad": "$3,400 MXN",
+      "duracion": "9 Cuatrimestres",
+      "total_aproximado": "$155,200 MXN"
+    },
+    "calendario": [
+      "Inicio de periodo: Septiembre 2026",
+      "Límite de recepción documental: 20 de Agosto",
+      "Módulo de inducción: Última semana de Agosto"
+    ],
+    "proceso_inscripcion": "1. Registro en la ventanilla virtual -> 2. Carga de expediente -> 3. Aprobación académica -> 4. Generación de línea de captura para pago.",
+    "aviso_privacidad": "Tratamiento de información en apego a los lineamientos de Transparencia y Acceso a la Información."
   }
 };
