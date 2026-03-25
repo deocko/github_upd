@@ -8,7 +8,7 @@
   <meta name="description"
     content="Universidad Politécnica Digital (UPD) — Educación superior de clase mundial 100% en línea. Más de 50 programas académicos, campus virtual innovador. FIAT LUX.">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/png" href="assets/logo-white-full.png">
+  <link rel="icon" type="image/png" href="assets/logo-white-full.png" sizes="32x32">
 </head>
 
 <body>
@@ -24,11 +24,10 @@
       </a>
 
       <nav class="nav-links" id="navLinks">
-        <a href="#inicio">Inicio</a>
-        <a href="#programas">Programas</a>
-        <a href="#nosotros">Nosotros</a>
-
-        <a href="#contacto">Contacto</a>
+        <a href="#inicio" data-section="inicio">Inicio</a>
+        <a href="#programas" data-section="programas">Programas</a>
+        <a href="#nosotros" data-section="nosotros">Nosotros</a>
+        <a href="#contacto" data-section="contacto">Contacto</a>
         <a href="inscripcion.html" class="nav-enroll">Inscríbete ahora</a>
         <a href="login.html" class="nav-cta">Campus Virtual</a>
       </nav>
@@ -79,21 +78,20 @@
 
   <!-- ════════════ EMPEZAR ════════════ -->
   <section class="empezar" id="empezar" style="padding: 100px 0 60px; position: relative;">
-    <div class="container hero-content"
-      style="max-width: 800px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center;">
-      <div class="hero-badge" style="margin-bottom: 2rem;">
+    <div style="z-index: 2; position: relative; text-align: center; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;" class="hero-animate">
+      <div class="hero-badge hero-animate-delay-1" style="margin-bottom: 2rem;">
         <svg viewBox="0 0 16 16" fill="currentColor">
           <path d="M8 0l2 5h5.5l-4.5 3.5 1.7 5.5L8 11l-4.7 3 1.7-5.5L.5 5H6L8 0z" />
         </svg>
         #1 Universidad Digital en Latinoamérica
       </div>
-      <h1 class="hero-title" style="margin-bottom: 1.5rem;">
+      <h1 class="hero-title hero-animate-delay-2" style="margin-bottom: 1.5rem;">
         Estudia en línea con <span class="highlight">Certificación RVOE</span> y título oficial SEP
       </h1>
-      <p class="hero-description" style="margin-bottom: 2.5rem; max-width: 800px;">
+      <p class="hero-description hero-animate-delay-3" style="margin-bottom: 2.5rem; max-width: 800px;">
         Avanza profesionalmente con programas 100% en línea, flexibles y con validez oficial en México
       </p>
-      <div class="hero-buttons" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+      <div class="hero-buttons hero-animate-delay-4" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
         <a href="inscripcion.html" class="btn btn-primary-gradient">
           Comenzar inscripción
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -122,7 +120,7 @@
         <!-- 1. Informática -->
         <a href="programa-detalle.html?id=informatica" class="program-card glass-card reveal">
           <div class="program-image">
-            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800" alt="Ingeniería en Informática">
+            <img src="assets/prog-informatica-real.png" alt="Ingeniería en Informática">
             <span class="program-category">Ingeniería</span>
           </div>
           <div class="program-content">
@@ -134,7 +132,7 @@
         <!-- 2. Psicología -->
         <a href="programa-detalle.html?id=psicologia" class="program-card glass-card reveal">
           <div class="program-image">
-            <img src="assets/prog-psicologia.png" alt="Licenciatura en Psicología">
+            <img src="assets/prog-psicologia-real.png" alt="Licenciatura en Psicología">
             <span class="program-category">Licenciatura</span>
           </div>
           <div class="program-content">
@@ -146,7 +144,7 @@
         <!-- 3. Derecho -->
         <a href="programa-detalle.html?id=derecho" class="program-card glass-card reveal">
           <div class="program-image">
-            <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=800" alt="Licenciatura en Derecho">
+            <img src="assets/prog-derecho-real.png" alt="Licenciatura en Derecho">
             <span class="program-category">Licenciatura</span>
           </div>
           <div class="program-content">
@@ -158,7 +156,7 @@
         <!-- 4. Marketing -->
         <a href="programa-detalle.html?id=marketing" class="program-card glass-card reveal">
           <div class="program-image">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="Marketing Digital">
+            <img src="assets/prog-marketing-real.png" alt="Marketing Digital">
             <span class="program-category">Licenciatura</span>
           </div>
           <div class="program-content">
@@ -182,7 +180,7 @@
         <!-- 6. Ciberseguridad -->
         <a href="programa-detalle.html?id=ciberseguridad" class="program-card glass-card reveal">
           <div class="program-image">
-            <img src="assets/prog-ciberseguridad.png" alt="Ciberseguridad">
+            <img src="assets/prog-ciberseguridad-real.png" alt="Ciberseguridad">
             <span class="program-category">Ingeniería</span>
           </div>
           <div class="program-content">
@@ -222,15 +220,54 @@
     </div>
   </section>
 
-  <!-- ════════════ WHY SECTION ════════════ -->
+  <!-- ════════════ WHY UPD ════════════ -->
   <section class="why-section" id="nosotros">
     <div class="container">
+      <h2 class="section-title reveal">¿Por qué elegir UPD?</h2>
+      <p class="section-subtitle reveal">No todas las universidades son iguales. Descubre en qué marca la diferencia la Universidad Politécnica Digital.</p>
+
+      <!-- COMPARISON TABLE -->
+      <div class="comparison-table reveal" style="margin: 48px auto 64px; max-width: 860px;">
+        <div class="comparison-header">
+          <div class="comp-col-label"></div>
+          <div class="comp-col comp-col-other">Universidad Tradicional</div>
+          <div class="comp-col comp-col-upd">
+            <img src="assets/logo-white-full.png" alt="UPD" style="height:28px; filter: brightness(10);">
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comp-row-label">Modalidad</div>
+          <div class="comp-cell comp-cell-other">Presencial o mixta con horario fijo</div>
+          <div class="comp-cell comp-cell-upd">✅ 100% en línea, 24/7 a tu ritmo</div>
+        </div>
+        <div class="comparison-row">
+          <div class="comp-row-label">Título Oficial</div>
+          <div class="comp-cell comp-cell-other">✅ Sí, con trámite largo</div>
+          <div class="comp-cell comp-cell-upd">✅ Sí, con RVOE SEP + Cédula rápida</div>
+        </div>
+        <div class="comparison-row">
+          <div class="comp-row-label">Costo Mensual</div>
+          <div class="comp-cell comp-cell-other">💸 Alto (campus, infraestructura)</div>
+          <div class="comp-cell comp-cell-upd">✅ Accesible y con becas hasta 50%</div>
+        </div>
+        <div class="comparison-row">
+          <div class="comp-row-label">Horario de Clases</div>
+          <div class="comp-cell comp-cell-other">⏰ Fijo: mañana o tarde</div>
+          <div class="comp-cell comp-cell-upd">✅ Cuando tú quieras, sin horario</div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comp-row-label">Desde el Extranjero</div>
+          <div class="comp-cell comp-cell-other">❌ Requiere presencia física</div>
+          <div class="comp-cell comp-cell-upd">✅ Estudia desde cualquier país</div>
+        </div>
+      </div>
+
+      <!-- EXISTING WHY GRID -->
       <div class="why-grid">
         <div class="why-content reveal">
-          <h2>¿Por qué elegir la Universidad Politécnica Digital?</h2>
-          <p>Somos la primera universidad 100% digital de Latinoamérica con un campus virtual interactivo que simula la
-            experiencia presencial. Nuestro modelo educativo combina tecnología de punta con pedagogía innovadora.</p>
-
+          <h2>Todo lo que necesitas en un solo lugar</h2>
+          <p>Somos la primera universidad 100% digital de Latinoamérica con un campus virtual interactivo que simula la experiencia presencial. Nuestro modelo educativo combina tecnología de punta con pedagogía innovadora.</p>
           <div class="why-features">
             <div class="why-feature reveal">
               <div class="why-feature-icon">
@@ -264,10 +301,8 @@
 
         <div class="why-visual reveal">
           <div class="why-image-wrapper">
-            <img src="assets/campus-edificio.jpg" alt="Campus Universidad Politécnica Digital"
-              style="width:100%; height:450px; object-fit:cover; display:block;">
+            <img src="assets/campus-edificio.jpg" alt="Campus Universidad Politécnica Digital" style="width:100%; height:450px; object-fit:cover; display:block;">
           </div>
-
           <div class="why-floating-card card-1">
             <div class="card-icon">✅</div>
             <div class="card-info">
@@ -352,13 +387,20 @@
         <div class="contact-form-container reveal">
           <div class="glass-card contact-card">
             <h3>Envíanos un mensaje</h3>
-            <form id="contactForm" class="contact-form-regular">
+            <form id="contactForm" class="contact-form-regular"
+              action="https://formsubmit.co/admisiones@upd.mx"
+              method="POST">
+              <!-- FormSubmit Config -->
+              <input type="hidden" name="_subject" value="🎓 Nueva solicitud de información - UPD">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_next" value="https://upd.mx/?enviado=true">
               <div class="form-row">
-                <input type="text" placeholder="Tu nombre" required>
-                <input type="email" placeholder="Tu correo" required>
+                <input type="text" name="nombre" placeholder="Tu nombre" required>
+                <input type="email" name="email" placeholder="Tu correo" required>
               </div>
-              <input type="tel" placeholder="WhatsApp / Teléfono" required>
-              <select required>
+              <input type="tel" name="telefono" placeholder="WhatsApp / Teléfono" required>
+              <select name="programa" required>
                 <option value="" disabled selected>Programa de interés</option>
                 <option value="informatica">Ingeniería en Informática</option>
                 <option value="psicologia">Licenciatura en Psicología</option>
@@ -367,7 +409,7 @@
                 <option value="administracion">Administración Pública</option>
                 <option value="ciberseguridad">Ingeniería en Ciberseguridad</option>
               </select>
-              <textarea placeholder="¿En qué podemos ayudarte?" rows="4"></textarea>
+              <textarea name="mensaje" placeholder="¿En qué podemos ayudarte?" rows="4"></textarea>
               <button type="submit" class="btn btn-primary-gradient">Enviar Solicitud</button>
             </form>
           </div>
@@ -378,76 +420,60 @@
 
   <!-- ════════════ FOOTER ════════════ -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="index.html" class="logo" style="margin-bottom: var(--space-md);">
-            <img src="assets/logo-white-full.png" alt="UPD Logo" class="logo-img" id="footerLogo">
-            <div class="logo-text">
-              <span class="logo-name">Universidad Politécnica Digital</span>
-            </div>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">UPD<span>.</span></a>
+        <p>Liderando la educación superior a través de la innovación tecnológica y el rigor académico en América Latina.</p>
+        <div class="social-links">
+          <a href="#" aria-label="LinkedIn" class="social-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
           </a>
-          <p>Educación superior de clase mundial, accesible desde cualquier lugar del planeta. Transformamos vidas a
-            través de la innovación educativa.</p>
-          <div class="footer-social">
-            <a href="#" class="social-icon" aria-label="Facebook">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
-            </a>
-            <a href="#" class="social-icon" aria-label="Twitter">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-            </a>
-            <a href="#" class="social-icon" aria-label="LinkedIn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
-            <a href="#" class="social-icon" aria-label="Instagram">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-            <a href="#" class="social-icon" aria-label="YouTube">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4>Programas</h4>
-          <ul>
-            <li><a href="#">Licenciaturas</a></li>
-            <li><a href="#">Maestrías</a></li>
-            <li><a href="#">Doctorados</a></li>
-            <li><a href="#">Diplomados</a></li>
-            <li><a href="#">Educación Continua</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Universidad</h4>
-          <ul>
-            <li><a href="#">Sobre Nosotros</a></li>
-            <li><a href="#">Modelo Educativo</a></li>
-            <li><a href="#">Investigación</a></li>
-            <li><a href="#">Acreditaciones</a></li>
-            <li><a href="#">Trabaja con Nosotros</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Soporte</h4>
-          <ul>
-            <li><a href="#">Centro de Ayuda</a></li>
-            <li><a href="#">Admisiones</a></li>
-            <li><a href="#">Becas</a></li>
-            <li><a href="#">Contacto</a></li>
-            <li><a href="#">FAQ</a></li>
-          </ul>
+          <a href="#" aria-label="Twitter" class="social-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          </a>
+          <a href="#" aria-label="YouTube" class="social-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+          </a>
         </div>
       </div>
+      
+      <div class="footer-links">
+        <h4>PROGRAMAS</h4>
+        <ul>
+          <li><a href="index.html#programas">Licenciaturas</a></li>
+          <li><a href="index.html#programas">Ingenierías</a></li>
+        </ul>
+      </div>
 
-      <div class="footer-bottom">
-        <p>© 2026 Universidad Politécnica Digital. Todos los derechos reservados.</p>
-        <div class="footer-bottom-links">
-          <a href="#">Aviso de Privacidad</a>
-          <a href="#">Términos de Uso</a>
-          <a href="#">RVOE</a>
+      <div class="footer-links">
+        <h4>UNIVERSIDAD</h4>
+        <ul>
+          <li><a href="info.html?id=sobre-nosotros">Sobre Nosotros</a></li>
+          <li><a href="info.html?id=modelo-educativo">Modelo Educativo</a></li>
+          <li><a href="info.html?id=investigacion">Investigación</a></li>
+          <li><a href="info.html?id=acreditaciones">Acreditaciones</a></li>
+          <li><a href="info.html?id=trabajo">Trabaja con Nosotros</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>SOPORTE</h4>
+        <ul>
+          <li><a href="info.html?id=ayuda">Centro de Ayuda</a></li>
+          <li><a href="inscripcion.html">Admisiones</a></li>
+          <li><a href="info.html?id=becas">Becas</a></li>
+          <li><a href="index.html#contacto">Contacto</a></li>
+          <li><a href="info.html?id=faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Universidad Politécnica Digital. Todos los derechos reservados.</p>
+        <div class="legal-links">
+          <a href="info.html?id=privacidad">Aviso de Privacidad</a>
+          <a href="info.html?id=terminos">Términos de Uso</a>
+          <a href="info.html?id=rvoe">RVOE</a>
         </div>
       </div>
     </div>
