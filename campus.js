@@ -205,13 +205,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── Load user info from session ──
-    const userInfo = JSON.parse(sessionStorage.getItem('upd_user') || '{}');
-    if (userInfo.id) {
-        const initials = userInfo.id.substring(0, 2).toUpperCase();
-        if (userAvatar) userAvatar.textContent = initials;
-        if (userName) userName.textContent = userInfo.id;
-    }
+    // ── Auth Monitoring & Safety ──
+    monitorAuthState((user) => {
+        if (user) {
+            // User is signed in
+            const initials = user.email ? user.email.substring(0, 2).toUpperCase() : 'U';
+            if (userAvatar) userAvatar.textContent = initials;
+            if (userName) userName.textContent = user.displayName || user.email.split('@')[0];
+            console.log("✅ Acceso autorizado:", user.email);
+        } else {
+            console.log("🚪 Redirigiendo al login...");
+            window.location.href = 'login.html';
+        }
+    });
 
     // ── Welcome Overlay ──
     setTimeout(() => {
