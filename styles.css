@@ -1358,6 +1358,55 @@ button {
 body.light-theme .theme-toggle .sun-icon { display: block; }
 body.light-theme .theme-toggle .moon-icon { display: none; }
 
+/* ── Logo adjustments ── */
+
+/* Hero section always keeps dark background so the logo is always visible */
+body.light-theme .hero {
+  background:
+    radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(74, 126, 199, 0.18) 0%, transparent 50%),
+    #0F172A;
+}
+
+/* Hero logo: more visible and with gold glow accent */
+#mainHeroLogo,
+#visualLogo {
+  filter: drop-shadow(0 0 40px rgba(201, 168, 76, 0.2))
+          drop-shadow(0 0 80px rgba(43, 94, 167, 0.15))
+          brightness(1.25)
+          contrast(1.1);
+}
+
+/* Header logo: crisp and properly sized */
+.logo-img {
+  height: 48px;
+  width: auto;
+  transition: all var(--transition-base);
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.15));
+}
+
+.header.scrolled .logo-img {
+  height: 38px;
+}
+
+/* Footer logo image */
+.footer-logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+  margin-bottom: var(--space-md);
+  opacity: 0.85;
+  transition: opacity var(--transition-base);
+}
+
+.footer-logo-img:hover {
+  opacity: 1;
+}
+
+body.light-theme .footer-logo-img {
+  filter: brightness(0) saturate(1) invert(32%) sepia(72%) saturate(600%) hue-rotate(196deg) brightness(0.9);
+}
+
 /* ============================================
    CONTACT SECTION
    ============================================ */
