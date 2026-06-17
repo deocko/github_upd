@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview — Logos UPD</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, sans-serif; background: #0F172A; }
+
+    .block { padding: 40px 60px; display: flex; align-items: center; gap: 32px; }
+    .label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.5; min-width: 140px; }
+    .divider { height: 1px; opacity: 0.1; }
+
+    /* ── DARK THEME BLOCKS ── */
+    .dark { background: #0F172A; }
+    .dark .label { color: #fff; }
+
+    /* ── LIGHT THEME BLOCKS ── */
+    .light { background: #FFFFFF; }
+    .light .label { color: #0F172A; }
+    .light .divider { background: #0F172A; }
+
+    /* ── HEADER LOGO ── */
+    .header-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 60px; height: 72px;
+    }
+    .header-dark { background: rgba(15,23,42,0.95); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .header-light { background: rgba(255,255,255,0.95); border-bottom: 1px solid rgba(0,0,0,0.06); }
+
+    .nav-mock { display: flex; gap: 28px; }
+    .nav-mock span { font-size: 14px; font-weight: 500; }
+    .dark .nav-mock span { color: rgba(255,255,255,0.65); }
+    .light .nav-mock span { color: #475569; }
+
+    .btn-mock { padding: 8px 20px; border-radius: 24px; font-size: 13px; font-weight: 600; }
+    .btn-blue { background: #2B5EA7; color: #fff; }
+    .btn-gold { background: #C9A84C; color: #fff; margin-left: 8px; }
+
+    /* ── HERO LOGO ── */
+    .hero-block {
+      min-height: 400px; display: flex; align-items: center; justify-content: center;
+      position: relative; padding: 60px;
+    }
+    .hero-dark {
+      background: radial-gradient(circle at 20% 80%, rgba(201,168,76,0.12) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(74,126,199,0.18) 0%, transparent 50%),
+                  #0F172A;
+    }
+    .hero-light {
+      background: radial-gradient(circle at 20% 80%, rgba(201,168,76,0.12) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(74,126,199,0.18) 0%, transparent 50%),
+                  #0F172A;
+    }
+
+    /* ── FOOTER LOGO ── */
+    .footer-block { padding: 40px 60px; display: flex; align-items: center; gap: 32px; }
+    .footer-dark { background: #070B14; }
+    .footer-light { background: #F8FAFC; }
+
+    .footer-logo-img { height: 40px; width: auto; opacity: 0.85; }
+    .footer-light-filter {
+      filter: brightness(0) saturate(1) invert(32%) sepia(72%) saturate(600%) hue-rotate(196deg) brightness(0.9);
+    }
+
+    /* Section title */
+    .section-title {
+      padding: 24px 60px 8px;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #C9A84C;
+      font-weight: 700;
+    }
+    .bg-dark-section { background: #0F172A; }
+    .bg-light-section { background: #fff; }
+
+    hr { border: none; border-top: 1px solid rgba(255,255,255,0.06); }
+    hr.light { border-top-color: rgba(0,0,0,0.06); }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ HEADER LOGO ══════════ -->
+  <div class="bg-dark-section">
+    <div class="section-title" style="color:#C9A84C;">1 — Header Logo · Modo Oscuro (default)</div>
+    <div class="header-bar header-dark dark">
+      <img src="assets/logo-white-full.png" alt="UPD" style="height:48px; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.15));">
+      <div class="nav-mock">
+        <span>Inicio</span><span>Programas</span><span>Nosotros</span><span>Contacto</span>
+      </div>
+      <div>
+        <span class="btn-mock btn-blue">Inscríbete ahora</span>
+        <span class="btn-mock btn-gold">Campus Virtual</span>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="bg-light-section">
+    <div class="section-title" style="color:#2B5EA7;">2 — Header Logo · Modo Claro</div>
+    <div class="header-bar header-light light">
+      <img src="assets/logo-blue-full.png" alt="UPD" style="height:48px; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.08));">
+      <div class="nav-mock">
+        <span>Inicio</span><span>Programas</span><span>Nosotros</span><span>Contacto</span>
+      </div>
+      <div>
+        <span class="btn-mock btn-blue">Inscríbete ahora</span>
+        <span class="btn-mock btn-gold">Campus Virtual</span>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══════════ HERO LOGO ══════════ -->
+  <div class="bg-dark-section">
+    <div class="section-title">3 — Hero Logo · Modo Oscuro & Claro (fondo siempre oscuro)</div>
+    <div class="hero-block hero-dark">
+      <img src="assets/logo-hero-white.png" alt="UPD Hero"
+        style="width:340px; max-width:60vw;
+               filter: drop-shadow(0 0 40px rgba(201,168,76,0.2))
+                       drop-shadow(0 0 80px rgba(43,94,167,0.15))
+                       brightness(1.25) contrast(1.1);">
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ══════════ FOOTER LOGO ══════════ -->
+  <div class="bg-dark-section">
+    <div class="section-title">4 — Footer Logo · Modo Oscuro</div>
+    <div class="footer-block footer-dark">
+      <img src="assets/logo-white-full.png" alt="UPD" class="footer-logo-img">
+      <span class="label" style="color:rgba(255,255,255,0.4)">Modo oscuro</span>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="bg-light-section">
+    <div class="section-title" style="color:#2B5EA7;">5 — Footer Logo · Modo Claro</div>
+    <div class="footer-block footer-light" style="border-top: 1px solid rgba(0,0,0,0.06);">
+      <img src="assets/logo-white-full.png" alt="UPD" class="footer-logo-img footer-light-filter">
+      <span class="label" style="color:rgba(0,0,0,0.4)">Modo claro (CSS filter → azul navy)</span>
+    </div>
+  </div>
+
+</body>
+</html>
