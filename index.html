@@ -121,31 +121,40 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdro
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:52px;position:relative;}
 .steps::before{content:'';position:absolute;top:34px;left:calc(12.5% + 34px);right:calc(12.5% + 34px);height:1px;background:rgba(0,0,0,.15);z-index:0;}
 .step{text-align:center;padding:0 12px;position:relative;z-index:1;}
-.step-num{width:68px;height:68px;border-radius:50%;background:var(--negro);border:none;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;transition:.3s;box-shadow:0 6px 20px rgba(0,0,0,.2);}
+.step-num{width:68px;height:68px;border-radius:50%;background:var(--negro);border:none;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;transition:.3s;box-shadow:0 6px 20px rgba(0,0,0,.2);}
 .step-num-inner{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--amarillo);}
 .step:hover .step-num{transform:translateY(-6px) scale(1.08);box-shadow:0 16px 32px rgba(0,0,0,.25);}
-.step-ic{width:32px;height:32px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;}
-.step-ic svg{stroke:rgba(0,0,0,.55);transition:.3s;}
-.step:hover .step-ic svg{stroke:var(--negro);}
-.step h3{font-size:16px;margin-bottom:8px;color:var(--negro);font-weight:800;}
+.step h3{font-size:16px;margin:0 0 8px;color:var(--negro);font-weight:800;transition:transform .3s ease;display:inline-block;}
+.step:hover h3{transform:scale(1.35);}
 .step p{color:rgba(0,0,0,.6);font-size:13.5px;line-height:1.55;}
 
 /* carreras */
 .carreras{background:var(--blanco);}
-.carrera-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
-.carrera{background:var(--suave);border:2px solid transparent;border-radius:16px;padding:28px 24px;transition:.22s;cursor:default;position:relative;overflow:hidden;}
-.carrera::after{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(255,226,52,.0) 0%,rgba(255,226,52,.06) 100%);opacity:0;transition:.22s;}
-.carrera:hover{border-color:var(--amarillo);transform:translateY(-5px);box-shadow:0 20px 48px rgba(0,0,0,.1);}
-.carrera:hover::after{opacity:1;}
-.carrera .ic{width:50px;height:50px;border-radius:14px;background:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:.22s;}
-.carrera:hover .ic{background:var(--amarillo);}
-.carrera .ic svg{stroke:var(--amarillo);transition:.22s;}
-.carrera:hover .ic svg{stroke:var(--negro);}
-.carrera h3{font-size:15.5px;margin-bottom:8px;color:var(--negro);font-weight:800;}
-.carrera-meta{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
-.carrera-meta p{font-size:12.5px;color:var(--gris);}
-.carrera-arrow{font-size:18px;color:var(--linea);transition:.22s;font-weight:700;}
-.carrera:hover .carrera-arrow{color:var(--negro);transform:translateX(4px);}
+.carr-flix{margin-top:44px;}
+/* Escenario destacado (fondo grande) */
+.carr-stage{position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(120deg,var(--navy-deep) 0%,var(--navy) 60%);color:var(--blanco);min-height:330px;display:flex;align-items:flex-end;padding:46px;}
+.carr-stage::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 30%,rgba(255,226,52,.16) 0%,transparent 55%);pointer-events:none;}
+.carr-art{position:absolute;right:-40px;top:50%;transform:translateY(-50%);opacity:.10;pointer-events:none;line-height:0;}
+.carr-art svg{width:360px;height:360px;stroke:var(--amarillo);}
+.carr-stage-body{position:relative;z-index:2;max-width:560px;animation:carrIn .45s ease;}
+@keyframes carrIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+.carr-cat{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--amarillo);background:rgba(255,226,52,.12);border:1px solid rgba(255,226,52,.3);border-radius:20px;padding:5px 14px;margin-bottom:16px;}
+.carr-stage-body h3{font-size:clamp(28px,4vw,44px);color:var(--blanco);line-height:1.04;margin-bottom:14px;}
+.carr-stage-body p{color:rgba(255,255,255,.82);font-size:16px;line-height:1.6;max-width:520px;margin-bottom:20px;}
+.carr-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px;}
+.carr-meta span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--blanco);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:30px;padding:6px 14px;}
+.carr-cta{display:inline-flex;align-items:center;gap:8px;}
+/* Fila de carreras */
+.carr-rail{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:16px;}
+.carr-thumb{font-family:inherit;text-align:left;background:var(--suave);border:2px solid transparent;border-radius:16px;padding:20px 16px;cursor:pointer;transition:.22s;display:flex;flex-direction:column;align-items:flex-start;}
+.carr-thumb:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(0,0,0,.12);}
+.carr-thumb.active{background:var(--blanco);border-color:var(--amarillo);box-shadow:0 16px 36px rgba(0,0,0,.12);}
+.carr-thumb .ic{width:46px;height:46px;border-radius:13px;background:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:14px;transition:.22s;}
+.carr-thumb .ic svg{stroke:var(--amarillo);transition:.22s;}
+.carr-thumb:hover .ic,.carr-thumb.active .ic{background:var(--amarillo);}
+.carr-thumb:hover .ic svg,.carr-thumb.active .ic svg{stroke:var(--negro);}
+.carr-thumb-t{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--negro);line-height:1.2;margin-bottom:5px;}
+.carr-thumb small{font-size:12px;color:var(--gris);}
 
 /* planes */
 .section-planes{background:var(--suave);}
@@ -389,7 +398,9 @@ footer{background:#0d0d1a;color:rgba(255,255,255,.5);padding:48px 0 32px;font-si
   .hero-copy h1{font-size:36px;}
   .hero-copy p{font-size:16px;}
   .steps{grid-template-columns:repeat(2,1fr);}
-  .carrera-grid{grid-template-columns:1fr;}
+  .carr-rail{grid-template-columns:repeat(3,1fr);}
+  .carr-stage{min-height:auto;padding:32px 26px;}
+  .carr-art svg{width:220px;height:220px;}
   .pick-grid{grid-template-columns:1fr;}
   .plan-grid{grid-template-columns:1fr;}
   .plan-pick select{min-width:0;width:100%;}
@@ -428,8 +439,8 @@ footer{background:#0d0d1a;color:rgba(255,255,255,.5);padding:48px 0 32px;font-si
       Universidad Politécnica Digital
     </a>
     <div class="nav-right">
-      <a href="inicio.html" class="btn btn-outline" style="padding:9px 20px;font-size:14px;">Inicio</a>
-      <a href="#planes" class="btn btn-primary" style="padding:9px 20px;font-size:14px;">Inscríbete</a>
+      <a href="inicio.html" class="btn btn-outline" style="padding:9px 20px;font-size:14px;min-width:118px;justify-content:center;">Inicio</a>
+      <a href="#planes" class="btn btn-primary" style="padding:9px 20px;font-size:14px;min-width:118px;justify-content:center;">Inscríbete</a>
     </div>
   </div>
 </header>
@@ -511,28 +522,6 @@ footer{background:#0d0d1a;color:rgba(255,255,255,.5);padding:48px 0 32px;font-si
   </div>
 </div>
 
-<!-- STATS -->
-<section class="section-stats">
-  <div class="wrap stats-grid">
-    <div class="stat-item reveal">
-      <div class="stat-num"><span data-count="2400">2400</span>+</div>
-      <div class="stat-label">Estudiantes activos</div>
-    </div>
-    <div class="stat-item reveal">
-      <div class="stat-num"><span data-count="50">50</span>+</div>
-      <div class="stat-label">Empresas aliadas</div>
-    </div>
-    <div class="stat-item reveal">
-      <div class="stat-num"><span data-count="6">6</span></div>
-      <div class="stat-label">Carreras con RVOE</div>
-    </div>
-    <div class="stat-item reveal">
-      <div class="stat-num">$<span data-count="599">599</span></div>
-      <div class="stat-label">Desde al mes</div>
-    </div>
-  </div>
-</section>
-
 <!-- COMO FUNCIONA -->
 <section class="section section-steps" id="como">
   <div class="wrap">
@@ -543,25 +532,21 @@ footer{background:#0d0d1a;color:rgba(255,255,255,.5);padding:48px 0 32px;font-si
     <div class="steps">
       <div class="step reveal">
         <div class="step-num"><span class="step-num-inner">01</span></div>
-        <div class="step-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <h3>Inscríbete</h3>
-        <p>Proceso 100% en línea en minutos: elige tu carrera y empieza hoy mismo.</p>
+        <h3>Inicia</h3>
+        <p>Crea tu cuenta en minutos y descubre el programa ideal para ti.</p>
       </div>
       <div class="step reveal">
         <div class="step-num"><span class="step-num-inner">02</span></div>
-        <div class="step-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <h3>Inscríbete</h3>
+        <p>Completa tu inscripción 100% en línea y asegura tu lugar hoy mismo.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num"><span class="step-num-inner">03</span></div>
         <h3>Aprende</h3>
         <p>Lecciones cortas, rutas guiadas y un tutor con IA disponible 24/7.</p>
       </div>
       <div class="step reveal">
-        <div class="step-num"><span class="step-num-inner">03</span></div>
-        <div class="step-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <h3>Certifícate</h3>
-        <p>Obtén microcertificaciones por cada módulo que acreditas.</p>
-      </div>
-      <div class="step reveal">
         <div class="step-num"><span class="step-num-inner">04</span></div>
-        <div class="step-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
         <h3>Titúlate</h3>
         <p>Licenciatura con validez oficial RVOE ante la SEP.</p>
       </div>
@@ -577,39 +562,79 @@ footer{background:#0d0d1a;color:rgba(255,255,255,.5);padding:48px 0 32px;font-si
       <h2 class="title">Carreras para el mercado digital</h2>
       <p class="lead">Seis programas con salida profesional clara, todos con RVOE vigente.</p>
     </div>
-    <div class="carrera-grid">
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <h3>Desarrollo de Software</h3>
-        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
+    <div class="carr-flix reveal">
+      <!-- Escenario destacado -->
+      <div class="carr-stage" id="carrStage">
+        <div class="carr-art" id="carrArt"></div>
+        <div class="carr-stage-body">
+          <span class="carr-cat" id="carrCat">Programa destacado</span>
+          <h3 id="carrTitle">Desarrollo de Software</h3>
+          <p id="carrDesc">Crea aplicaciones, sistemas y plataformas con las tecnologías más demandadas del mercado tech.</p>
+          <div class="carr-meta" id="carrMeta"></div>
+          <a href="inscripcion.html" class="btn btn-primary carr-cta">Inscríbete a esta carrera
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
       </div>
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
-        <h3>Inteligencia Artificial y Datos</h3>
-        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
-      </div>
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-        <h3>Negocios Digitales</h3>
-        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
-      </div>
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16l-.08.92z"/></svg></div>
-        <h3>Marketing Digital</h3>
-        <div class="carrera-meta"><p>8 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
-      </div>
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Ciberseguridad</h3>
-        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
-      </div>
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-        <h3>Diseño UX/UI</h3>
-        <div class="carrera-meta"><p>8 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
+      <!-- Fila de carreras (siempre visibles) -->
+      <div class="carr-rail">
+        <button class="carr-thumb active" type="button" data-title="Desarrollo de Software" data-dur="9 cuatrimestres" data-desc="Crea aplicaciones, sistemas y plataformas con las tecnologías más demandadas del mercado tech.">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+          <span class="carr-thumb-t">Desarrollo de Software</span>
+          <small>9 cuatrimestres</small>
+        </button>
+        <button class="carr-thumb" type="button" data-title="Inteligencia Artificial y Datos" data-dur="9 cuatrimestres" data-desc="Domina machine learning, ciencia de datos y modelos de IA para resolver problemas reales.">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></span>
+          <span class="carr-thumb-t">Inteligencia Artificial y Datos</span>
+          <small>9 cuatrimestres</small>
+        </button>
+        <button class="carr-thumb" type="button" data-title="Negocios Digitales" data-dur="9 cuatrimestres" data-desc="Lidera empresas en la era digital: e-commerce, finanzas, estrategia y transformación online.">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+          <span class="carr-thumb-t">Negocios Digitales</span>
+          <small>9 cuatrimestres</small>
+        </button>
+        <button class="carr-thumb" type="button" data-title="Marketing Digital" data-dur="8 cuatrimestres" data-desc="Diseña campañas, posiciona marcas y domina redes sociales, SEO y publicidad digital.">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16l-.08.92z"/></svg></span>
+          <span class="carr-thumb-t">Marketing Digital</span>
+          <small>8 cuatrimestres</small>
+        </button>
+        <button class="carr-thumb" type="button" data-title="Ciberseguridad" data-dur="9 cuatrimestres" data-desc="Protege sistemas, redes y datos frente a amenazas, ataques y vulnerabilidades digitales.">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <span class="carr-thumb-t">Ciberseguridad</span>
+          <small>9 cuatrimestres</small>
+        </button>
+        <button class="carr-thumb" type="button" data-title="Diseño UX/UI" data-dur="8 cuatrimestres" data-desc="Crea experiencias digitales atractivas, usables y centradas en las personas.">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>
+          <span class="carr-thumb-t">Diseño UX/UI</span>
+          <small>8 cuatrimestres</small>
+        </button>
       </div>
     </div>
   </div>
+  <script>
+  (function(){
+    var rail=document.getElementById('carrStage');if(!rail)return;
+    var T=document.getElementById('carrTitle'),D=document.getElementById('carrDesc'),
+        M=document.getElementById('carrMeta'),A=document.getElementById('carrArt'),
+        thumbs=document.querySelectorAll('.carr-thumb');
+    function pick(t){
+      thumbs.forEach(function(x){x.classList.remove('active');});
+      t.classList.add('active');
+      T.textContent=t.dataset.title;
+      D.textContent=t.dataset.desc;
+      M.innerHTML='<span>'+t.dataset.dur+'</span><span>100% en línea</span><span>RVOE vigente</span>';
+      A.innerHTML=t.querySelector('.ic').innerHTML;
+      // reinicia la animación de entrada
+      var body=document.querySelector('.carr-stage-body');
+      body.style.animation='none';void body.offsetWidth;body.style.animation='';
+    }
+    thumbs.forEach(function(t){
+      t.addEventListener('mouseenter',function(){pick(t);});
+      t.addEventListener('focus',function(){pick(t);});
+      t.addEventListener('click',function(){pick(t);});
+    });
+    pick(document.querySelector('.carr-thumb.active')||thumbs[0]);
+  })();
+  </script>
 </section>
 
 <!-- PLANES -->
