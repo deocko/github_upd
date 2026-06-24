@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universidad Politécnica Digital — Aprende, certifica, titúlate</title>
+<meta name="description" content="Universidad 100% digital con RVOE ante la SEP. Aprende, certifica, titúlate y consigue empleo. Beca automática por desempeño desde $599 MXN/mes.">
+<style>
+:root{
+  --navy:#0A2342;
+  --navy-deep:#071830;
+  --amarillo:#FFC300;
+  --amarillo-deep:#E0AC00;
+  --negro:#111111;
+  --gris:#5B6472;
+  --linea:#E7EAEF;
+  --suave:#F7F8FA;
+  --blanco:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--negro);background:var(--blanco);line-height:1.6;-webkit-font-smoothing:antialiased;width:100%;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+h1,h2,h3{line-height:1.15;font-weight:800;color:var(--navy);}
+.wrap{width:100%;margin:0 auto;padding:0 clamp(18px,4vw,56px);}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:13px 26px;border-radius:8px;border:2px solid var(--navy);cursor:pointer;transition:.15s;font-family:inherit;}
+.btn-primary{background:var(--amarillo);border-color:var(--amarillo);color:var(--navy);}
+.btn-primary:hover{background:var(--navy);border-color:var(--navy);color:var(--blanco);}
+.btn-outline{background:transparent;color:var(--navy);}
+.btn-outline:hover{background:var(--navy);color:var(--blanco);}
+.eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amarillo);margin-bottom:16px;}
+.eyebrow.dark{color:var(--amarillo-deep);}
+.section{padding:90px 0;}
+.section h2.title{font-size:32px;}
+.section .lead{color:var(--gris);font-size:17px;margin-top:12px;max-width:560px;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+/* nav */
+header{position:sticky;top:0;z-index:50;background:var(--blanco);border-bottom:1px solid var(--linea);}
+.nav{display:flex;align-items:center;justify-content:space-between;height:70px;}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;color:var(--navy);font-size:16px;}
+.logo{width:36px;height:36px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo svg{stroke:var(--amarillo);}
+.nav-links{display:flex;gap:30px;font-size:15px;font-weight:600;}
+.nav-links a{position:relative;}
+.nav-links a:hover,.nav-links a.active{color:var(--amarillo-deep);}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+.burger span{display:block;width:24px;height:2.5px;background:var(--navy);margin:5px 0;border-radius:2px;transition:.25s;}
+.burger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+
+/* hero */
+.hero{background:var(--navy);color:var(--blanco);padding:96px 0;}
+.hero h1{color:var(--blanco);font-size:54px;}
+.hero h1 b{color:var(--amarillo);}
+.hero p{color:rgba(255,255,255,.82);font-size:19px;max-width:560px;margin:22px 0 36px;}
+.hero .btn-outline{color:var(--blanco);border-color:rgba(255,255,255,.5);}
+.hero .btn-outline:hover{background:var(--amarillo);border-color:var(--amarillo);color:var(--navy);}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+.hero-trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:40px;}
+.hero-trust span{display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.7);font-weight:600;}
+.hero-trust b{color:var(--amarillo);font-size:22px;font-weight:800;}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:50px;}
+.step{text-align:center;}
+.step .num{width:66px;height:66px;border-radius:16px;background:var(--amarillo);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;cursor:pointer;transition:transform .3s ease,box-shadow .3s ease,border-radius .3s ease;}
+.step .num svg{stroke:var(--navy);width:34px;height:34px;transition:transform .3s ease;}
+.step:hover .num{transform:translateY(-6px) scale(1.08) rotate(-4deg);border-radius:22px;box-shadow:0 14px 26px rgba(0,0,0,.18);}
+.step:hover .num svg{transform:scale(1.12);}
+.step h3{font-size:19px;margin-bottom:8px;}
+.step p{color:var(--gris);font-size:15px;}
+
+/* carreras */
+.carreras{background:var(--suave);}
+.carrera-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px;}
+.carrera{background:var(--blanco);border:1px solid var(--linea);border-radius:12px;padding:26px;transition:.15s;}
+.carrera:hover{border-color:var(--amarillo);transform:translateY(-3px);}
+.carrera .ic{width:44px;height:44px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.carrera .ic svg{stroke:var(--amarillo);}
+.carrera h3{font-size:16.5px;margin-bottom:6px;}
+.carrera p{font-size:13.5px;color:var(--gris);}
+
+/* planes */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;align-items:stretch;}
+.plan{position:relative;background:var(--blanco);border:1px solid var(--linea);border-radius:14px;padding:34px 28px;display:flex;flex-direction:column;transition:.15s;}
+.plan:hover{transform:translateY(-3px);}
+.plan.destacado{border:2px solid var(--amarillo);box-shadow:0 16px 40px rgba(10,35,66,.12);}
+.tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--amarillo);color:var(--navy);font-size:11px;font-weight:800;letter-spacing:.06em;padding:5px 16px;border-radius:30px;white-space:nowrap;}
+.plan h3{font-size:21px;}
+.plan .desc{color:var(--gris);font-size:14px;margin:4px 0 22px;}
+.precio{font-size:42px;font-weight:800;color:var(--navy);}
+.precio span{font-size:15px;font-weight:600;color:var(--gris);}
+.plan .total{font-size:13px;color:var(--gris);margin-top:6px;}
+.plan .total b{color:var(--navy);font-weight:700;}
+.plan ul{list-style:none;margin:24px 0 28px;display:flex;flex-direction:column;gap:11px;}
+.plan li{font-size:14.5px;padding-left:26px;position:relative;}
+.plan li::before{content:"";position:absolute;left:0;top:6px;width:15px;height:15px;border-radius:50%;background:var(--amarillo);}
+.plan li::after{content:"";position:absolute;left:4.5px;top:9.5px;width:4px;height:7px;border-right:2px solid var(--navy);border-bottom:2px solid var(--navy);transform:rotate(45deg);}
+.plan .btn{margin-top:auto;justify-content:center;}
+
+/* beca */
+.beca{background:var(--amarillo);}
+.beca .wrap{display:flex;align-items:center;gap:50px;flex-wrap:wrap;}
+.beca .big{font-size:100px;font-weight:800;color:var(--navy);line-height:1;}
+.beca-copy{flex:1;min-width:300px;}
+.beca-copy h2{font-size:30px;margin-bottom:12px;}
+.beca-copy p{color:var(--navy);font-size:17px;opacity:.85;}
+
+/* faq */
+.faq{max-width:760px;margin:48px auto 0;}
+.faq details{border-bottom:1px solid var(--linea);}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:20px 4px;font-weight:700;font-size:16px;color:var(--navy);}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary .pl{font-size:24px;color:var(--amarillo-deep);transition:.2s;line-height:1;}
+.faq details[open] summary .pl{transform:rotate(45deg);}
+.faq .ans{padding:0 4px 22px;color:var(--gris);font-size:15px;}
+
+/* form */
+.contacto{background:var(--navy);color:var(--blanco);}
+.contacto .eyebrow{color:var(--amarillo);}
+.contacto h2{color:var(--blanco);font-size:32px;}
+.contacto .lead{color:rgba(255,255,255,.78);}
+.form-card{background:var(--blanco);border-radius:16px;padding:34px;max-width:480px;margin-top:30px;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:7px;}
+.field input,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--linea);border-radius:10px;font-size:15px;font-family:inherit;color:var(--negro);background:var(--blanco);transition:border-color .15s,box-shadow .15s;}
+.field input:focus,.field select:focus{outline:none;border-color:var(--amarillo);box-shadow:0 0 0 3px rgba(255,195,0,.18);}
+.field input.invalid,.field select.invalid{border-color:#E0506B;}
+.field input.valid{border-color:#2BAE66;}
+.form-card .btn{width:100%;justify-content:center;}
+.form-ok{display:none;background:#E9F8EE;border:1.5px solid #2BAE66;color:#176B3E;border-radius:8px;padding:14px;font-size:14px;font-weight:600;text-align:center;}
+.form-ok.show{display:block;}
+
+/* footer */
+footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:46px 0 30px;font-size:14px;}
+.foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:28px;}
+.foot-top .brand{color:var(--blanco);}
+.foot-links{display:flex;gap:28px;flex-wrap:wrap;}
+.foot-links a:hover{color:var(--amarillo);}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;}
+
+/* chat */
+.chat-fab{position:fixed;bottom:24px;right:24px;z-index:60;width:58px;height:58px;border-radius:50%;background:var(--amarillo);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(10,35,66,.3);transition:.15s;}
+.chat-fab:hover{transform:scale(1.06);}
+.chat-fab svg{stroke:var(--navy);}
+.chat-panel{position:fixed;bottom:92px;right:24px;z-index:60;width:300px;background:var(--blanco);border-radius:16px;box-shadow:0 24px 50px rgba(10,35,66,.28);overflow:hidden;display:none;}
+.chat-panel.open{display:block;}
+.chat-head{background:var(--navy);color:var(--blanco);padding:16px 18px;}
+.chat-head b{font-size:14px;}
+.chat-head span{display:block;font-size:11.5px;color:rgba(255,255,255,.6);}
+.chat-body{padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--suave);min-height:170px;max-height:280px;overflow-y:auto;}
+.bubble{max-width:82%;padding:10px 13px;border-radius:13px;font-size:13.5px;line-height:1.45;}
+.bubble.bot{background:var(--blanco);border:1px solid var(--linea);align-self:flex-start;}
+.bubble.me{background:var(--navy);color:var(--blanco);align-self:flex-end;}
+.chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--linea);}
+.chat-input input{flex:1;border:1.5px solid var(--linea);border-radius:8px;padding:9px 12px;font-size:13.5px;font-family:inherit;}
+.chat-input input:focus{outline:none;border-color:var(--amarillo);}
+.chat-input button{background:var(--amarillo);border:none;border-radius:8px;width:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.chat-input button svg{stroke:var(--navy);}
+
+/* prueba interactiva */
+.demo{background:var(--suave);}
+.pick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:42px;}
+.pick{display:flex;align-items:center;gap:14px;text-align:left;background:var(--blanco);border:2px solid var(--linea);border-radius:12px;padding:18px;cursor:pointer;transition:.18s;font-family:inherit;}
+.pick:hover{border-color:var(--amarillo);transform:translateY(-3px);}
+.pick.sel{border-color:var(--navy);background:var(--navy);}
+.pick.sel h4,.pick.sel small{color:var(--blanco);}
+.pick.sel .pic svg{stroke:var(--amarillo);}
+.pick .pic{width:46px;height:46px;border-radius:10px;background:var(--amarillo);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.18s;}
+.pick .pic svg{stroke:var(--navy);width:24px;height:24px;}
+.pick h4{font-size:15px;color:var(--navy);font-weight:800;line-height:1.2;}
+.pick small{font-size:12.5px;color:var(--gris);}
+
+/* leccion demo */
+.lesson{display:none;margin-top:34px;background:var(--blanco);border:1px solid var(--linea);border-radius:16px;overflow:hidden;box-shadow:0 18px 44px rgba(10,35,66,.10);}
+.lesson.show{display:block;animation:fadeUp .4s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+/* lección gamificada (estilo Duolingo) */
+.g-top{display:flex;align-items:center;gap:14px;padding:18px 24px;border-bottom:1px solid var(--linea);}
+.g-prog{flex:1;height:14px;background:var(--suave);border-radius:8px;overflow:hidden;}
+.g-prog i{display:block;height:100%;width:0;background:var(--amarillo);border-radius:8px;transition:width .45s ease;}
+.g-hearts{display:flex;align-items:center;gap:5px;font-weight:800;font-size:14px;color:#E0506B;}
+.g-hearts svg{width:20px;height:20px;fill:#E0506B;stroke:none;}
+.g-hearts svg.off{fill:var(--linea);}
+.g-stage{padding:30px 24px 26px;min-height:200px;}
+.g-q{font-size:21px;font-weight:800;color:var(--navy);line-height:1.25;margin-bottom:6px;}
+.g-sub{color:var(--gris);font-size:14px;margin-bottom:22px;}
+.g-tip{background:var(--suave);border-left:4px solid var(--amarillo);border-radius:8px;padding:16px 18px;font-size:14.5px;color:var(--navy);line-height:1.6;}
+/* opción múltiple */
+.g-opts{display:grid;gap:12px;}
+.g-opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--blanco);border:2px solid var(--linea);border-bottom-width:4px;border-radius:14px;padding:15px 18px;font-size:15px;font-family:inherit;cursor:pointer;transition:.12s;color:var(--negro);}
+.g-opt:hover:not(.dis){border-color:var(--amarillo);}
+.g-opt.sel{border-color:var(--navy);background:#F2F6FC;}
+.g-opt.ok{border-color:#2BAE66;background:#E9F8EE;color:#176B3E;font-weight:700;}
+.g-opt.no{border-color:#E0506B;background:#FBE9ED;color:#A11B36;font-weight:700;}
+.g-opt .k{width:26px;height:26px;border-radius:7px;border:1.5px solid var(--linea);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--gris);flex-shrink:0;}
+.g-opt.dis{cursor:default;}
+/* ordenar piezas */
+.g-answer{min-height:56px;border-bottom:2px dashed var(--linea);display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;padding:8px 2px 14px;margin-bottom:20px;}
+.g-bank{display:flex;flex-wrap:wrap;gap:10px;}
+.tile{background:var(--blanco);border:2px solid var(--linea);border-bottom-width:4px;border-radius:12px;padding:10px 16px;font-size:15px;font-weight:700;font-family:inherit;color:var(--navy);cursor:pointer;transition:.1s;}
+.tile:hover{border-color:var(--amarillo);}
+.tile.ghost{opacity:.25;pointer-events:none;}
+/* relacionar pares */
+.g-match{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.m-col{display:flex;flex-direction:column;gap:10px;}
+.m-item{background:var(--blanco);border:2px solid var(--linea);border-bottom-width:4px;border-radius:12px;padding:13px 14px;font-size:14.5px;font-weight:600;color:var(--navy);cursor:pointer;transition:.12s;text-align:center;}
+.m-item:hover:not(.done){border-color:var(--amarillo);}
+.m-item.sel{border-color:var(--navy);background:#F2F6FC;}
+.m-item.ok,.m-item.done{border-color:#2BAE66;background:#E9F8EE;color:#176B3E;cursor:default;}
+.m-item.no{border-color:#E0506B;background:#FBE9ED;animation:shake .3s;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+/* pie de juego */
+.g-foot{padding:18px 24px;border-top:1px solid var(--linea);display:flex;align-items:center;justify-content:space-between;gap:16px;transition:background .15s;flex-wrap:wrap;}
+.g-foot.ok{background:#E9F8EE;}
+.g-foot.no{background:#FBE9ED;}
+.g-fb{font-weight:800;font-size:15px;display:flex;align-items:center;gap:8px;}
+.g-fb.ok{color:#176B3E;}
+.g-fb.no{color:#A11B36;}
+.g-fb small{display:block;font-weight:500;font-size:12.5px;opacity:.85;}
+.g-foot .btn{margin-left:auto;}
+.g-foot .btn:disabled{opacity:.4;cursor:default;}
+/* pantalla final */
+.g-done{text-align:center;padding:44px 28px;}
+.g-done .medal{font-size:54px;line-height:1;margin-bottom:10px;}
+.g-done h3{font-size:24px;color:var(--navy);}
+.g-done p{color:var(--gris);font-size:15px;margin:8px auto 22px;max-width:380px;}
+.g-stats{display:flex;justify-content:center;gap:14px;margin-bottom:26px;flex-wrap:wrap;}
+.g-stat{background:var(--suave);border-radius:12px;padding:14px 22px;min-width:96px;}
+.g-stat b{display:block;font-size:22px;color:var(--navy);}
+.g-stat span{font-size:12px;color:var(--gris);font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
+.g-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* modal auth */
+.modal{position:fixed;inset:0;z-index:80;background:rgba(7,24,48,.6);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:20px;}
+.modal.open{display:flex;animation:fade .2s ease;}
+@keyframes fade{from{opacity:0;}to{opacity:1;}}
+.modal-card{background:var(--blanco);border-radius:18px;max-width:420px;width:100%;padding:34px;position:relative;animation:fadeUp .3s ease;}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:26px;line-height:1;color:var(--gris);cursor:pointer;}
+.modal-card h3{font-size:22px;color:var(--navy);}
+.modal-card .sub{color:var(--gris);font-size:14.5px;margin:8px 0 0;}
+.enroll-box{background:var(--suave);border-radius:10px;padding:14px 16px;margin:18px 0 0;font-size:14px;color:var(--navy);line-height:1.7;}
+.auth-list{display:flex;flex-direction:column;gap:12px;margin-top:22px;}
+.auth-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:13px;border-radius:10px;border:1.8px solid var(--linea);background:var(--blanco);font-size:15px;font-weight:700;font-family:inherit;color:var(--negro);cursor:pointer;transition:.15s;}
+.auth-btn:hover{background:var(--suave);border-color:#c9cfd8;}
+.auth-btn svg{width:20px;height:20px;flex-shrink:0;}
+.auth-note{font-size:12.5px;color:var(--gris);text-align:center;margin-top:18px;}
+.auth-state{text-align:center;padding:8px 0 4px;}
+.spinner{width:38px;height:38px;border:4px solid var(--linea);border-top-color:var(--amarillo);border-radius:50%;margin:10px auto 16px;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.ok-check{width:54px;height:54px;border-radius:50%;background:#E9F8EE;display:flex;align-items:center;justify-content:center;margin:6px auto 14px;}
+.ok-check svg{stroke:#2BAE66;}
+
+/* selector carrera en planes */
+.plan-pick{margin-top:34px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.plan-pick label{font-weight:700;color:var(--navy);font-size:14px;}
+.plan-pick select{padding:11px 14px;border:1.5px solid var(--linea);border-radius:10px;font-size:14.5px;font-family:inherit;min-width:280px;background:var(--blanco);color:var(--negro);transition:border-color .15s,box-shadow .15s;}
+.plan-pick select:focus{outline:none;border-color:var(--amarillo);box-shadow:0 0 0 3px rgba(255,195,0,.18);}
+
+/* wizard inscripción */
+.modal-card.wide{max-width:560px;}
+.stepper{display:flex;align-items:center;margin:22px 0 24px;}
+.stepper .st{display:flex;align-items:center;flex:1;}
+.stepper .st:last-child{flex:0;}
+.stepper .dot{width:30px;height:30px;border-radius:50%;background:var(--suave);border:2px solid var(--linea);color:var(--gris);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;transition:.25s;}
+.stepper .ln{flex:1;height:2px;background:var(--linea);margin:0 6px;transition:.25s;}
+.stepper .st.done .dot{background:var(--navy);border-color:var(--navy);color:var(--blanco);}
+.stepper .st.active .dot{background:var(--amarillo);border-color:var(--amarillo);color:var(--navy);transform:scale(1.08);}
+.stepper .st.done .ln{background:var(--navy);}
+.wstep{display:none;}
+.wstep.show{display:block;animation:fadeUp .35s ease;}
+.wstep>h4{font-size:16px;color:var(--navy);margin-bottom:16px;}
+.wrow{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.wrow .field,.wstep .field{margin-bottom:16px;}
+.vmsg{font-size:12px;margin-top:5px;display:none;}
+.vmsg.show{display:block;}
+.vmsg.bad{color:#A11B36;}
+.vmsg.good{color:#176B3E;}
+.resumen{background:var(--suave);border-radius:12px;padding:16px 18px;font-size:14px;color:var(--navy);line-height:1.7;margin-bottom:18px;}
+.resumen b{color:var(--navy);}
+.pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.pay{display:flex;align-items:center;gap:10px;border:1.8px solid var(--linea);border-radius:10px;padding:13px 14px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--navy);transition:.15s;}
+.pay:hover{border-color:var(--amarillo);}
+.pay.sel{border-color:var(--navy);background:var(--navy);color:var(--blanco);}
+.pay input{display:none;}
+.terms{display:flex;align-items:flex-start;gap:10px;margin-top:18px;font-size:13.5px;color:var(--gris);cursor:pointer;line-height:1.5;}
+.terms input{margin-top:2px;width:17px;height:17px;accent-color:var(--amarillo);flex-shrink:0;}
+.wiz-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;}
+.wiz-nav .btn{flex:1;justify-content:center;}
+.g-prefill{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:1.5px solid var(--linea);background:var(--blanco);border-radius:10px;padding:11px;font-size:14px;font-weight:700;font-family:inherit;color:var(--negro);cursor:pointer;margin-bottom:18px;transition:.15s;}
+.g-prefill:hover{background:var(--suave);}
+.g-prefill svg{width:18px;height:18px;}
+.gchip{display:none;align-items:center;gap:8px;background:#E9F8EE;border:1px solid #2BAE66;color:#176B3E;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;margin-bottom:18px;}
+
+@media(max-width:860px){
+  .nav-right .btn{padding:8px 14px;font-size:13px;}
+  .hero h1{font-size:36px;}
+  .hero p{font-size:17px;}
+  .steps{grid-template-columns:repeat(2,1fr);}
+  .carrera-grid{grid-template-columns:1fr;}
+  .pick-grid{grid-template-columns:1fr;}
+  .plan-grid{grid-template-columns:1fr;}
+  .plan-pick select{min-width:0;width:100%;}
+  .wrow,.pay-grid{grid-template-columns:1fr;}
+  .beca .big{font-size:72px;}
+  .section{padding:64px 0;}
+}
+@media(max-width:560px){
+  .wrap{padding:0 18px;}
+  .nav{height:auto;min-height:62px;flex-wrap:wrap;gap:10px;padding:10px 0;}
+  .brand{font-size:14px;gap:8px;}
+  .nav-right{gap:8px;margin-left:auto;}
+  .hero{padding:64px 0;}
+  .hero h1{font-size:29px;}
+  .hero p{font-size:16px;margin:18px 0 28px;}
+  .hero-actions{flex-direction:column;align-items:stretch;}
+  .hero-actions .btn{justify-content:center;}
+  .hero-trust{gap:18px;}
+  .steps{grid-template-columns:1fr;gap:18px;}
+  .section{padding:52px 0;}
+  .section h2.title,.contacto h2,.beca-copy h2{font-size:24px;}
+  .section .lead,.contacto .lead{font-size:15.5px;}
+  .precio{font-size:36px;}
+  .beca .wrap{gap:24px;}
+  .beca .big{font-size:60px;}
+  .foot-top,.foot-bottom{flex-direction:column;align-items:flex-start;}
+  .modal-card{padding:24px;}
+  .modal-card.wide{max-width:100%;}
+  .chat-panel{width:calc(100vw - 32px);right:16px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M8 12a3 3 0 1 1 3 3c-3 0-3-6 0-6a3 3 0 1 1 3 3"/></svg></span>
+      Universidad Politécnica Digital
+    </a>
+    <div class="nav-right">
+      <a href="inicio.html" class="btn btn-outline" style="padding:9px 20px;font-size:14px;">Inicio</a>
+      <a href="#planes" class="btn btn-primary" style="padding:9px 20px;font-size:14px;">Inscríbete</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Universidad con RVOE ante la SEP</span>
+    <h1>Prepárate. Titúlate.<br><b>Despega.</b></h1>
+    <p>Educación universitaria 100% digital. De la primera lección al primer empleo, todo en una sola plataforma.</p>
+    <div class="hero-actions">
+      <a href="inicio.html" class="btn btn-primary">Comienza hoy</a>
+      <a href="#como" class="btn btn-outline">Cómo funciona</a>
+    </div>
+    <div class="hero-trust">
+      <span><b>+50</b> empresas aliadas</span>
+      <span><b>24/7</b> tutor con IA</span>
+      <span><b>100%</b> en línea</span>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section" id="como">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow dark">El camino UPD</span>
+      <h2 class="title">Cuatro pasos, una sola plataforma</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"/><path d="M3.5 20c0-3.6 2.4-5.6 5.5-5.6 1 0 1.9.2 2.7.6"/><path d="M18 7.5v6M15 10.5h6"/></svg></div><h3>Inscríbete</h3><p>Proceso 100% en línea en minutos: elige tu carrera y empieza hoy mismo.</p></div>
+      <div class="step reveal"><div class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5h7a2 2 0 0 1 2 2V20a1.7 1.7 0 0 0-1.7-1.7H3z"/><path d="M21 5.5h-7a2 2 0 0 0-2 2V20a1.7 1.7 0 0 1 1.7-1.7H21z"/></svg></div><h3>Aprende</h3><p>Lecciones cortas, rutas guiadas y un tutor con IA disponible 24/7.</p></div>
+      <div class="step reveal"><div class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 0 1 12.7-5.4L20 9"/><path d="M20 4v5h-5"/><path d="M19.5 12a7.5 7.5 0 0 1-12.7 5.4L4 15"/><path d="M4 20v-5h5"/></svg></div><h3>Actualízate</h3><p>Mantente vigente con cursos y microcertificaciones que evolucionan contigo.</p></div>
+      <div class="step reveal"><div class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5l9 4.5-9 4.5-9-4.5z"/><path d="M7 11.5v4.5c0 1.5 2.2 3 5 3s5-1.5 5-3v-4.5"/><path d="M21 9.5v5"/></svg></div><h3>Titúlate</h3><p>Licenciatura con validez oficial (RVOE) ante la SEP.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CARRERAS -->
+<section class="section carreras" id="carreras">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow dark">Oferta académica</span>
+      <h2 class="title">Carreras para el mercado digital</h2>
+      <p class="lead">Seis programas con salida profesional clara, todos con RVOE vigente.</p>
+    </div>
+    <div class="carrera-grid">
+      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8l-5 4.5L9 17M15 8l5 4.5-5 4.5"/></svg></div><h3>Desarrollo de Software</h3><p>9 cuatrimestres · 100% en línea</p></div>
+      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/><path d="M12 3v2.3M12 18.7V21M4.5 12H6.5M17.5 12h2"/></svg></div><h3>Inteligencia Artificial y Datos</h3><p>9 cuatrimestres · 100% en línea</p></div>
+      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9.5M9.5 20V4.5M15 20v-7M20.5 20V8"/></svg></div><h3>Negocios Digitales</h3><p>9 cuatrimestres · 100% en línea</p></div>
+      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/></svg></div><h3>Marketing Digital</h3><p>8 cuatrimestres · 100% en línea</p></div>
+      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="10.5" width="13" height="9" rx="2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/></svg></div><h3>Ciberseguridad</h3><p>9 cuatrimestres · 100% en línea</p></div>
+      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M8.3 11h.01M11 8h.01M14.7 9h.01"/></svg></div><h3>Diseño UX/UI</h3><p>8 cuatrimestres · 100% en línea</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section class="section" id="planes">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow dark">Planes y costos</span>
+      <h2 class="title">Un plan para cada meta</h2>
+      <p class="lead">El mismo campus y el mismo tutor IA — la diferencia es cuánto quieres avanzar. Elige tu carrera y tu plan.</p>
+    </div>
+    <div class="plan-pick reveal">
+      <label for="planCarrera">Carrera de interés:</label>
+      <select id="planCarrera">
+        <option value="">Selecciona tu carrera</option>
+        <option>Desarrollo de Software</option>
+        <option>Inteligencia Artificial y Datos</option>
+        <option>Negocios Digitales</option>
+        <option>Marketing Digital</option>
+        <option>Ciberseguridad</option>
+        <option>Diseño UX/UI</option>
+      </select>
+    </div>
+    <div class="plan-grid">
+      <div class="plan reveal">
+        <h3>Avanzado</h3>
+        <p class="desc">1 año · certificación profesional</p>
+        <div class="precio">$599 <span>MXN/mes</span></div>
+        <div class="total"><b>Inversión total $7,188 MXN</b><br>Financiamiento hasta 3 años</div>
+        <ul><li>Tutor IA 24/7</li><li>Certificaciones rápidas</li><li>Ritmo 100% flexible</li></ul>
+        <a href="#" class="btn btn-outline elegir" data-plan="Avanzado">Elegir plan</a>
+      </div>
+      <div class="plan destacado reveal">
+        <span class="tag">MÁS POPULAR</span>
+        <h3>Professional</h3>
+        <p class="desc">3 años · licenciatura acelerada</p>
+        <div class="precio">$899 <span>MXN/mes</span></div>
+        <div class="total"><b>Inversión total $32,364 MXN</b><br>Licenciatura con RVOE</div>
+        <ul><li>Bolsa de trabajo UPD Talent</li><li>Certificaciones adicionales</li><li>Mentoría de carrera</li></ul>
+        <a href="#" class="btn btn-primary elegir" data-plan="Professional">Elegir plan</a>
+      </div>
+      <div class="plan reveal">
+        <h3>Integral</h3>
+        <p class="desc">5 años · formación completa</p>
+        <div class="precio">$699 <span>MXN/mes</span></div>
+        <div class="total"><b>Inversión total $41,940 MXN</b><br>Licenciatura + especialización</div>
+        <ul><li>Titulación completa</li><li>Especialización</li><li>Estancias virtuales</li></ul>
+        <a href="#" class="btn btn-outline elegir" data-plan="Integral">Elegir plan</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BECA -->
+<section class="section beca" id="becas">
+  <div class="wrap reveal">
+    <div class="big">100%</div>
+    <div class="beca-copy">
+      <h2>Beca automática por desempeño</h2>
+      <p>Sin solicitudes ni trámites. Tu constancia y tus calificaciones generan descuentos automáticos en tu mensualidad — hasta una beca completa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow dark">Preguntas frecuentes</span>
+      <h2 class="title">Antes de empezar</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>¿Los títulos tienen validez oficial?<span class="pl">+</span></summary><div class="ans">Sí. Los planes Professional e Integral cuentan con Reconocimiento de Validez Oficial de Estudios (RVOE) ante la SEP. El plan Avanzado otorga certificaciones profesionales.</div></details>
+      <details><summary>¿Cuánto tiempo tengo para terminar?<span class="pl">+</span></summary><div class="ans">Cada plan tiene una duración estándar (1, 3 o 5 años), pero puedes avanzar más rápido o pausar temporadas según tu ritmo, sin perder tu progreso.</div></details>
+      <details><summary>¿Cómo funciona la beca por desempeño?<span class="pl">+</span></summary><div class="ans">No llenas ninguna solicitud. Tu constancia y tus calificaciones generan automáticamente descuentos en tu siguiente mensualidad, hasta una beca del 100%.</div></details>
+      <details><summary>¿Necesito experiencia previa en tecnología?<span class="pl">+</span></summary><div class="ans">No. Todos los planes inician con un diagnóstico que ajusta tu ruta de aprendizaje desde lo básico, sin importar tu punto de partida.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="brand">
+        <span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M8 12a3 3 0 1 1 3 3c-3 0-3-6 0-6a3 3 0 1 1 3 3"/></svg></span>
+        Universidad Politécnica Digital
+      </div>
+      <div class="foot-links">
+        <a href="#carreras">Carreras</a>
+        <a href="#planes">Planes</a>
+        <a href="#becas">Becas</a>
+        <a href="#faq">FAQ</a>
+        <a href="#planes">Inscríbete</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>RVOE vigente ante la SEP · Querétaro, México</span>
+      <span>© 2026 UPD · Fiat Lux · upd.edu.mx</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CHAT -->
+<button class="chat-fab" id="chatFab" aria-label="Abrir chat">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v10.5H10l-4 3.5v-3.5H4z"/><path d="M8 9.5h8M8 12.5h5"/></svg>
+</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head"><b>UPD AI</b><span>Tu tutor, en línea ahora</span></div>
+  <div class="chat-body" id="chatBody">
+    <div class="bubble bot">Hola 👋 Soy UPD AI. ¿Qué carrera te interesa explorar hoy?</div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
+    <button id="chatSend" aria-label="Enviar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12l15-7-5.5 15-3-6-6.5-2z"/></svg></button>
+  </div>
+</div>
+
+<!-- MODAL AUTH / INSCRIPCIÓN -->
+<div class="modal" id="authModal">
+  <div class="modal-card" id="authCard">
+    <button class="modal-close" id="authClose" aria-label="Cerrar">&times;</button>
+    <div id="authBody"></div>
+  </div>
+</div>
+
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script>
+// --- reveal al scroll ---
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// La experiencia interactiva (selección de carrera + lección estilo Duolingo)
+// vive ahora en inicio.html, a la que llega el botón "Comienza hoy".
+
+// --- inscripción desde planes ---
+const planCarrera=document.getElementById('planCarrera');
+document.querySelectorAll('.elegir').forEach(b=>b.addEventListener('click',(e)=>{
+  e.preventDefault();
+  const carrera=planCarrera.value;
+  if(!carrera){planCarrera.focus();planCarrera.style.borderColor='#E0506B';return;}
+  planCarrera.style.borderColor='';
+  openAuth('enroll',{carrera:carrera,plan:b.dataset.plan});
+}));
+
+// ============================================================
+//  GOOGLE IDENTITY SERVICES  (login real con tu cuenta Google)
+//  >>> Pega aquí tu Client ID de Google Cloud Console <<<
+//  Cómo obtenerlo:
+//   1. https://console.cloud.google.com/  → crea/elige un proyecto
+//   2. "APIs y servicios" → "Pantalla de consentimiento OAuth" (configúrala)
+//   3. "Credenciales" → "Crear credenciales" → "ID de cliente de OAuth"
+//   4. Tipo: "Aplicación web". En "Orígenes autorizados de JavaScript"
+//      agrega tu dominio (ej. https://upd.edu.mx y http://localhost:5500)
+//   5. Copia el "ID de cliente" y pégalo abajo.
+// ============================================================
+const GOOGLE_CLIENT_ID = "TU_CLIENT_ID.apps.googleusercontent.com";
+
+let googleTC=null;
+function googleConfigured(){return GOOGLE_CLIENT_ID && GOOGLE_CLIENT_ID.indexOf('TU_CLIENT_ID')===-1;}
+function initGoogle(){
+  if(!window.google||!google.accounts||!google.accounts.oauth2) return;
+  if(!googleConfigured()) return;
+  googleTC=google.accounts.oauth2.initTokenClient({
+    client_id:GOOGLE_CLIENT_ID,
+    scope:'openid email profile',
+    callback:(resp)=>{ if(resp&&resp.access_token) fetchGoogleUser(resp.access_token); }
+  });
+}
+window.addEventListener('load',initGoogle);
+
+let googleCtx='save';
+function startGoogle(ctx){
+  googleCtx=ctx;
+  if(!googleConfigured()){ googleNote(); return; }
+  if(!googleTC) initGoogle();
+  if(googleTC) googleTC.requestAccessToken();
+}
+function fetchGoogleUser(token){
+  fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:'Bearer '+token}})
+    .then(r=>r.json()).then(onGoogleUser).catch(()=>{});
+}
+function onGoogleUser(u){
+  if(googleCtx==='prefill'){
+    const n=document.getElementById('w_nombre'); if(n&&u.name)n.value=u.name;
+    const e=document.getElementById('w_email'); if(e&&u.email)e.value=u.email;
+    const chip=document.getElementById('gchip');
+    if(chip){chip.style.display='flex';chip.textContent='✓ Conectado como '+(u.email||u.name);}
+  }else{
+    googleSaveSuccess(u);
+  }
+}
+function googleNote(){
+  const el=document.getElementById('gnote');
+  if(el) el.textContent='⚙️ Falta configurar tu GOOGLE_CLIENT_ID en el código para activar el inicio de sesión real con Google.';
+  else alert('Configura tu GOOGLE_CLIENT_ID en el código para activar Google.');
+}
+const gLogo='<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.26 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>';
+
+// ============================================================
+//  MODAL
+// ============================================================
+const authModal=document.getElementById('authModal');
+const authCard=document.getElementById('authCard');
+const authBody=document.getElementById('authBody');
+
+function openAuth(mode,info){
+  if(mode==='enroll'){ openEnroll(info); }
+  else{ openSave(); }
+  authModal.classList.add('open');
+}
+function closeAuth(){authModal.classList.remove('open');}
+document.getElementById('authClose').addEventListener('click',closeAuth);
+authModal.addEventListener('click',e=>{if(e.target===authModal)closeAuth();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAuth();});
+
+// ---- Guardar avance (login Google) ----
+function openSave(){
+  authCard.classList.remove('wide');
+  authBody.innerHTML=
+    '<h3>Guarda tu avance</h3>'+
+    '<p class="sub">Inicia sesión para que tu progreso quede vinculado a tu cuenta. Es gratis.</p>'+
+    '<div class="auth-list">'+
+      '<button class="auth-btn" id="gSave">'+gLogo+'Continuar con Google</button>'+
+    '</div>'+
+    '<p class="auth-note" id="gnote">Más opciones de inicio de sesión muy pronto.</p>';
+  document.getElementById('gSave').addEventListener('click',()=>startGoogle('save'));
+}
+function googleSaveSuccess(u){
+  const check='<div class="ok-check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>';
+  authBody.innerHTML='<div class="auth-state">'+check+'<h3>¡Avance guardado!</h3><p class="sub">Hola '+(u.name||'')+', tu progreso quedó vinculado a tu cuenta de Google ('+(u.email||'')+'). Puedes continuar tu lección cuando quieras.</p></div><a href="#planes" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:18px;" onclick="closeAuth()">Inscríbete a tu carrera</a>';
+}
+
+// ============================================================
+//  ASISTENTE DE INSCRIPCIÓN (multipaso)
+// ============================================================
+const ESTADOS=['Aguascalientes','Baja California','Baja California Sur','Campeche','Chiapas','Chihuahua','Ciudad de México','Coahuila','Colima','Durango','Estado de México','Guanajuato','Guerrero','Hidalgo','Jalisco','Michoacán','Morelos','Nayarit','Nuevo León','Oaxaca','Puebla','Querétaro','Quintana Roo','San Luis Potosí','Sinaloa','Sonora','Tabasco','Tamaulipas','Tlaxcala','Veracruz','Yucatán','Zacatecas','Nací en el extranjero'];
+const CARRERAS_N=['Desarrollo de Software','Inteligencia Artificial y Datos','Negocios Digitales','Marketing Digital','Ciberseguridad','Diseño UX/UI'];
+const PLANES_N=['Avanzado','Professional','Integral'];
+const PAGOS=['Tarjeta de crédito/débito','Transferencia SPEI','Pago en OXXO','Domiciliación bancaria'];
+const CURP_RE=/^[A-Z][AEIOUX][A-Z]{2}\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])[HM](AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]\d$/;
+const EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+let wStep=0;
+
+function opt(list,sel){return list.map(o=>'<option'+(o===sel?' selected':'')+'>'+o+'</option>').join('');}
+
+function openEnroll(info){
+  info=info||{};wStep=0;
+  authCard.classList.add('wide');
+  authBody.innerHTML=
+    '<h3>Inscripción en línea</h3>'+
+    '<p class="sub">Completa estos pasos. Toma menos de 3 minutos.</p>'+
+    '<div class="stepper" id="stepper">'+
+      ['Carrera','Datos','Contacto','Pago'].map((t,i)=>'<div class="st" data-i="'+i+'"><div class="dot">'+(i+1)+'</div>'+(i<3?'<div class="ln"></div>':'')+'</div>').join('')+
+    '</div>'+
+    // Paso 0: carrera y plan
+    '<div class="wstep" data-s="0">'+
+      '<h4>Confirma tu carrera y plan</h4>'+
+      '<div class="field"><label>Carrera</label><select id="w_carrera">'+opt(CARRERAS_N,info.carrera)+'</select></div>'+
+      '<div class="field"><label>Plan de inscripción</label><select id="w_plan">'+opt(PLANES_N,info.plan)+'</select></div>'+
+    '</div>'+
+    // Paso 1: datos personales
+    '<div class="wstep" data-s="1">'+
+      '<h4>Tus datos personales</h4>'+
+      '<button class="g-prefill" id="gPrefill">'+gLogo+'Autocompletar con Google</button>'+
+      '<div class="gchip" id="gchip"></div>'+
+      '<div class="field"><label>Nombre completo</label><input type="text" id="w_nombre" placeholder="Como aparece en tu acta"><div class="vmsg bad" id="m_nombre">Escribe tu nombre y apellidos.</div></div>'+
+      '<div class="wrow">'+
+        '<div class="field"><label>Fecha de nacimiento</label><input type="date" id="w_fnac"><div class="vmsg bad" id="m_fnac">Selecciona una fecha válida.</div></div>'+
+        '<div class="field"><label>Estado de nacimiento</label><select id="w_estado"><option value="">Selecciona…</option>'+opt(ESTADOS)+'</select><div class="vmsg bad" id="m_estado">Elige tu estado.</div></div>'+
+      '</div>'+
+      '<div class="field"><label>CURP</label><input type="text" id="w_curp" maxlength="18" placeholder="18 caracteres" style="text-transform:uppercase"><div class="vmsg" id="m_curp"></div></div>'+
+    '</div>'+
+    // Paso 2: contacto
+    '<div class="wstep" data-s="2">'+
+      '<h4>Datos de contacto</h4>'+
+      '<div class="field"><label>Correo electrónico</label><input type="email" id="w_email" placeholder="tucorreo@ejemplo.com"><div class="vmsg" id="m_email"></div></div>'+
+      '<div class="field"><label>Teléfono (10 dígitos)</label><input type="tel" id="w_tel" maxlength="14" placeholder="55 1234 5678"><div class="vmsg" id="m_tel"></div></div>'+
+      '<div class="field"><label>Dirección</label><input type="text" id="w_dir" placeholder="Calle, número, colonia, CP, ciudad"><div class="vmsg bad" id="m_dir">Escribe tu dirección.</div></div>'+
+    '</div>'+
+    // Paso 3: pago y aceptación
+    '<div class="wstep" data-s="3">'+
+      '<h4>Forma de pago y confirmación</h4>'+
+      '<div class="resumen" id="w_resumen"></div>'+
+      '<div class="pay-grid" id="w_pagos">'+PAGOS.map((p,i)=>'<label class="pay"><input type="radio" name="pago" value="'+p+'">'+p+'</label>').join('')+'</div>'+
+      '<div class="vmsg bad" id="m_pago" style="margin-top:10px">Elige una forma de pago.</div>'+
+      '<label class="terms"><input type="checkbox" id="w_acepta"><span>Acepto el Aviso de Privacidad y los términos de inscripción de la UPD, y confirmo que mis datos son verídicos.</span></label>'+
+      '<div class="vmsg bad" id="m_acepta">Debes aceptar para continuar.</div>'+
+    '</div>'+
+    '<div class="wiz-nav">'+
+      '<button class="btn btn-outline" id="wPrev" style="display:none">Atrás</button>'+
+      '<button class="btn btn-primary" id="wNext">Continuar</button>'+
+    '</div>';
+
+  // listeners
+  document.getElementById('gPrefill').addEventListener('click',()=>startGoogle('prefill'));
+  document.getElementById('wPrev').addEventListener('click',()=>goStep(wStep-1));
+  document.getElementById('wNext').addEventListener('click',()=>{ if(validateStep(wStep)){ wStep<3?goStep(wStep+1):submitEnroll(); } });
+  document.getElementById('w_curp').addEventListener('input',liveCurp);
+  document.getElementById('w_email').addEventListener('input',liveEmail);
+  document.getElementById('w_tel').addEventListener('input',liveTel);
+  authBody.querySelectorAll('#w_pagos .pay').forEach(p=>p.addEventListener('click',()=>{
+    authBody.querySelectorAll('#w_pagos .pay').forEach(x=>x.classList.remove('sel'));
+    p.classList.add('sel');p.querySelector('input').checked=true;
+  }));
+  goStep(0);
+}
+
+function goStep(n){
+  wStep=n;
+  authBody.querySelectorAll('.wstep').forEach(s=>s.classList.toggle('show',+s.dataset.s===n));
+  authBody.querySelectorAll('#stepper .st').forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('done',i<n);});
+  document.getElementById('wPrev').style.display=n===0?'none':'';
+  document.getElementById('wNext').textContent=n===3?'Finalizar inscripción':'Continuar';
+  if(n===3) updateResumen();
+}
+
+function updateResumen(){
+  const g=id=>document.getElementById(id).value;
+  document.getElementById('w_resumen').innerHTML=
+    '<b>'+g('w_carrera')+'</b> · Plan <b>'+g('w_plan')+'</b><br>'+
+    g('w_nombre')+'<br>'+g('w_email')+' · '+g('w_tel');
+}
+
+function show(id,ok,txt){
+  const m=document.getElementById(id);if(!m)return;
+  m.className='vmsg show '+(ok?'good':'bad');if(txt)m.textContent=txt;
+}
+function mark(id,ok){const e=document.getElementById(id);if(e){e.classList.toggle('valid',ok);e.classList.toggle('invalid',!ok);}}
+
+function liveCurp(e){
+  e.target.value=e.target.value.toUpperCase();
+  const v=e.target.value.trim();
+  if(!v){document.getElementById('m_curp').className='vmsg';mark('w_curp',false);e.target.classList.remove('invalid');return;}
+  const ok=CURP_RE.test(v);mark('w_curp',ok);
+  show('m_curp',ok,ok?'CURP válida ✓':'CURP no válida (revisa los 18 caracteres).');
+}
+function liveEmail(e){
+  const v=e.target.value.trim();
+  if(!v){document.getElementById('m_email').className='vmsg';e.target.classList.remove('invalid','valid');return;}
+  const ok=EMAIL_RE.test(v);mark('w_email',ok);
+  show('m_email',ok,ok?'Correo válido ✓':'Formato de correo no válido.');
+}
+function liveTel(e){
+  e.target.value=e.target.value.replace(/[^\d\s]/g,'');
+  const d=e.target.value.replace(/\D/g,'');
+  if(!d){document.getElementById('m_tel').className='vmsg';e.target.classList.remove('invalid','valid');return;}
+  const ok=d.length===10;mark('w_tel',ok);
+  show('m_tel',ok,ok?'Teléfono válido ✓':'Debe tener 10 dígitos.');
+}
+
+function validateStep(n){
+  const g=id=>document.getElementById(id).value.trim();
+  if(n===0) return !!g('w_carrera') && !!g('w_plan');
+  if(n===1){
+    let ok=true;
+    const nombre=g('w_nombre'); if(nombre.split(' ').filter(Boolean).length<2){show('m_nombre',false);mark('w_nombre',false);ok=false;}else mark('w_nombre',true);
+    const f=g('w_fnac'); if(!f){show('m_fnac',false);ok=false;}else{document.getElementById('m_fnac').className='vmsg';}
+    const est=g('w_estado'); if(!est){show('m_estado',false);ok=false;}else{document.getElementById('m_estado').className='vmsg';}
+    const curp=g('w_curp'); if(!CURP_RE.test(curp)){show('m_curp',false,'CURP no válida (revisa los 18 caracteres).');mark('w_curp',false);ok=false;}else mark('w_curp',true);
+    return ok;
+  }
+  if(n===2){
+    let ok=true;
+    if(!EMAIL_RE.test(g('w_email'))){show('m_email',false,'Formato de correo no válido.');mark('w_email',false);ok=false;}else mark('w_email',true);
+    if(g('w_tel').replace(/\D/g,'').length!==10){show('m_tel',false,'Debe tener 10 dígitos.');mark('w_tel',false);ok=false;}else mark('w_tel',true);
+    if(g('w_dir').length<6){show('m_dir',false);mark('w_dir',false);ok=false;}else mark('w_dir',true);
+    return ok;
+  }
+  if(n===3){
+    let ok=true;
+    const pago=authBody.querySelector('input[name="pago"]:checked');
+    if(!pago){show('m_pago',false);ok=false;}else document.getElementById('m_pago').className='vmsg';
+    if(!document.getElementById('w_acepta').checked){show('m_acepta',false);ok=false;}else document.getElementById('m_acepta').className='vmsg';
+    return ok;
+  }
+  return true;
+}
+
+function submitEnroll(){
+  const g=id=>document.getElementById(id).value.trim();
+  const data={
+    carrera:g('w_carrera'),plan:g('w_plan'),nombre:g('w_nombre'),
+    nacimiento:g('w_fnac'),estado:g('w_estado'),curp:g('w_curp'),
+    email:g('w_email'),telefono:g('w_tel'),direccion:g('w_dir'),
+    pago:(authBody.querySelector('input[name="pago"]:checked')||{}).value
+  };
+  // TODO: enviar 'data' a tu backend / CRM / hoja de cálculo aquí.
+  console.log('Inscripción UPD:',data);
+  authCard.classList.remove('wide');
+  authBody.innerHTML='<div class="auth-state"><div class="spinner"></div><p class="sub">Procesando tu inscripción…</p></div>';
+  setTimeout(()=>{
+    const folio='UPD-'+Math.floor(100000+Math.random()*900000);
+    const check='<div class="ok-check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>';
+    authBody.innerHTML='<div class="auth-state">'+check+'<h3>¡Inscripción registrada!</h3><p class="sub">Gracias, '+data.nombre.split(' ')[0]+'. Tu solicitud para <b>'+data.carrera+'</b> (Plan '+data.plan+') quedó registrada con folio <b>'+folio+'</b>. Te enviaremos los pasos de pago a <b>'+data.email+'</b>. 🎓</p></div><button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:18px;" onclick="closeAuth()">Entendido</button>';
+  },1400);
+}
+
+// --- chat ---
+const chatFab=document.getElementById('chatFab');
+const chatPanel=document.getElementById('chatPanel');
+const chatBody=document.getElementById('chatBody');
+const chatInput=document.getElementById('chatInput');
+const chatSend=document.getElementById('chatSend');
+chatFab.addEventListener('click',()=>chatPanel.classList.toggle('open'));
+function añadir(texto,clase){
+  const b=document.createElement('div');
+  b.className='bubble '+clase;b.textContent=texto;
+  chatBody.appendChild(b);chatBody.scrollTop=chatBody.scrollHeight;
+}
+function responder(){
+  añadir('Gracias por tu interés. Un asesor te dará todos los detalles y te ayudará con tu inscripción. 🎓','bot');
+}
+function enviar(){
+  const t=chatInput.value.trim();if(!t)return;
+  añadir(t,'me');chatInput.value='';
+  setTimeout(responder,600);
+}
+chatSend.addEventListener('click',enviar);
+chatInput.addEventListener('keydown',e=>{if(e.key==='Enter')enviar();});
+</script>
+
+</body>
+</html>
