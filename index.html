@@ -131,21 +131,11 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdro
 .step p{color:rgba(0,0,0,.6);font-size:13.5px;line-height:1.55;}
 
 /* carreras */
-.carreras{background:var(--blanco);}
-.carrera-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
-.carrera{background:var(--suave);border:2px solid transparent;border-radius:16px;padding:28px 24px;transition:.22s;cursor:default;position:relative;overflow:hidden;}
-.carrera::after{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(255,226,52,.0) 0%,rgba(255,226,52,.06) 100%);opacity:0;transition:.22s;}
-.carrera:hover{border-color:var(--amarillo);transform:translateY(-5px);box-shadow:0 20px 48px rgba(0,0,0,.1);}
-.carrera:hover::after{opacity:1;}
-.carrera .ic{width:50px;height:50px;border-radius:14px;background:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:.22s;}
-.carrera:hover .ic{background:var(--amarillo);}
-.carrera .ic svg{stroke:var(--amarillo);transition:.22s;}
-.carrera:hover .ic svg{stroke:var(--negro);}
-.carrera h3{font-size:15.5px;margin-bottom:8px;color:var(--negro);font-weight:800;}
-.carrera-meta{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
-.carrera-meta p{font-size:12.5px;color:var(--gris);}
-.carrera-arrow{font-size:18px;color:var(--linea);transition:.22s;font-weight:700;}
-.carrera:hover .carrera-arrow{color:var(--negro);transform:translateX(4px);}
+.carreras{background:var(--blanco);border-top:1px solid var(--linea);}
+.carreras-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;margin-top:52px;}
+.carreras-trust{margin-top:36px;display:flex;flex-direction:column;gap:12px;}
+.trust-item{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--gris);}
+.trust-dot{width:7px;height:7px;border-radius:50%;background:var(--amarillo);flex-shrink:0;}
 
 /* planes */
 .section-planes{background:var(--suave);}
@@ -366,20 +356,67 @@ footer{background:#0d0d1a;color:rgba(255,255,255,.5);padding:48px 0 32px;font-si
 .g-prefill svg{width:18px;height:18px;}
 .gchip{display:none;align-items:center;gap:8px;background:#E9F8EE;border:1px solid #2BAE66;color:#176B3E;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;margin-bottom:18px;}
 
-/* stats */
-.section-stats{background:var(--blanco);padding:64px 0;border-bottom:1px solid var(--linea);}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
-.stat-item{text-align:center;padding:24px 16px;border-right:1px solid var(--linea);}
-.stat-item:last-child{border-right:none;}
-.stat-num{font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:800;color:var(--negro);line-height:1;letter-spacing:-.04em;}
-.stat-label{font-size:13px;color:var(--gris);font-weight:600;margin-top:8px;letter-spacing:.02em;}
-
-@media(max-width:860px){
-  .stats-grid{grid-template-columns:repeat(2,1fr);}
-  .stat-item:nth-child(2){border-right:none;}
-  .stat-item:nth-child(3){border-top:1px solid var(--linea);border-right:1px solid var(--linea);}
-  .stat-item:last-child{border-top:1px solid var(--linea);}
-}
+/* wizard */
+.wizard{background:var(--blanco);border:1.5px solid var(--linea);border-radius:20px;padding:30px 28px;box-shadow:0 8px 40px rgba(0,0,0,.07);}
+.wiz-top{display:flex;align-items:center;gap:14px;margin-bottom:26px;}
+.wiz-progress{flex:1;height:4px;background:#EAEAEA;border-radius:99px;overflow:hidden;}
+.wiz-bar{height:100%;background:var(--amarillo);border-radius:99px;transition:width .45s cubic-bezier(.22,1,.36,1);}
+.wiz-step-label{font-size:11px;color:var(--gris);letter-spacing:.05em;white-space:nowrap;font-weight:600;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;}
+.wiz-screen{display:none;}
+.wiz-screen.active{display:block;animation:wizIn .28s cubic-bezier(.22,1,.36,1);}
+@keyframes wizIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.wiz-q{font-size:17px;font-weight:800;color:var(--negro);margin-bottom:16px;line-height:1.3;font-family:'Space Grotesk',sans-serif;}
+.wiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.wiz-opt{background:#FAFAFA;border:1.5px solid #E8E8E8;border-radius:11px;padding:13px 13px;text-align:left;cursor:pointer;transition:.18s;display:flex;align-items:center;gap:11px;color:var(--negro);font-family:inherit;width:100%;}
+.wiz-opt:hover{background:var(--blanco);border-color:var(--amarillo);box-shadow:0 3px 14px rgba(255,226,52,.22);}
+.wiz-opt-icon{width:34px;height:34px;flex-shrink:0;border-radius:8px;background:var(--blanco);border:1.5px solid #E8E8E8;display:flex;align-items:center;justify-content:center;transition:.18s;}
+.wiz-opt-icon svg{width:16px;height:16px;stroke:rgba(0,0,0,.5);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none;transition:.18s;flex-shrink:0;}
+.wiz-opt:hover .wiz-opt-icon{background:var(--amarillo);border-color:var(--amarillo);}
+.wiz-opt:hover .wiz-opt-icon svg{stroke:var(--negro);}
+.wiz-fh-icon svg{width:20px;height:20px;stroke:var(--negro);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none;}
+.wiz-opt-label{font-size:12.5px;font-weight:600;line-height:1.3;color:var(--negro);}
+.wiz-back{background:none;border:none;color:#aaa;font-size:12px;cursor:pointer;padding:0;margin-top:16px;transition:.2s;font-family:inherit;display:block;}
+.wiz-back:hover{color:var(--negro);}
+/* resultado */
+.wiz-result{text-align:center;padding:4px 0;}
+.wiz-res-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--navy);background:#EEF0FF;border-radius:99px;padding:5px 13px;margin-bottom:18px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;}
+.wiz-res-icon{width:56px;height:56px;border-radius:14px;background:var(--amarillo);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;box-shadow:0 6px 20px rgba(255,226,52,.3);}
+.wiz-res-title{font-size:20px;font-weight:800;color:var(--negro);margin-bottom:7px;font-family:'Space Grotesk',sans-serif;}
+.wiz-res-desc{font-size:13px;color:var(--gris);line-height:1.6;margin-bottom:6px;}
+.wiz-res-meta{font-size:11.5px;color:#bbb;margin-bottom:6px;}
+.wiz-res-match{display:inline-block;font-size:11.5px;font-weight:700;color:#1a7a3c;background:#e8f8ee;border-radius:99px;padding:4px 12px;margin-bottom:20px;}
+.wiz-res-actions{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.wiz-restart{background:none;border:none;color:#bbb;font-size:12.5px;cursor:pointer;font-family:inherit;transition:.2s;}
+.wiz-restart:hover{color:var(--negro);}
+.wiz-opts.col1{grid-template-columns:1fr;}
+/* form lead */
+.wiz-form-head{background:#F7F8FA;border:1.5px solid var(--linea);border-radius:12px;padding:12px 15px;display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.wiz-fh-icon{width:38px;height:38px;border-radius:9px;background:var(--amarillo);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;box-shadow:0 3px 10px rgba(255,226,52,.3);}
+.wiz-fh-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--gris);text-transform:uppercase;margin-bottom:2px;}
+.wiz-fh-title{font-size:14px;font-weight:800;color:var(--negro);line-height:1.2;}
+.wiz-fields{display:flex;flex-direction:column;gap:9px;margin-bottom:12px;}
+.wiz-field label{display:block;font-size:11.5px;font-weight:700;color:var(--negro);margin-bottom:4px;}
+.wiz-field input{width:100%;padding:11px 13px;border:1.5px solid var(--linea);border-radius:9px;font-size:14px;font-family:inherit;color:var(--negro);background:var(--blanco);box-sizing:border-box;transition:border-color .15s,box-shadow .15s;}
+.wiz-field input:focus{outline:none;border-color:var(--amarillo);box-shadow:0 0 0 3px rgba(255,226,52,.15);}
+.wiz-field input.err{border-color:#E0506B!important;box-shadow:none;}
+.wiz-captcha{background:#F7F8FA;border:1.5px solid var(--linea);border-radius:9px;padding:11px 14px;display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.wiz-captcha-q{font-size:13px;font-weight:600;color:var(--negro);flex:1;line-height:1.3;}
+.wiz-captcha input{width:62px;padding:9px 6px;border:1.5px solid var(--linea);border-radius:7px;font-size:16px;font-weight:700;text-align:center;font-family:'Space Grotesk',sans-serif;transition:border-color .15s;}
+.wiz-captcha input:focus{outline:none;border-color:var(--amarillo);}
+.wiz-captcha input.err{border-color:#E0506B!important;}
+.wiz-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;}
+.wiz-err{font-size:12px;color:#C0392B;background:#FEF0EF;border:1px solid #FAC0BB;border-radius:7px;padding:9px 12px;margin-bottom:12px;display:none;}
+.wiz-err.show{display:block;}
+.wiz-privacy{font-size:11px;color:#bbb;text-align:center;margin-top:8px;line-height:1.5;}
+/* éxito */
+.wiz-success{text-align:center;padding:12px 0;}
+.wiz-success-emoji{font-size:46px;margin-bottom:14px;line-height:1;}
+.wiz-success-title{font-size:20px;font-weight:800;color:var(--negro);margin-bottom:8px;font-family:'Space Grotesk',sans-serif;}
+.wiz-success-desc{font-size:13.5px;color:var(--gris);line-height:1.65;margin-bottom:18px;}
+.wiz-success-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.wiz-chip{font-size:12px;background:#F0FFF4;border:1px solid #A8DFB8;color:#1a7a3c;padding:5px 12px;border-radius:99px;font-weight:600;}
+@media(max-width:860px){.carreras-layout{grid-template-columns:1fr;gap:36px;}}
+@media(max-width:480px){.wiz-opts{grid-template-columns:1fr;}.wizard{padding:20px 16px;}}
 
 @media(max-width:860px){
   .nav-right .btn{padding:8px 14px;font-size:13px;}
@@ -389,7 +426,6 @@ footer{background:#0d0d1a;color:rgba(255,255,255,.5);padding:48px 0 32px;font-si
   .hero-copy h1{font-size:36px;}
   .hero-copy p{font-size:16px;}
   .steps{grid-template-columns:repeat(2,1fr);}
-  .carrera-grid{grid-template-columns:1fr;}
   .pick-grid{grid-template-columns:1fr;}
   .plan-grid{grid-template-columns:1fr;}
   .plan-pick select{min-width:0;width:100%;}
@@ -511,27 +547,6 @@ footer{background:#0d0d1a;color:rgba(255,255,255,.5);padding:48px 0 32px;font-si
   </div>
 </div>
 
-<!-- STATS -->
-<section class="section-stats">
-  <div class="wrap stats-grid">
-    <div class="stat-item reveal">
-      <div class="stat-num"><span data-count="2400">2400</span>+</div>
-      <div class="stat-label">Estudiantes activos</div>
-    </div>
-    <div class="stat-item reveal">
-      <div class="stat-num"><span data-count="50">50</span>+</div>
-      <div class="stat-label">Empresas aliadas</div>
-    </div>
-    <div class="stat-item reveal">
-      <div class="stat-num"><span data-count="6">6</span></div>
-      <div class="stat-label">Carreras con RVOE</div>
-    </div>
-    <div class="stat-item reveal">
-      <div class="stat-num">$<span data-count="599">599</span></div>
-      <div class="stat-label">Desde al mes</div>
-    </div>
-  </div>
-</section>
 
 <!-- COMO FUNCIONA -->
 <section class="section section-steps" id="como">
@@ -569,45 +584,144 @@ footer{background:#0d0d1a;color:rgba(255,255,255,.5);padding:48px 0 32px;font-si
   </div>
 </section>
 
-<!-- CARRERAS -->
+<!-- CARRERAS / WIZARD -->
 <section class="section carreras" id="carreras">
   <div class="wrap">
-    <div class="reveal">
-      <span class="eyebrow dark">Oferta académica</span>
-      <h2 class="title">Carreras para el mercado digital</h2>
-      <p class="lead">Seis programas con salida profesional clara, todos con RVOE vigente.</p>
-    </div>
-    <div class="carrera-grid">
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <h3>Desarrollo de Software</h3>
-        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
+    <div class="carreras-layout">
+
+      <!-- Columna izquierda -->
+      <div class="carreras-left reveal">
+        <span class="eyebrow">Oferta académica</span>
+        <h2 class="title">Descubre qué<br>carrera es la tuya</h2>
+        <p class="lead">Cuatro preguntas y un asesor te contacta con tu opción ideal.</p>
+        <div class="carreras-trust">
+          <div class="trust-item"><span class="trust-dot"></span>6 carreras con RVOE vigente ante la SEP</div>
+          <div class="trust-item"><span class="trust-dot"></span>100% en línea · sin horarios fijos</div>
+          <div class="trust-item"><span class="trust-dot"></span>Tutor con IA disponible 24/7</div>
+          <div class="trust-item"><span class="trust-dot"></span>Desde $599 al mes · beca automática por desempeño</div>
+        </div>
       </div>
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
-        <h3>Inteligencia Artificial y Datos</h3>
-        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
+
+      <!-- Columna derecha: wizard -->
+      <div class="reveal">
+        <div class="wizard">
+          <div class="wiz-top">
+            <div class="wiz-progress"><div class="wiz-bar" id="wizBar" style="width:0%"></div></div>
+            <span class="wiz-step-label" id="wizLabel">Paso 1 de 4</span>
+          </div>
+
+          <!-- Paso 1: situación -->
+          <div class="wiz-screen active" id="wizS1">
+            <p class="wiz-q">¿Cuál es tu situación actual?</p>
+            <div class="wiz-opts">
+              <button class="wiz-opt" data-s1="fresh"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3.33 1.67 8.67 1.67 12 0v-5"/></svg></span><span class="wiz-opt-label">Acabo de terminar el bachillerato</span></button>
+              <button class="wiz-opt" data-s1="job"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></span><span class="wiz-opt-label">Trabajo y quiero mejorar mis ingresos</span></button>
+              <button class="wiz-opt" data-s1="change"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span><span class="wiz-opt-label">Quiero cambiar de carrera o área</span></button>
+              <button class="wiz-opt" data-s1="biz"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span><span class="wiz-opt-label">Tengo un negocio y quiero crecer</span></button>
+            </div>
+          </div>
+
+          <!-- Paso 2: área de interés → determina carrera -->
+          <div class="wiz-screen" id="wizS2">
+            <p class="wiz-q">¿En qué área te gustaría especializarte?</p>
+            <div class="wiz-opts">
+              <button class="wiz-opt" data-s2="code"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><span class="wiz-opt-label">Crear apps y software</span></button>
+              <button class="wiz-opt" data-s2="data"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></span><span class="wiz-opt-label">Inteligencia artificial y datos</span></button>
+              <button class="wiz-opt" data-s2="mkt"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></span><span class="wiz-opt-label">Marketing digital y redes sociales</span></button>
+              <button class="wiz-opt" data-s2="sec"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="wiz-opt-label">Ciberseguridad y hacking ético</span></button>
+              <button class="wiz-opt" data-s2="ux"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg></span><span class="wiz-opt-label">Diseño de productos digitales</span></button>
+              <button class="wiz-opt" data-s2="biz"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span class="wiz-opt-label">Gestión y negocios digitales</span></button>
+            </div>
+            <button class="wiz-back" data-to="1">← Volver</button>
+          </div>
+
+          <!-- Paso 3: experiencia previa -->
+          <div class="wiz-screen" id="wizS3">
+            <p class="wiz-q">¿Cuál es tu nivel actual en tecnología?</p>
+            <div class="wiz-opts col1">
+              <button class="wiz-opt" data-s3="zero"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></span><span class="wiz-opt-label">Principiante — empiezo desde cero</span></button>
+              <button class="wiz-opt" data-s3="basic"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span><span class="wiz-opt-label">Básico — uso redes, Office y smartphone</span></button>
+              <button class="wiz-opt" data-s3="mid"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span class="wiz-opt-label">Intermedio — manejo algunas herramientas digitales</span></button>
+              <button class="wiz-opt" data-s3="pro"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span class="wiz-opt-label">Avanzado — ya trabajo en el área</span></button>
+            </div>
+            <button class="wiz-back" data-to="2">← Volver</button>
+          </div>
+
+          <!-- Paso 4: cuándo empezar -->
+          <div class="wiz-screen" id="wizS4">
+            <p class="wiz-q">¿Cuándo te gustaría comenzar?</p>
+            <div class="wiz-opts col1">
+              <button class="wiz-opt" data-s4="now"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span class="wiz-opt-label">Lo antes posible — quiero inscribirme ya</span></button>
+              <button class="wiz-opt" data-s4="soon"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span class="wiz-opt-label">En 1 a 3 meses — estoy preparándome</span></button>
+              <button class="wiz-opt" data-s4="eval"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="wiz-opt-label">Todavía evaluando — quiero más información</span></button>
+            </div>
+            <button class="wiz-back" data-to="3">← Volver</button>
+          </div>
+
+          <!-- Paso 5: formulario de contacto -->
+          <div class="wiz-screen" id="wizS5">
+            <div class="wiz-form-head">
+              <div class="wiz-fh-icon" id="fhIcon"></div>
+              <div>
+                <p class="wiz-fh-lbl">Tu carrera recomendada</p>
+                <p class="wiz-fh-title" id="fhTitle"></p>
+              </div>
+            </div>
+            <p class="wiz-q" style="margin-bottom:16px">Un asesor te contacta hoy — sin compromiso</p>
+
+            <!-- Honeypot: invisible para humanos, bots lo rellenan -->
+            <div class="wiz-hp" aria-hidden="true">
+              <label>Sitio web</label>
+              <input type="text" name="website" id="wizHp" tabindex="-1" autocomplete="off">
+            </div>
+
+            <form id="wizForm" novalidate>
+              <div class="wiz-fields">
+                <div class="wiz-field">
+                  <label for="wfName">Nombre completo *</label>
+                  <input type="text" id="wfName" placeholder="Ej: Ana García" autocomplete="name">
+                </div>
+                <div class="wiz-field">
+                  <label for="wfPhone">Teléfono celular (10 dígitos) *</label>
+                  <input type="tel" id="wfPhone" placeholder="55 1234 5678" autocomplete="tel" maxlength="15" inputmode="numeric">
+                </div>
+                <div class="wiz-field">
+                  <label for="wfEmail">Correo electrónico *</label>
+                  <input type="email" id="wfEmail" placeholder="tu@correo.com" autocomplete="email">
+                </div>
+              </div>
+
+              <!-- Captcha matemático -->
+              <div class="wiz-captcha">
+                <span class="wiz-captcha-q" id="wizMathQ">¿Cuánto es ? + ?</span>
+                <input type="number" id="wizMathA" placeholder="?" min="0" max="20" autocomplete="off" inputmode="numeric">
+              </div>
+
+              <p class="wiz-err" id="wizErrMsg">Revisa los campos marcados en rojo.</p>
+
+              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:15px;">Quiero que me contacten →</button>
+              <p class="wiz-privacy">Sin spam · Tus datos son confidenciales · Respuesta en &lt; 2 horas hábiles</p>
+            </form>
+            <button class="wiz-back" data-to="4" style="margin-top:10px;">← Volver</button>
+          </div>
+
+          <!-- Éxito -->
+          <div class="wiz-screen" id="wizSuccess">
+            <div class="wiz-success">
+              <div class="wiz-success-emoji"><svg viewBox="0 0 24 24" fill="none" stroke="#22863a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="52" height="52"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <h3 class="wiz-success-title">¡Listo! Te contactamos pronto</h3>
+              <p class="wiz-success-desc">Un asesor revisará tu perfil y se comunicará contigo en menos de <strong>2 horas hábiles</strong> para ayudarte a dar el siguiente paso hacia tu nueva carrera.</p>
+              <div class="wiz-success-chips">
+                <span class="wiz-chip">✓ RVOE vigente SEP</span>
+                <span class="wiz-chip">✓ 100% en línea</span>
+                <span class="wiz-chip">✓ Beca por desempeño</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-        <h3>Negocios Digitales</h3>
-        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
-      </div>
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16l-.08.92z"/></svg></div>
-        <h3>Marketing Digital</h3>
-        <div class="carrera-meta"><p>8 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
-      </div>
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Ciberseguridad</h3>
-        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
-      </div>
-      <div class="carrera reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-        <h3>Diseño UX/UI</h3>
-        <div class="carrera-meta"><p>8 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -795,8 +909,148 @@ const countObs=new IntersectionObserver((entries)=>{
 },{threshold:.5});
 document.querySelectorAll('[data-count]').forEach(el=>countObs.observe(el));
 
-// La experiencia interactiva (selección de carrera + lección estilo Duolingo)
-// vive ahora en inicio.html, a la que llega el botón "Comienza hoy".
+// --- wizard de carreras con anti-bot ---
+(function(){
+  const SVG = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">${d}</svg>`;
+  const careers = {
+    dev: { title:'Desarrollo de Software',         desc:'Crea aplicaciones web, móviles y sistemas escalables desde cero hasta producción.',           meta:'9 cuatrimestres · 100% en línea', icon: SVG('<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>') },
+    ia:  { title:'Inteligencia Artificial y Datos', desc:'Diseña modelos de machine learning y pipelines de datos para decisiones basadas en evidencia.', meta:'9 cuatrimestres · 100% en línea', icon: SVG('<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>') },
+    sec: { title:'Ciberseguridad',                  desc:'Protege infraestructuras críticas, detecta vulnerabilidades y responde a incidentes.',          meta:'9 cuatrimestres · 100% en línea', icon: SVG('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>') },
+    mkt: { title:'Marketing Digital',               desc:'Domina SEO, redes sociales y estrategias de conversión que generan resultados medibles.',       meta:'8 cuatrimestres · 100% en línea', icon: SVG('<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>') },
+    biz: { title:'Negocios Digitales',              desc:'Lidera empresas y startups en la economía digital con visión estratégica y tecnológica.',       meta:'9 cuatrimestres · 100% en línea', icon: SVG('<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>') },
+    ux:  { title:'Diseño UX/UI',                    desc:'Crea experiencias digitales que enamoran usuarios y disparan la retención de productos.',       meta:'8 cuatrimestres · 100% en línea', icon: SVG('<circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/><circle cx="12" cy="12" r="10"/>') },
+  };
+  const s2map = { code:'dev', data:'ia', mkt:'mkt', sec:'sec', ux:'ux', biz:'biz' };
+
+  const stepPct  = { 1:0, 2:25, 3:50, 4:75, 5:90, s:100 };
+  const stepLbl  = { 1:'Paso 1 de 4', 2:'Paso 2 de 4', 3:'Paso 3 de 4', 4:'Paso 4 de 4', 5:'Último paso', s:'¡Listo!' };
+  const allScreens = { 1:'wizS1', 2:'wizS2', 3:'wizS3', 4:'wizS4', 5:'wizS5', s:'wizSuccess' };
+
+  let s1val='', s2val='', s3val='', s4val='', formShownAt=0;
+  let mathA=0, mathB=0, mathAns=0;
+
+  const bar   = document.getElementById('wizBar');
+  const label = document.getElementById('wizLabel');
+
+  function show(key){
+    Object.values(allScreens).forEach(id=>{ const el=document.getElementById(id); if(el) el.classList.remove('active'); });
+    const el = document.getElementById(allScreens[key]);
+    if(el) el.classList.add('active');
+    bar.style.width = stepPct[key]+'%';
+    label.textContent = stepLbl[key];
+  }
+
+  // Navegar con data-s1..s4
+  document.querySelectorAll('[data-s1]').forEach(btn=>{
+    btn.addEventListener('click',()=>{ s1val=btn.dataset.s1; show(2); });
+  });
+  document.querySelectorAll('[data-s2]').forEach(btn=>{
+    btn.addEventListener('click',()=>{ s2val=btn.dataset.s2; show(3); });
+  });
+  document.querySelectorAll('[data-s3]').forEach(btn=>{
+    btn.addEventListener('click',()=>{ s3val=btn.dataset.s3; show(4); });
+  });
+  document.querySelectorAll('[data-s4]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      s4val=btn.dataset.s4;
+      // Rellenar header de carrera en el form
+      const key = s2map[s2val]||'dev';
+      const c = careers[key];
+      document.getElementById('fhIcon').innerHTML     = c.icon;
+      document.getElementById('fhTitle').textContent = c.title;
+      // Generar math captcha
+      mathA = Math.floor(Math.random()*9)+1;
+      mathB = Math.floor(Math.random()*9)+1;
+      mathAns = mathA + mathB;
+      document.getElementById('wizMathQ').textContent = '¿Cuánto es '+mathA+' + '+mathB+'?';
+      document.getElementById('wizMathA').value = '';
+      formShownAt = Date.now();
+      show(5);
+    });
+  });
+
+  // Botones "volver"
+  document.querySelectorAll('[data-to]').forEach(btn=>{
+    btn.addEventListener('click',()=>show(+btn.dataset.to));
+  });
+
+  // ---- Validación del formulario ----
+  const form = document.getElementById('wizForm');
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    const errEl = document.getElementById('wizErrMsg');
+    errEl.classList.remove('show');
+
+    const name  = document.getElementById('wfName');
+    const phone = document.getElementById('wfPhone');
+    const email = document.getElementById('wfEmail');
+    const mathEl= document.getElementById('wizMathA');
+    const hp    = document.getElementById('wizHp');
+    let ok = true;
+
+    // Limpiar errores previos
+    [name,phone,email,mathEl].forEach(el=>el.classList.remove('err'));
+
+    // 1. Honeypot — si tiene valor, es bot
+    if(hp.value.trim()!==''){
+      // Silenciosamente simular éxito para no revelar la trampa
+      show('s'); return;
+    }
+
+    // 2. Timing — menos de 3.5 s = bot
+    if(Date.now()-formShownAt < 3500){
+      errEl.textContent='Por favor, tómate un momento para revisar tus datos.';
+      errEl.classList.add('show'); return;
+    }
+
+    // 3. Nombre: mínimo 3 caracteres, solo letras y espacios
+    if(!/^[A-Za-záéíóúÁÉÍÓÚñÑüÜ\s]{3,}$/.test(name.value.trim())){
+      name.classList.add('err'); ok=false;
+    }
+
+    // 4. Teléfono: 10 dígitos (México)
+    const rawPhone = phone.value.replace(/\D/g,'');
+    if(rawPhone.length!==10){
+      phone.classList.add('err'); ok=false;
+    }
+
+    // 5. Email: formato básico
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){
+      email.classList.add('err'); ok=false;
+    }
+
+    // 6. Math captcha
+    if(parseInt(mathEl.value)!==mathAns){
+      mathEl.classList.add('err'); ok=false;
+    }
+
+    if(!ok){
+      errEl.textContent='Revisa los campos marcados en rojo.';
+      errEl.classList.add('show'); return;
+    }
+
+    // Todo correcto → recopilar datos y enviar
+    const payload = {
+      nombre:  name.value.trim(),
+      telefono:rawPhone,
+      email:   email.value.trim(),
+      situacion: s1val, area: s2val, nivel: s3val, inicio: s4val,
+      carrera: careers[s2map[s2val]||'dev'].title,
+      ts: new Date().toISOString(),
+    };
+
+    // Configura aquí tu endpoint (ej: tu backend, FormSubmit, Make/Zapier)
+    const FORM_ENDPOINT = ''; // ← pega tu URL aquí
+    if(FORM_ENDPOINT){
+      fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+        .catch(()=>{}); // fallo silencioso, la UX no sufre
+    } else {
+      console.log('[Wizard lead]', payload); // temporal hasta configurar endpoint
+    }
+
+    show('s');
+  });
+})();
 
 // --- inscripción desde planes ---
 const planCarrera=document.getElementById('planCarrera');
