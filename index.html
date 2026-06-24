@@ -4,106 +4,173 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Universidad Politécnica Digital — Aprende, certifica, titúlate</title>
-<meta name="description" content="Universidad 100% digital con RVOE ante la SEP. Aprende, certifica, titúlate y consigue empleo. Beca automática por desempeño desde $599 MXN/mes.">
+<meta name="description" content="Universidad 100% digital con RVOE ante la SEP. Titúlate en 3 años desde $599/mes. 100% en línea, flexible y con tutor IA 24/7.">
+<meta property="og:title" content="Universidad Politécnica Digital — Titúlate en línea">
+<meta property="og:description" content="Licenciatura oficial con RVOE. 100% digital, a tu ritmo, desde $599/mes.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#0A2342;
-  --navy-deep:#071830;
-  --amarillo:#FFC300;
-  --amarillo-deep:#E0AC00;
+  --navy:#1A1A2E;
+  --navy-deep:#111120;
+  --amarillo:#FFE234;
+  --amarillo-deep:#E5CB00;
   --negro:#111111;
-  --gris:#5B6472;
-  --linea:#E7EAEF;
-  --suave:#F7F8FA;
+  --gris:#717171;
+  --linea:#E2E2E2;
+  --suave:#F5F5F5;
   --blanco:#FFFFFF;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--negro);background:var(--blanco);line-height:1.6;-webkit-font-smoothing:antialiased;width:100%;overflow-x:hidden;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--negro);background:var(--blanco);line-height:1.6;-webkit-font-smoothing:antialiased;width:100%;overflow-x:hidden;}
 a{color:inherit;text-decoration:none;}
 img{max-width:100%;display:block;}
-h1,h2,h3{line-height:1.15;font-weight:800;color:var(--navy);}
+h1,h2,h3{line-height:1.1;font-weight:800;color:var(--negro);font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-0.02em;}
 .wrap{width:100%;margin:0 auto;padding:0 clamp(18px,4vw,56px);}
-.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:13px 26px;border-radius:8px;border:2px solid var(--navy);cursor:pointer;transition:.15s;font-family:inherit;}
-.btn-primary{background:var(--amarillo);border-color:var(--amarillo);color:var(--navy);}
-.btn-primary:hover{background:var(--navy);border-color:var(--navy);color:var(--blanco);}
-.btn-outline{background:transparent;color:var(--navy);}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:13px 28px;border-radius:10px;border:2px solid transparent;cursor:pointer;transition:.18s;font-family:inherit;}
+.btn-primary{background:var(--amarillo);border-color:var(--amarillo);color:var(--negro);box-shadow:0 4px 0 var(--amarillo-deep);}
+.btn-primary:hover{background:#d4ff3f;transform:translateY(-1px);}
+.btn-primary:active{transform:translateY(3px);box-shadow:none;}
+.btn-outline{background:transparent;color:var(--navy);border-color:var(--navy);}
 .btn-outline:hover{background:var(--navy);color:var(--blanco);}
-.eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amarillo);margin-bottom:16px;}
-.eyebrow.dark{color:var(--amarillo-deep);}
-.section{padding:90px 0;}
-.section h2.title{font-size:32px;}
-.section .lead{color:var(--gris);font-size:17px;margin-top:12px;max-width:560px;}
+.eyebrow{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--navy);margin-bottom:16px;}
+.eyebrow.dark{color:var(--navy);}
+.section{padding:96px 0;}
+.section h2.title{font-size:36px;letter-spacing:-.02em;}
+.section .lead{color:var(--gris);font-size:16px;margin-top:12px;max-width:520px;line-height:1.65;}
+.beca-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(198,241,53,.15);border:1px solid rgba(168,208,32,.4);border-radius:30px;padding:7px 16px;font-size:13px;font-weight:700;color:var(--negro);margin-top:28px;}
+.beca-badge b{color:var(--navy);}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
 .reveal.in{opacity:1;transform:none;}
 
 /* nav */
-header{position:sticky;top:0;z-index:50;background:var(--blanco);border-bottom:1px solid var(--linea);}
-.nav{display:flex;align-items:center;justify-content:space-between;height:70px;}
-.brand{display:flex;align-items:center;gap:11px;font-weight:800;color:var(--navy);font-size:16px;}
-.logo{width:36px;height:36px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.logo svg{stroke:var(--amarillo);}
-.nav-links{display:flex;gap:30px;font-size:15px;font-weight:600;}
-.nav-links a{position:relative;}
-.nav-links a:hover,.nav-links a.active{color:var(--amarillo-deep);}
-.nav-right{display:flex;align-items:center;gap:16px;}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--linea);}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--negro);font-size:15px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.01em;}
+.logo{width:34px;height:34px;border-radius:9px;background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo-text{font-size:12px;font-weight:800;color:var(--amarillo);letter-spacing:.02em;font-family:'Space Grotesk',sans-serif;}
+.nav-links{display:flex;gap:28px;font-size:14px;font-weight:600;}
+.nav-links a{position:relative;color:var(--gris);}
+.nav-links a:hover,.nav-links a.active{color:var(--navy);}
+.nav-right{display:flex;align-items:center;gap:14px;}
 .burger{display:none;background:none;border:none;cursor:pointer;padding:6px;}
-.burger span{display:block;width:24px;height:2.5px;background:var(--navy);margin:5px 0;border-radius:2px;transition:.25s;}
-.burger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+.burger span{display:block;width:22px;height:2px;background:var(--negro);margin:5px 0;border-radius:2px;transition:.25s;}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .burger.open span:nth-child(2){opacity:0;}
-.burger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
 /* hero */
-.hero{background:var(--navy);color:var(--blanco);padding:96px 0;}
-.hero h1{color:var(--blanco);font-size:54px;}
-.hero h1 b{color:var(--amarillo);}
-.hero p{color:rgba(255,255,255,.82);font-size:19px;max-width:560px;margin:22px 0 36px;}
-.hero .btn-outline{color:var(--blanco);border-color:rgba(255,255,255,.5);}
-.hero .btn-outline:hover{background:var(--amarillo);border-color:var(--amarillo);color:var(--navy);}
-.hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
-.hero-trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:40px;}
-.hero-trust span{display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.7);font-weight:600;}
-.hero-trust b{color:var(--amarillo);font-size:22px;font-weight:800;}
+.hero{position:relative;overflow:hidden;color:var(--blanco);padding:110px 0 100px;min-height:600px;display:flex;align-items:center;}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,#111120 0%,rgba(26,26,46,.92) 35%,rgba(26,26,46,.6) 55%,rgba(17,17,32,.05) 100%);z-index:1;}
+.hero::after{content:'';position:absolute;top:-120px;left:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,226,52,.12) 0%,transparent 70%);z-index:1;pointer-events:none;}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:65% center;filter:brightness(.7) saturate(1.15);}
+.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:0;width:100%;}
+.hero-copy{max-width:600px;}
+.hero-copy .eyebrow{color:var(--amarillo);background:rgba(255,226,52,.12);border:1px solid rgba(255,226,52,.25);border-radius:20px;padding:5px 14px;display:inline-block;}
+.hero-copy h1{color:var(--blanco);font-size:72px;line-height:.98;letter-spacing:-.04em;margin-top:20px;}
+.hero-copy h1 b{color:var(--amarillo);display:inline-block;position:relative;}
+.hero-copy h1 b::after{content:'';position:absolute;left:0;bottom:-4px;width:100%;height:4px;background:var(--amarillo);border-radius:2px;opacity:.5;}
+.hero-copy p{color:rgba(255,255,255,.68);font-size:17px;max-width:420px;margin:24px 0 36px;line-height:1.75;}
+.hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.hero-link{font-size:14px;color:rgba(255,255,255,.5);font-weight:600;transition:.15s;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,.2);}
+.hero-link:hover{color:var(--amarillo);}
+.hero-trust{display:flex;gap:12px;margin-top:44px;flex-wrap:wrap;}
+.trust-chip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:30px;padding:7px 14px;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.8);}
+.trust-chip b{color:var(--amarillo);}
+
+/* hero carousel */
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;}
+.hero-slide.active{opacity:1;}
+.hero-slide img{width:100%;height:100%;object-fit:cover;object-position:75% center;filter:brightness(.92) saturate(1.15) contrast(1.04);}
+.hero-slide.active img{animation:kenburns 9s ease-out forwards;}
+@keyframes kenburns{from{transform:scale(1) translate(0,0);}to{transform:scale(1.09) translate(-1.5%,-1%);}}
+
+/* carousel dots */
+.carousel-dots{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:8px;}
+.c-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;padding:0;transition:.3s;}
+.c-dot.active{background:var(--amarillo);width:24px;border-radius:4px;}
+
+/* ticker */
+.ticker-wrap{background:var(--negro);padding:13px 0;overflow:hidden;}
+.ticker-track{display:flex;width:max-content;animation:ticker 28s linear infinite;}
+.ticker-track:hover{animation-play-state:paused;}
+.tick-item{display:inline-flex;align-items:center;gap:8px;padding:0 40px;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.55);white-space:nowrap;letter-spacing:.04em;text-transform:uppercase;}
+.tick-item b{color:var(--amarillo);}
+.tick-sep{color:var(--amarillo);font-size:10px;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* hero badge */
+.hero-badge-wrap{display:flex;align-items:flex-end;justify-content:flex-end;padding-bottom:48px;}
+.hero-badge{background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:18px 22px;display:flex;align-items:center;gap:14px;max-width:240px;animation:floatbadge 4s ease-in-out infinite;}
+@keyframes floatbadge{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.badge-dot{width:10px;height:10px;border-radius:50%;background:var(--amarillo);flex-shrink:0;animation:pulse 2s infinite;}
+.hero-badge p{font-size:14px;font-weight:800;color:var(--blanco);line-height:1.3;font-family:'Space Grotesk',sans-serif;}
+.hero-badge span{display:block;font-size:12px;color:rgba(255,255,255,.5);font-weight:500;margin-top:3px;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,226,52,.7);}60%{box-shadow:0 0 0 8px rgba(255,226,52,0);}}
 
 /* steps */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:50px;}
-.step{text-align:center;}
-.step .num{width:66px;height:66px;border-radius:16px;background:var(--amarillo);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;cursor:pointer;transition:transform .3s ease,box-shadow .3s ease,border-radius .3s ease;}
-.step .num svg{stroke:var(--navy);width:34px;height:34px;transition:transform .3s ease;}
-.step:hover .num{transform:translateY(-6px) scale(1.08) rotate(-4deg);border-radius:22px;box-shadow:0 14px 26px rgba(0,0,0,.18);}
-.step:hover .num svg{transform:scale(1.12);}
-.step h3{font-size:19px;margin-bottom:8px;}
-.step p{color:var(--gris);font-size:15px;}
+.section-steps{background:var(--amarillo);padding:88px 0;}
+.section-steps .eyebrow{color:rgba(0,0,0,.5);}
+.section-steps h2.title{color:var(--negro);}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:52px;position:relative;}
+.steps::before{content:'';position:absolute;top:34px;left:calc(12.5% + 34px);right:calc(12.5% + 34px);height:1px;background:rgba(0,0,0,.15);z-index:0;}
+.step{text-align:center;padding:0 12px;position:relative;z-index:1;}
+.step-num{width:68px;height:68px;border-radius:50%;background:var(--negro);border:none;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;transition:.3s;box-shadow:0 6px 20px rgba(0,0,0,.2);}
+.step-num-inner{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--amarillo);}
+.step:hover .step-num{transform:translateY(-6px) scale(1.08);box-shadow:0 16px 32px rgba(0,0,0,.25);}
+.step-ic{width:32px;height:32px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;}
+.step-ic svg{stroke:rgba(0,0,0,.55);transition:.3s;}
+.step:hover .step-ic svg{stroke:var(--negro);}
+.step h3{font-size:16px;margin-bottom:8px;color:var(--negro);font-weight:800;}
+.step p{color:rgba(0,0,0,.6);font-size:13.5px;line-height:1.55;}
 
 /* carreras */
-.carreras{background:var(--suave);}
-.carrera-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px;}
-.carrera{background:var(--blanco);border:1px solid var(--linea);border-radius:12px;padding:26px;transition:.15s;}
-.carrera:hover{border-color:var(--amarillo);transform:translateY(-3px);}
-.carrera .ic{width:44px;height:44px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
-.carrera .ic svg{stroke:var(--amarillo);}
-.carrera h3{font-size:16.5px;margin-bottom:6px;}
-.carrera p{font-size:13.5px;color:var(--gris);}
+.carreras{background:var(--blanco);}
+.carrera-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
+.carrera{background:var(--suave);border:2px solid transparent;border-radius:16px;padding:28px 24px;transition:.22s;cursor:default;position:relative;overflow:hidden;}
+.carrera::after{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(255,226,52,.0) 0%,rgba(255,226,52,.06) 100%);opacity:0;transition:.22s;}
+.carrera:hover{border-color:var(--amarillo);transform:translateY(-5px);box-shadow:0 20px 48px rgba(0,0,0,.1);}
+.carrera:hover::after{opacity:1;}
+.carrera .ic{width:50px;height:50px;border-radius:14px;background:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:.22s;}
+.carrera:hover .ic{background:var(--amarillo);}
+.carrera .ic svg{stroke:var(--amarillo);transition:.22s;}
+.carrera:hover .ic svg{stroke:var(--negro);}
+.carrera h3{font-size:15.5px;margin-bottom:8px;color:var(--negro);font-weight:800;}
+.carrera-meta{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+.carrera-meta p{font-size:12.5px;color:var(--gris);}
+.carrera-arrow{font-size:18px;color:var(--linea);transition:.22s;font-weight:700;}
+.carrera:hover .carrera-arrow{color:var(--negro);transform:translateX(4px);}
 
 /* planes */
-.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;align-items:stretch;}
-.plan{position:relative;background:var(--blanco);border:1px solid var(--linea);border-radius:14px;padding:34px 28px;display:flex;flex-direction:column;transition:.15s;}
-.plan:hover{transform:translateY(-3px);}
-.plan.destacado{border:2px solid var(--amarillo);box-shadow:0 16px 40px rgba(10,35,66,.12);}
-.tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--amarillo);color:var(--navy);font-size:11px;font-weight:800;letter-spacing:.06em;padding:5px 16px;border-radius:30px;white-space:nowrap;}
-.plan h3{font-size:21px;}
-.plan .desc{color:var(--gris);font-size:14px;margin:4px 0 22px;}
-.precio{font-size:42px;font-weight:800;color:var(--navy);}
-.precio span{font-size:15px;font-weight:600;color:var(--gris);}
-.plan .total{font-size:13px;color:var(--gris);margin-top:6px;}
-.plan .total b{color:var(--navy);font-weight:700;}
-.plan ul{list-style:none;margin:24px 0 28px;display:flex;flex-direction:column;gap:11px;}
-.plan li{font-size:14.5px;padding-left:26px;position:relative;}
-.plan li::before{content:"";position:absolute;left:0;top:6px;width:15px;height:15px;border-radius:50%;background:var(--amarillo);}
-.plan li::after{content:"";position:absolute;left:4.5px;top:9.5px;width:4px;height:7px;border-right:2px solid var(--navy);border-bottom:2px solid var(--navy);transform:rotate(45deg);}
+.section-planes{background:var(--suave);}
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px;align-items:stretch;}
+.plan{position:relative;background:var(--blanco);border:2px solid var(--linea);border-radius:20px;padding:34px 28px;display:flex;flex-direction:column;transition:.2s;}
+.plan:hover{transform:translateY(-4px);box-shadow:0 24px 56px rgba(0,0,0,.09);}
+.plan.destacado{border:2px solid var(--negro);background:var(--negro);box-shadow:0 24px 60px rgba(0,0,0,.22);}
+.plan.destacado h3,.plan.destacado .desc,.plan.destacado li,.plan.destacado .total,.plan.destacado .precio{color:var(--blanco);}
+.plan.destacado .precio span,.plan.destacado .total{color:rgba(255,255,255,.5);}
+.plan.destacado .total b{color:rgba(255,255,255,.85);}
+.plan.destacado li::before{background:var(--amarillo);}
+.plan.destacado li::after{border-right-color:var(--negro);border-bottom-color:var(--negro);}
+.tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--amarillo);color:var(--negro);font-size:10.5px;font-weight:800;letter-spacing:.08em;padding:5px 16px;border-radius:30px;white-space:nowrap;font-family:'Space Grotesk',sans-serif;}
+.plan h3{font-size:20px;color:var(--negro);font-weight:800;}
+.plan .desc{color:var(--gris);font-size:13px;margin:5px 0 22px;}
+.precio{font-size:44px;font-weight:800;color:var(--negro);font-family:'Space Grotesk',sans-serif;letter-spacing:-.04em;line-height:1;}
+.precio span{font-size:14px;font-weight:600;color:var(--gris);}
+.plan .total{font-size:12px;color:var(--gris);margin-top:8px;}
+.plan .total b{color:var(--negro);font-weight:700;}
+.plan ul{list-style:none;margin:22px 0 28px;display:flex;flex-direction:column;gap:11px;}
+.plan li{font-size:14px;padding-left:24px;position:relative;color:var(--negro);}
+.plan li::before{content:"";position:absolute;left:0;top:5px;width:14px;height:14px;border-radius:50%;background:var(--amarillo);}
+.plan li::after{content:"";position:absolute;left:4px;top:8.5px;width:3.5px;height:6.5px;border-right:2px solid var(--negro);border-bottom:2px solid var(--negro);transform:rotate(45deg);}
 .plan .btn{margin-top:auto;justify-content:center;}
+.plan.destacado .btn{background:var(--amarillo);border-color:var(--amarillo);color:var(--negro);}
 
 /* beca */
 .beca{background:var(--amarillo);}
@@ -114,13 +181,13 @@ header{position:sticky;top:0;z-index:50;background:var(--blanco);border-bottom:1
 .beca-copy p{color:var(--navy);font-size:17px;opacity:.85;}
 
 /* faq */
-.faq{max-width:760px;margin:48px auto 0;}
+.faq{max-width:720px;margin:48px auto 0;}
 .faq details{border-bottom:1px solid var(--linea);}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:20px 4px;font-weight:700;font-size:16px;color:var(--navy);}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:20px 2px;font-weight:700;font-size:15.5px;color:var(--negro);}
 .faq summary::-webkit-details-marker{display:none;}
-.faq summary .pl{font-size:24px;color:var(--amarillo-deep);transition:.2s;line-height:1;}
+.faq summary .pl{font-size:22px;color:var(--navy);transition:.2s;line-height:1;font-weight:400;}
 .faq details[open] summary .pl{transform:rotate(45deg);}
-.faq .ans{padding:0 4px 22px;color:var(--gris);font-size:15px;}
+.faq .ans{padding:0 2px 20px;color:var(--gris);font-size:14.5px;line-height:1.65;}
 
 /* form */
 .contacto{background:var(--navy);color:var(--blanco);}
@@ -139,31 +206,31 @@ header{position:sticky;top:0;z-index:50;background:var(--blanco);border-bottom:1
 .form-ok.show{display:block;}
 
 /* footer */
-footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:46px 0 30px;font-size:14px;}
+footer{background:#0d0d1a;color:rgba(255,255,255,.5);padding:48px 0 32px;font-size:14px;}
 .foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:28px;}
 .foot-top .brand{color:var(--blanco);}
 .foot-links{display:flex;gap:28px;flex-wrap:wrap;}
 .foot-links a:hover{color:var(--amarillo);}
-.foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;}
 
 /* chat */
-.chat-fab{position:fixed;bottom:24px;right:24px;z-index:60;width:58px;height:58px;border-radius:50%;background:var(--amarillo);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(10,35,66,.3);transition:.15s;}
-.chat-fab:hover{transform:scale(1.06);}
-.chat-fab svg{stroke:var(--navy);}
-.chat-panel{position:fixed;bottom:92px;right:24px;z-index:60;width:300px;background:var(--blanco);border-radius:16px;box-shadow:0 24px 50px rgba(10,35,66,.28);overflow:hidden;display:none;}
+.chat-fab{position:fixed;bottom:24px;right:24px;z-index:60;width:54px;height:54px;border-radius:50%;background:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(61,59,214,.4);transition:.18s;}
+.chat-fab:hover{transform:scale(1.08);}
+.chat-fab svg{stroke:var(--amarillo);}
+.chat-panel{position:fixed;bottom:88px;right:24px;z-index:60;width:300px;background:var(--blanco);border-radius:16px;box-shadow:0 24px 60px rgba(20,20,43,.22);overflow:hidden;display:none;}
 .chat-panel.open{display:block;}
-.chat-head{background:var(--navy);color:var(--blanco);padding:16px 18px;}
+.chat-head{background:var(--navy);color:var(--blanco);padding:15px 18px;}
 .chat-head b{font-size:14px;}
-.chat-head span{display:block;font-size:11.5px;color:rgba(255,255,255,.6);}
-.chat-body{padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--suave);min-height:170px;max-height:280px;overflow-y:auto;}
-.bubble{max-width:82%;padding:10px 13px;border-radius:13px;font-size:13.5px;line-height:1.45;}
+.chat-head span{display:block;font-size:11.5px;color:rgba(255,255,255,.55);}
+.chat-body{padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--suave);min-height:160px;max-height:260px;overflow-y:auto;}
+.bubble{max-width:82%;padding:10px 13px;border-radius:12px;font-size:13.5px;line-height:1.45;}
 .bubble.bot{background:var(--blanco);border:1px solid var(--linea);align-self:flex-start;}
 .bubble.me{background:var(--navy);color:var(--blanco);align-self:flex-end;}
 .chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--linea);}
 .chat-input input{flex:1;border:1.5px solid var(--linea);border-radius:8px;padding:9px 12px;font-size:13.5px;font-family:inherit;}
-.chat-input input:focus{outline:none;border-color:var(--amarillo);}
-.chat-input button{background:var(--amarillo);border:none;border-radius:8px;width:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.chat-input button svg{stroke:var(--navy);}
+.chat-input input:focus{outline:none;border-color:var(--navy);}
+.chat-input button{background:var(--navy);border:none;border-radius:8px;width:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.chat-input button svg{stroke:var(--amarillo);}
 
 /* prueba interactiva */
 .demo{background:var(--suave);}
@@ -299,17 +366,34 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:46px 0 30p
 .g-prefill svg{width:18px;height:18px;}
 .gchip{display:none;align-items:center;gap:8px;background:#E9F8EE;border:1px solid #2BAE66;color:#176B3E;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;margin-bottom:18px;}
 
+/* stats */
+.section-stats{background:var(--blanco);padding:64px 0;border-bottom:1px solid var(--linea);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.stat-item{text-align:center;padding:24px 16px;border-right:1px solid var(--linea);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:800;color:var(--negro);line-height:1;letter-spacing:-.04em;}
+.stat-label{font-size:13px;color:var(--gris);font-weight:600;margin-top:8px;letter-spacing:.02em;}
+
+@media(max-width:860px){
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stat-item:nth-child(2){border-right:none;}
+  .stat-item:nth-child(3){border-top:1px solid var(--linea);border-right:1px solid var(--linea);}
+  .stat-item:last-child{border-top:1px solid var(--linea);}
+}
+
 @media(max-width:860px){
   .nav-right .btn{padding:8px 14px;font-size:13px;}
-  .hero h1{font-size:36px;}
-  .hero p{font-size:17px;}
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-badge-wrap{display:none;}
+  .hero::before{background:linear-gradient(180deg,rgba(42,40,168,.92) 0%,rgba(42,40,168,.7) 100%);}
+  .hero-copy h1{font-size:36px;}
+  .hero-copy p{font-size:16px;}
   .steps{grid-template-columns:repeat(2,1fr);}
   .carrera-grid{grid-template-columns:1fr;}
   .pick-grid{grid-template-columns:1fr;}
   .plan-grid{grid-template-columns:1fr;}
   .plan-pick select{min-width:0;width:100%;}
   .wrow,.pay-grid{grid-template-columns:1fr;}
-  .beca .big{font-size:72px;}
   .section{padding:64px 0;}
 }
 @media(max-width:560px){
@@ -317,12 +401,10 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:46px 0 30p
   .nav{height:auto;min-height:62px;flex-wrap:wrap;gap:10px;padding:10px 0;}
   .brand{font-size:14px;gap:8px;}
   .nav-right{gap:8px;margin-left:auto;}
-  .hero{padding:64px 0;}
-  .hero h1{font-size:29px;}
-  .hero p{font-size:16px;margin:18px 0 28px;}
-  .hero-actions{flex-direction:column;align-items:stretch;}
-  .hero-actions .btn{justify-content:center;}
-  .hero-trust{gap:18px;}
+  .hero{padding:56px 0;}
+  .hero-copy h1{font-size:28px;}
+  .hero-copy p{font-size:15px;margin:16px 0 24px;}
+  .hero-trust{flex-wrap:wrap;gap:8px;}
   .steps{grid-template-columns:1fr;gap:18px;}
   .section{padding:52px 0;}
   .section h2.title,.contacto h2,.beca-copy h2{font-size:24px;}
@@ -342,7 +424,7 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:46px 0 30p
 <header>
   <div class="wrap nav">
     <a href="#" class="brand">
-      <span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M8 12a3 3 0 1 1 3 3c-3 0-3-6 0-6a3 3 0 1 1 3 3"/></svg></span>
+      <span class="logo"><span class="logo-text">UPD</span></span>
       Universidad Politécnica Digital
     </a>
     <div class="nav-right">
@@ -354,34 +436,135 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:46px 0 30p
 
 <!-- HERO -->
 <section class="hero">
-  <div class="wrap">
-    <span class="eyebrow">Universidad con RVOE ante la SEP</span>
-    <h1>Prepárate. Titúlate.<br><b>Despega.</b></h1>
-    <p>Educación universitaria 100% digital. De la primera lección al primer empleo, todo en una sola plataforma.</p>
-    <div class="hero-actions">
-      <a href="inicio.html" class="btn btn-primary">Comienza hoy</a>
-      <a href="#como" class="btn btn-outline">Cómo funciona</a>
+  <!-- Carrusel de fondo -->
+  <div class="hero-bg">
+    <div class="hero-slide active">
+      <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1400&q=80&auto=format&fit=crop" alt="Graduación universitaria">
     </div>
-    <div class="hero-trust">
-      <span><b>+50</b> empresas aliadas</span>
-      <span><b>24/7</b> tutor con IA</span>
-      <span><b>100%</b> en línea</span>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1400&q=80&auto=format&fit=crop" alt="Estudiantes universitarios">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&q=80&auto=format&fit=crop" alt="Equipo colaborando">
+    </div>
+    <div class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1400&q=80&auto=format&fit=crop" alt="Estudiante en línea">
+    </div>
+  </div>
+
+  <!-- Dots del carrusel -->
+  <div class="carousel-dots" id="carouselDots"></div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">Universidad con RVOE ante la SEP</span>
+      <h1>Prepárate.<br>Titúlate.<br><b>Despega.</b></h1>
+      <p>Licenciatura 100% digital. Cambia tu futuro y el de tu familia desde donde estás.</p>
+      <div class="hero-actions">
+        <a href="inicio.html" class="btn btn-primary">Comienza gratis hoy</a>
+        <a href="#como" class="hero-link">Ver cómo funciona ↓</a>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-chip"><b>✓</b> Título con RVOE</span>
+        <span class="trust-chip"><b>24/7</b> Tutor IA</span>
+        <span class="trust-chip"><b>Desde</b> $599/mes</span>
+      </div>
+    </div>
+    <div class="hero-badge-wrap">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <div>
+          <p>+2,400 estudiantes</p>
+          <span>están cambiando su vida hoy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="tick-item"><b>✦</b> RVOE vigente ante la SEP</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>+2,400</b> estudiantes activos</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>24/7</b> Tutor con IA</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>100%</b> en línea y flexible</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>Beca automática</b> por desempeño</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>+50</b> empresas aliadas</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>✦</b> RVOE vigente ante la SEP</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>+2,400</b> estudiantes activos</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>24/7</b> Tutor con IA</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>100%</b> en línea y flexible</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>Beca automática</b> por desempeño</span>
+    <span class="tick-item tick-sep">·</span>
+    <span class="tick-item"><b>+50</b> empresas aliadas</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="section-stats">
+  <div class="wrap stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-num"><span data-count="2400">2400</span>+</div>
+      <div class="stat-label">Estudiantes activos</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num"><span data-count="50">50</span>+</div>
+      <div class="stat-label">Empresas aliadas</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num"><span data-count="6">6</span></div>
+      <div class="stat-label">Carreras con RVOE</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">$<span data-count="599">599</span></div>
+      <div class="stat-label">Desde al mes</div>
     </div>
   </div>
 </section>
 
 <!-- COMO FUNCIONA -->
-<section class="section" id="como">
+<section class="section section-steps" id="como">
   <div class="wrap">
     <div class="reveal">
       <span class="eyebrow dark">El camino UPD</span>
       <h2 class="title">Cuatro pasos, una sola plataforma</h2>
     </div>
     <div class="steps">
-      <div class="step reveal"><div class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"/><path d="M3.5 20c0-3.6 2.4-5.6 5.5-5.6 1 0 1.9.2 2.7.6"/><path d="M18 7.5v6M15 10.5h6"/></svg></div><h3>Inscríbete</h3><p>Proceso 100% en línea en minutos: elige tu carrera y empieza hoy mismo.</p></div>
-      <div class="step reveal"><div class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5h7a2 2 0 0 1 2 2V20a1.7 1.7 0 0 0-1.7-1.7H3z"/><path d="M21 5.5h-7a2 2 0 0 0-2 2V20a1.7 1.7 0 0 1 1.7-1.7H21z"/></svg></div><h3>Aprende</h3><p>Lecciones cortas, rutas guiadas y un tutor con IA disponible 24/7.</p></div>
-      <div class="step reveal"><div class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 0 1 12.7-5.4L20 9"/><path d="M20 4v5h-5"/><path d="M19.5 12a7.5 7.5 0 0 1-12.7 5.4L4 15"/><path d="M4 20v-5h5"/></svg></div><h3>Actualízate</h3><p>Mantente vigente con cursos y microcertificaciones que evolucionan contigo.</p></div>
-      <div class="step reveal"><div class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5l9 4.5-9 4.5-9-4.5z"/><path d="M7 11.5v4.5c0 1.5 2.2 3 5 3s5-1.5 5-3v-4.5"/><path d="M21 9.5v5"/></svg></div><h3>Titúlate</h3><p>Licenciatura con validez oficial (RVOE) ante la SEP.</p></div>
+      <div class="step reveal">
+        <div class="step-num"><span class="step-num-inner">01</span></div>
+        <div class="step-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Inscríbete</h3>
+        <p>Proceso 100% en línea en minutos: elige tu carrera y empieza hoy mismo.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num"><span class="step-num-inner">02</span></div>
+        <div class="step-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <h3>Aprende</h3>
+        <p>Lecciones cortas, rutas guiadas y un tutor con IA disponible 24/7.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num"><span class="step-num-inner">03</span></div>
+        <div class="step-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3>Certifícate</h3>
+        <p>Obtén microcertificaciones por cada módulo que acreditas.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num"><span class="step-num-inner">04</span></div>
+        <div class="step-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <h3>Titúlate</h3>
+        <p>Licenciatura con validez oficial RVOE ante la SEP.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -395,23 +578,48 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:46px 0 30p
       <p class="lead">Seis programas con salida profesional clara, todos con RVOE vigente.</p>
     </div>
     <div class="carrera-grid">
-      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8l-5 4.5L9 17M15 8l5 4.5-5 4.5"/></svg></div><h3>Desarrollo de Software</h3><p>9 cuatrimestres · 100% en línea</p></div>
-      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/><path d="M12 3v2.3M12 18.7V21M4.5 12H6.5M17.5 12h2"/></svg></div><h3>Inteligencia Artificial y Datos</h3><p>9 cuatrimestres · 100% en línea</p></div>
-      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V9.5M9.5 20V4.5M15 20v-7M20.5 20V8"/></svg></div><h3>Negocios Digitales</h3><p>9 cuatrimestres · 100% en línea</p></div>
-      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/></svg></div><h3>Marketing Digital</h3><p>8 cuatrimestres · 100% en línea</p></div>
-      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="10.5" width="13" height="9" rx="2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/></svg></div><h3>Ciberseguridad</h3><p>9 cuatrimestres · 100% en línea</p></div>
-      <div class="carrera reveal"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M8.3 11h.01M11 8h.01M14.7 9h.01"/></svg></div><h3>Diseño UX/UI</h3><p>8 cuatrimestres · 100% en línea</p></div>
+      <div class="carrera reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>Desarrollo de Software</h3>
+        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
+      </div>
+      <div class="carrera reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+        <h3>Inteligencia Artificial y Datos</h3>
+        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
+      </div>
+      <div class="carrera reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3>Negocios Digitales</h3>
+        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
+      </div>
+      <div class="carrera reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16l-.08.92z"/></svg></div>
+        <h3>Marketing Digital</h3>
+        <div class="carrera-meta"><p>8 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
+      </div>
+      <div class="carrera reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Ciberseguridad</h3>
+        <div class="carrera-meta"><p>9 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
+      </div>
+      <div class="carrera reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <h3>Diseño UX/UI</h3>
+        <div class="carrera-meta"><p>8 cuatrimestres · 100% en línea</p><span class="carrera-arrow">→</span></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- PLANES -->
-<section class="section" id="planes">
+<section class="section section-planes" id="planes">
   <div class="wrap">
     <div class="reveal">
       <span class="eyebrow dark">Planes y costos</span>
       <h2 class="title">Un plan para cada meta</h2>
       <p class="lead">El mismo campus y el mismo tutor IA — la diferencia es cuánto quieres avanzar. Elige tu carrera y tu plan.</p>
+      <div class="beca-badge reveal">✦ Beca automática por desempeño — sin trámites, hasta el <b>100%</b></div>
     </div>
     <div class="plan-pick reveal">
       <label for="planCarrera">Carrera de interés:</label>
@@ -428,9 +636,9 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:46px 0 30p
     <div class="plan-grid">
       <div class="plan reveal">
         <h3>Avanzado</h3>
-        <p class="desc">1 año · certificación profesional</p>
-        <div class="precio">$599 <span>MXN/mes</span></div>
-        <div class="total"><b>Inversión total $7,188 MXN</b><br>Financiamiento hasta 3 años</div>
+        <p class="desc">1 año · Obtén tu Título Profesional</p>
+        <div class="precio">$2,499 <span>MXN/mes</span></div>
+        <div class="total"><b>Inversión total $30,000 MXN</b><br>Financiamiento hasta 48 meses</div>
         <ul><li>Tutor IA 24/7</li><li>Certificaciones rápidas</li><li>Ritmo 100% flexible</li></ul>
         <a href="#" class="btn btn-outline elegir" data-plan="Avanzado">Elegir plan</a>
       </div>
@@ -451,17 +659,6 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:46px 0 30p
         <ul><li>Titulación completa</li><li>Especialización</li><li>Estancias virtuales</li></ul>
         <a href="#" class="btn btn-outline elegir" data-plan="Integral">Elegir plan</a>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- BECA -->
-<section class="section beca" id="becas">
-  <div class="wrap reveal">
-    <div class="big">100%</div>
-    <div class="beca-copy">
-      <h2>Beca automática por desempeño</h2>
-      <p>Sin solicitudes ni trámites. Tu constancia y tus calificaciones generan descuentos automáticos en tu mensualidad — hasta una beca completa.</p>
     </div>
   </div>
 </section>
@@ -487,13 +684,12 @@ footer{background:var(--navy-deep);color:rgba(255,255,255,.6);padding:46px 0 30p
   <div class="wrap">
     <div class="foot-top">
       <div class="brand">
-        <span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M8 12a3 3 0 1 1 3 3c-3 0-3-6 0-6a3 3 0 1 1 3 3"/></svg></span>
+        <span class="logo"><span class="logo-text">UPD</span></span>
         Universidad Politécnica Digital
       </div>
       <div class="foot-links">
         <a href="#carreras">Carreras</a>
         <a href="#planes">Planes</a>
-        <a href="#becas">Becas</a>
         <a href="#faq">FAQ</a>
         <a href="#planes">Inscríbete</a>
       </div>
@@ -537,6 +733,67 @@ const io=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
 },{threshold:0.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// --- carrusel hero ---
+(function(){
+  const slides=document.querySelectorAll('.hero-slide');
+  const dotsWrap=document.getElementById('carouselDots');
+  if(!slides.length||!dotsWrap) return;
+  let cur=0, timer=null;
+
+  // crear dots
+  slides.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='c-dot'+(i===0?' active':'');
+    d.setAttribute('aria-label','Slide '+(i+1));
+    d.addEventListener('click',()=>goTo(i));
+    dotsWrap.appendChild(d);
+  });
+
+  function goTo(n){
+    slides[cur].classList.remove('active');
+    dotsWrap.children[cur].classList.remove('active');
+    cur=(n+slides.length)%slides.length;
+    slides[cur].classList.add('active');
+    // reiniciar ken burns clonando img
+    const img=slides[cur].querySelector('img');
+    const clone=img.cloneNode(true);
+    img.replaceWith(clone);
+    dotsWrap.children[cur].classList.add('active');
+    resetTimer();
+  }
+
+  function resetTimer(){
+    clearInterval(timer);
+    timer=setInterval(()=>goTo(cur+1), 6000);
+  }
+
+  resetTimer();
+})();
+
+// --- contador animado ---
+function animateCount(el,target,duration){
+  let start=0, startTime=null;
+  function step(ts){
+    if(!startTime) startTime=ts;
+    const progress=Math.min((ts-startTime)/duration,1);
+    const ease=1-Math.pow(1-progress,3);
+    el.textContent=Math.floor(ease*target).toLocaleString('es-MX');
+    if(progress<1) requestAnimationFrame(step);
+    else el.textContent=target.toLocaleString('es-MX');
+  }
+  requestAnimationFrame(step);
+}
+const countObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const target=+e.target.dataset.count;
+      animateCount(e.target,target,1800);
+      countObs.unobserve(e.target);
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>countObs.observe(el));
 
 // La experiencia interactiva (selección de carrera + lección estilo Duolingo)
 // vive ahora en inicio.html, a la que llega el botón "Comienza hoy".
