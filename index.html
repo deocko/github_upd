@@ -46,8 +46,16 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .float i{filter:drop-shadow(0 14px 18px rgba(11,70,65,.18));line-height:1;}
 .f-main{width:178px;left:50%;top:50%;transform:translate(-50%,-56%);}
 .f-main i{font-size:138px;color:var(--teal-d);}
-.chip3d{position:absolute;background:#fff;border-radius:16px;box-shadow:0 14px 28px rgba(11,70,65,.16);display:flex;align-items:center;gap:9px;padding:10px 14px;font-size:13px;font-weight:700;}
+.chip3d{position:absolute;z-index:5;background:#fff;border-radius:16px;box-shadow:0 14px 28px rgba(11,70,65,.16);display:flex;align-items:center;gap:9px;padding:10px 14px;font-size:13px;font-weight:700;}
 .chip3d i{font-size:24px;color:var(--teal);line-height:1;}
+/* hero carrusel */
+.hero-carousel{position:absolute;inset:0;z-index:1;}
+.hslide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.1s ease;}
+.hslide.active{opacity:1;}
+.hero-carousel::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,40,36,.20),rgba(8,40,36,0) 35%,rgba(8,40,36,.30));}
+.hero-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:8px;}
+.hero-dots button{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.55);cursor:pointer;padding:0;transition:.25s;}
+.hero-dots button.active{background:#fff;width:26px;border-radius:5px;}
 /* steps */
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
 .scard{background:#fff;border:1.5px solid var(--line);border-radius:22px;padding:28px 22px;text-align:center;transition:.18s;}
@@ -196,13 +204,36 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
     <div class="trust"><span><b>+2,400</b> estudiantes</span><span><b>+50</b> empresas aliadas</span><span><b>RVOE</b> ante la SEP</span></div>
   </div>
   <div class="art">
-    <div class="float f-main"><i class="ph-duotone ph-graduation-cap"></i></div>
+    <div class="hero-carousel" id="heroCarousel">
+      <div class="hslide active" style="background-image:url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1100&q=80&fit=crop')"></div>
+      <div class="hslide" style="background-image:url('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1100&q=80&fit=crop')"></div>
+      <div class="hslide" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1100&q=80&fit=crop')"></div>
+      <div class="hslide" style="background-image:url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1100&q=80&fit=crop')"></div>
+    </div>
+    <div class="hero-dots" id="heroDots"></div>
     <div class="chip3d" style="left:22px;top:40px;"><i class="ph-duotone ph-laptop"></i>100% en línea</div>
     <div class="chip3d" style="right:20px;top:110px;"><i class="ph-duotone ph-chart-line-up"></i>Mejor empleo</div>
     <div class="chip3d" style="left:34px;bottom:46px;"><i class="ph-duotone ph-hand-coins"></i>Beca 100%</div>
     <div class="chip3d" style="right:28px;bottom:70px;"><i class="ph-duotone ph-trophy"></i>Título oficial</div>
   </div>
 </section>
+<script>
+(function(){
+  var car=document.getElementById('heroCarousel');if(!car)return;
+  var slides=car.querySelectorAll('.hslide'),wrap=document.getElementById('heroDots');
+  var n=slides.length,idx=0,timer;
+  for(var i=0;i<n;i++){(function(i){var b=document.createElement('button');if(i===0)b.className='active';b.setAttribute('aria-label','Imagen '+(i+1));b.addEventListener('click',function(){go(i);restart();});wrap.appendChild(b);})(i);}
+  var dots=wrap.querySelectorAll('button');
+  function go(i){slides[idx].classList.remove('active');dots[idx].classList.remove('active');idx=i;slides[idx].classList.add('active');dots[idx].classList.add('active');}
+  function next(){go((idx+1)%n);}
+  function start(){timer=setInterval(next,4500);}
+  function restart(){clearInterval(timer);start();}
+  var art=car.closest('.art');
+  art.addEventListener('mouseenter',function(){clearInterval(timer);});
+  art.addEventListener('mouseleave',start);
+  start();
+})();
+</script>
 
 <section class="sec" id="camino" style="background:var(--soft);">
   <div class="wrap">
