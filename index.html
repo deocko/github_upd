@@ -193,7 +193,7 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
 <body>
 <header><div class="wrap nav">
   <a class="brand"><span class="blogo">UPD</span>Universidad Politécnica Digital</a>
-  <nav class="nlinks"><a href="#camino">Cómo funciona</a><a href="#carreras">Carreras</a><a href="#planes">Planes</a><a href="#faq">Preguntas</a></nav>
+  <nav class="nlinks"><a href="#camino">Cómo funciona</a><a href="#planes">Planes</a><a href="#carreras">Carreras</a><a href="#faq">Preguntas</a></nav>
   <div class="nr"><a class="btn btn-o" href="campus/" style="padding:10px 20px;font-size:14px;">Campus</a><a class="btn btn-p" href="#planes" style="padding:10px 22px;font-size:14px;">Inscríbete</a></div>
 </div></header>
 
@@ -264,6 +264,110 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
     </div>
   </div>
 </section>
+
+<section class="sec" id="planes">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow ctr">Planes y costos</span><h2>Un plan para cada meta</h2><p>Elige el ritmo que se ajusta a tu vida. Financiamiento hasta 48 meses.</p></div>
+    <div class="plans">
+      <div class="plan"><div class="ptop"><div class="badge"><i class="ph-duotone ph-star"></i></div><div><h3>Avanzado</h3></div></div><div class="dur">1 año · Título Profesional</div><div class="price">$2,499<small> MXN/mes</small></div><div class="tot">Inversión total $30,000 MXN</div><ul class="feat"><li>Tutor IA 24/7</li><li>Certificaciones rápidas</li><li>Ritmo 100% flexible</li></ul><a class="btn btn-o" href="#">Elegir plan</a></div>
+      <div class="plan pop"><div class="poptag">MÁS POPULAR</div><div class="ptop"><div class="badge"><i class="ph-duotone ph-diamond"></i></div><div><h3>Professional</h3></div></div><div class="dur">3 años · Licenciatura acelerada</div><div class="price">$899<small> MXN/mes</small></div><div class="tot">Inversión total $32,364 MXN · RVOE</div><ul class="feat"><li>Bolsa de trabajo UPD Talent</li><li>Certificaciones adicionales</li><li>Mentoría de carrera</li></ul><a class="btn btn-p" href="#">Elegir plan</a></div>
+      <div class="plan"><div class="ptop"><div class="badge"><i class="ph-duotone ph-crown"></i></div><div><h3>Integral</h3></div></div><div class="dur">5 años · Formación completa</div><div class="price">$699<small> MXN/mes</small></div><div class="tot">Inversión total $41,940 MXN</div><ul class="feat"><li>Titulación completa</li><li>Especialización</li><li>Estancias virtuales</li></ul><a class="btn btn-o" href="#">Elegir plan</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- RULETA DE BECAS -->
+<section class="sec" style="background:var(--soft);"><div class="wrap">
+  <div class="ruleta-wrap">
+    <div class="ruleta-stage">
+      <div class="ruleta-pointer"></div>
+      <div class="ruleta" id="ruleta"></div>
+      <div class="ruleta-hub"><i class="ph-duotone ph-gift"></i></div>
+    </div>
+    <div class="ruleta-panel">
+      <span class="eyebrow light">Solo por hoy · cupos limitados</span>
+      <div id="ruletaIntro">
+        <h2>Gira y gana tu beca</h2>
+        <p>Regístrate y gira la ruleta: el porcentaje que caiga es tu beca real… <b>pero solo si te inscribes hoy mismo</b>.</p>
+        <form class="ruleta-form" id="ruletaForm" onsubmit="return false;">
+          <input id="rNombre" type="text" placeholder="Tu nombre completo" autocomplete="name" required>
+          <input id="rTel" type="tel" placeholder="Tu WhatsApp (10 dígitos)" autocomplete="tel" inputmode="numeric" required>
+          <button class="ruleta-spin" id="rSpin" type="button" disabled>🎁 Registrarme y girar</button>
+        </form>
+        <p class="ruleta-note">Una sola participación por persona. Al participar aceptas que un asesor te contacte por WhatsApp para activar tu beca.</p>
+      </div>
+      <div class="ruleta-result" id="ruletaResult">
+        <h2 id="rWinName">¡Felicidades!</h2>
+        <div class="ruleta-prize">Beca del <span id="rPrize">0%</span></div>
+        <div class="ruleta-urgency"><i class="ph-duotone ph-timer"></i> <span id="rCountdown">Válida por 15:00</span></div>
+        <p>Asegura tu lugar antes de que tu beca expire. Un asesor te contactará para completar tu inscripción.</p>
+        <a class="btn" href="#planes" style="background:#fff;color:var(--teal-dd);">Inscríbete y conservo mi beca →</a>
+      </div>
+    </div>
+  </div>
+</div></section>
+<script>
+(function(){
+  var wheel=document.getElementById('ruleta');if(!wheel)return;
+  var prizes=[
+    {v:'15%',w:24},{v:'100%',w:3},{v:'40%',w:18},{v:'25%',w:24},
+    {v:'60%',w:10},{v:'30%',w:18},{v:'50%',w:13},{v:'20%',w:24}
+  ];
+  var N=prizes.length, seg=360/N, colors=['#f97316','#0b524b'], ns='http://www.w3.org/2000/svg';
+  function pt(a,r){var rad=(a-90)*Math.PI/180;return [100+r*Math.cos(rad),100+r*Math.sin(rad)];}
+  var svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','0 0 200 200');svg.setAttribute('width','100%');svg.setAttribute('height','100%');
+  for(var i=0;i<N;i++){
+    var a0=i*seg,a1=(i+1)*seg,p0=pt(a0,100),p1=pt(a1,100);
+    var path=document.createElementNS(ns,'path');
+    path.setAttribute('d','M100,100 L'+p0[0]+','+p0[1]+' A100,100 0 0 1 '+p1[0]+','+p1[1]+' Z');
+    path.setAttribute('fill',colors[i%2]);
+    svg.appendChild(path);
+    var mid=a0+seg/2,tp=pt(mid,64),rot=mid;if(rot>90&&rot<270)rot+=180;
+    var txt=document.createElementNS(ns,'text');
+    txt.setAttribute('x',tp[0]);txt.setAttribute('y',tp[1]);txt.setAttribute('fill','#fff');
+    txt.setAttribute('font-size','16');txt.setAttribute('font-weight','800');
+    txt.setAttribute('font-family',"'Space Grotesk',sans-serif");
+    txt.setAttribute('text-anchor','middle');txt.setAttribute('dominant-baseline','central');
+    txt.setAttribute('transform','rotate('+rot+' '+tp[0]+' '+tp[1]+')');
+    txt.textContent=prizes[i].v;
+    svg.appendChild(txt);
+  }
+  wheel.appendChild(svg);
+
+  var nombre=document.getElementById('rNombre'),tel=document.getElementById('rTel'),btn=document.getElementById('rSpin');
+  function check(){btn.disabled=!(nombre.value.trim().length>2 && tel.value.replace(/\D/g,'').length>=10);}
+  nombre.addEventListener('input',check);tel.addEventListener('input',check);
+
+  function pick(){var tot=0;prizes.forEach(function(p){tot+=p.w;});var r=Math.random()*tot;for(var i=0;i<N;i++){if(r<prizes[i].w)return i;r-=prizes[i].w;}return 0;}
+  var spun=false;
+  function spin(){
+    if(spun)return;spun=true;btn.disabled=true;btn.textContent='Girando…';
+    var k=pick();
+    var base=((360-((k*seg+seg/2)%360))%360);
+    var R=5*360+base+(Math.random()*6-3); // 5 vueltas + pequeño jitter
+    wheel.style.transform='rotate('+R+'deg)';
+    setTimeout(function(){showResult(prizes[k].v);},4800);
+  }
+  function showResult(v){
+    document.getElementById('ruletaIntro').style.display='none';
+    document.getElementById('ruletaResult').classList.add('show');
+    var nm=nombre.value.trim().split(' ')[0];
+    document.getElementById('rWinName').textContent='¡Felicidades'+(nm?', '+nm:'')+'!';
+    document.getElementById('rPrize').textContent=v;
+    countdown();
+  }
+  function countdown(){
+    var el=document.getElementById('rCountdown'),t=15*60;
+    (function tick(){
+      var m=Math.floor(t/60),s=t%60;
+      el.textContent= t>0 ? ('Válida por '+m+':'+(s<10?'0':'')+s) : 'Tu beca expiró — contáctanos';
+      if(t>0){t=t-1;setTimeout(tick,1000);}
+    })();
+  }
+  btn.addEventListener('click',spin);
+})();
+</script>
 
 <section class="sec" id="carreras">
   <div class="wrap">
@@ -422,110 +526,6 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
       pick(document.querySelector('.carr-thumb.active')||thumbs[0]);
     })();
     </script>
-  </div>
-</section>
-
-<!-- RULETA DE BECAS -->
-<section class="sec" style="padding-top:0;"><div class="wrap">
-  <div class="ruleta-wrap">
-    <div class="ruleta-stage">
-      <div class="ruleta-pointer"></div>
-      <div class="ruleta" id="ruleta"></div>
-      <div class="ruleta-hub"><i class="ph-duotone ph-gift"></i></div>
-    </div>
-    <div class="ruleta-panel">
-      <span class="eyebrow light">Solo por hoy · cupos limitados</span>
-      <div id="ruletaIntro">
-        <h2>Gira y gana tu beca</h2>
-        <p>Regístrate y gira la ruleta: el porcentaje que caiga es tu beca real… <b>pero solo si te inscribes hoy mismo</b>.</p>
-        <form class="ruleta-form" id="ruletaForm" onsubmit="return false;">
-          <input id="rNombre" type="text" placeholder="Tu nombre completo" autocomplete="name" required>
-          <input id="rTel" type="tel" placeholder="Tu WhatsApp (10 dígitos)" autocomplete="tel" inputmode="numeric" required>
-          <button class="ruleta-spin" id="rSpin" type="button" disabled>🎁 Registrarme y girar</button>
-        </form>
-        <p class="ruleta-note">Una sola participación por persona. Al participar aceptas que un asesor te contacte por WhatsApp para activar tu beca.</p>
-      </div>
-      <div class="ruleta-result" id="ruletaResult">
-        <h2 id="rWinName">¡Felicidades!</h2>
-        <div class="ruleta-prize">Beca del <span id="rPrize">0%</span></div>
-        <div class="ruleta-urgency"><i class="ph-duotone ph-timer"></i> <span id="rCountdown">Válida por 15:00</span></div>
-        <p>Asegura tu lugar antes de que tu beca expire. Un asesor te contactará para completar tu inscripción.</p>
-        <a class="btn" href="#planes" style="background:#fff;color:var(--teal-dd);">Inscríbete y conservo mi beca →</a>
-      </div>
-    </div>
-  </div>
-</div></section>
-<script>
-(function(){
-  var wheel=document.getElementById('ruleta');if(!wheel)return;
-  var prizes=[
-    {v:'15%',w:24},{v:'100%',w:3},{v:'40%',w:18},{v:'25%',w:24},
-    {v:'60%',w:10},{v:'30%',w:18},{v:'50%',w:13},{v:'20%',w:24}
-  ];
-  var N=prizes.length, seg=360/N, colors=['#f97316','#0b524b'], ns='http://www.w3.org/2000/svg';
-  function pt(a,r){var rad=(a-90)*Math.PI/180;return [100+r*Math.cos(rad),100+r*Math.sin(rad)];}
-  var svg=document.createElementNS(ns,'svg');
-  svg.setAttribute('viewBox','0 0 200 200');svg.setAttribute('width','100%');svg.setAttribute('height','100%');
-  for(var i=0;i<N;i++){
-    var a0=i*seg,a1=(i+1)*seg,p0=pt(a0,100),p1=pt(a1,100);
-    var path=document.createElementNS(ns,'path');
-    path.setAttribute('d','M100,100 L'+p0[0]+','+p0[1]+' A100,100 0 0 1 '+p1[0]+','+p1[1]+' Z');
-    path.setAttribute('fill',colors[i%2]);
-    svg.appendChild(path);
-    var mid=a0+seg/2,tp=pt(mid,64),rot=mid;if(rot>90&&rot<270)rot+=180;
-    var txt=document.createElementNS(ns,'text');
-    txt.setAttribute('x',tp[0]);txt.setAttribute('y',tp[1]);txt.setAttribute('fill','#fff');
-    txt.setAttribute('font-size','16');txt.setAttribute('font-weight','800');
-    txt.setAttribute('font-family',"'Space Grotesk',sans-serif");
-    txt.setAttribute('text-anchor','middle');txt.setAttribute('dominant-baseline','central');
-    txt.setAttribute('transform','rotate('+rot+' '+tp[0]+' '+tp[1]+')');
-    txt.textContent=prizes[i].v;
-    svg.appendChild(txt);
-  }
-  wheel.appendChild(svg);
-
-  var nombre=document.getElementById('rNombre'),tel=document.getElementById('rTel'),btn=document.getElementById('rSpin');
-  function check(){btn.disabled=!(nombre.value.trim().length>2 && tel.value.replace(/\D/g,'').length>=10);}
-  nombre.addEventListener('input',check);tel.addEventListener('input',check);
-
-  function pick(){var tot=0;prizes.forEach(function(p){tot+=p.w;});var r=Math.random()*tot;for(var i=0;i<N;i++){if(r<prizes[i].w)return i;r-=prizes[i].w;}return 0;}
-  var spun=false;
-  function spin(){
-    if(spun)return;spun=true;btn.disabled=true;btn.textContent='Girando…';
-    var k=pick();
-    var base=((360-((k*seg+seg/2)%360))%360);
-    var R=5*360+base+(Math.random()*6-3); // 5 vueltas + pequeño jitter
-    wheel.style.transform='rotate('+R+'deg)';
-    setTimeout(function(){showResult(prizes[k].v);},4800);
-  }
-  function showResult(v){
-    document.getElementById('ruletaIntro').style.display='none';
-    document.getElementById('ruletaResult').classList.add('show');
-    var nm=nombre.value.trim().split(' ')[0];
-    document.getElementById('rWinName').textContent='¡Felicidades'+(nm?', '+nm:'')+'!';
-    document.getElementById('rPrize').textContent=v;
-    countdown();
-  }
-  function countdown(){
-    var el=document.getElementById('rCountdown'),t=15*60;
-    (function tick(){
-      var m=Math.floor(t/60),s=t%60;
-      el.textContent= t>0 ? ('Válida por '+m+':'+(s<10?'0':'')+s) : 'Tu beca expiró — contáctanos';
-      if(t>0){t=t-1;setTimeout(tick,1000);}
-    })();
-  }
-  btn.addEventListener('click',spin);
-})();
-</script>
-
-<section class="sec" id="planes" style="background:var(--soft);">
-  <div class="wrap">
-    <div class="sec-head"><span class="eyebrow ctr">Planes y costos</span><h2>Un plan para cada meta</h2><p>Elige el ritmo que se ajusta a tu vida. Financiamiento hasta 48 meses.</p></div>
-    <div class="plans">
-      <div class="plan"><div class="ptop"><div class="badge"><i class="ph-duotone ph-star"></i></div><div><h3>Avanzado</h3></div></div><div class="dur">1 año · Título Profesional</div><div class="price">$2,499<small> MXN/mes</small></div><div class="tot">Inversión total $30,000 MXN</div><ul class="feat"><li>Tutor IA 24/7</li><li>Certificaciones rápidas</li><li>Ritmo 100% flexible</li></ul><a class="btn btn-o" href="#">Elegir plan</a></div>
-      <div class="plan pop"><div class="poptag">MÁS POPULAR</div><div class="ptop"><div class="badge"><i class="ph-duotone ph-diamond"></i></div><div><h3>Professional</h3></div></div><div class="dur">3 años · Licenciatura acelerada</div><div class="price">$899<small> MXN/mes</small></div><div class="tot">Inversión total $32,364 MXN · RVOE</div><ul class="feat"><li>Bolsa de trabajo UPD Talent</li><li>Certificaciones adicionales</li><li>Mentoría de carrera</li></ul><a class="btn btn-p" href="#">Elegir plan</a></div>
-      <div class="plan"><div class="ptop"><div class="badge"><i class="ph-duotone ph-crown"></i></div><div><h3>Integral</h3></div></div><div class="dur">5 años · Formación completa</div><div class="price">$699<small> MXN/mes</small></div><div class="tot">Inversión total $41,940 MXN</div><ul class="feat"><li>Titulación completa</li><li>Especialización</li><li>Estancias virtuales</li></ul><a class="btn btn-o" href="#">Elegir plan</a></div>
-    </div>
   </div>
 </section>
 
