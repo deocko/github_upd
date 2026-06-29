@@ -4,7 +4,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
 <style>
-:root{--teal:#0c8076;--teal-d:#0f766e;--teal-dd:#115e59;--ink:#0f1b29;--muted:#5b6b78;--line:#e8edf1;--soft:#f5f8f9;--accent:#f97316;}
+:root{
+/* Marca UPD — verde 'lpd' */
+--green:#15613f;--green-d:#0f4a30;--green-dd:#0a3322;--green-tint:#e7f3ec;
+/* Premium — verde profundo + oro (superficies oscuras) */
+--navy:#0c3a28;--navy-d:#082619;--navy-card:#13503a;--gold:#c9a13b;--gold-l:#e6c879;--cream:#f6eed7;
+/* Base */
+--ink:#0f1b29;--muted:#5b6b78;--line:#e8edf1;--soft:#f5f8f9;
+/* Alias de compatibilidad (componentes existentes) */
+--teal:var(--green);--teal-d:var(--green-d);--teal-dd:var(--green-dd);--accent:var(--gold);}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6;}
 h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-.025em;line-height:1.06;}
@@ -34,6 +42,11 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .nlinks{display:flex;gap:30px;font-size:14.5px;font-weight:600;color:var(--muted);}
 .nlinks a:hover{color:var(--teal);}
 .nr{display:flex;gap:12px;align-items:center;}
+.lang-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:.16s;}
+.lang-btn:hover{border-color:var(--green);}
+.lang-btn span{color:var(--muted);transition:.16s;}
+.lang-btn span.on{color:var(--green);}
+.lang-btn .sep{opacity:.4;font-weight:600;}
 /* hero */
 .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;padding:54px 0 64px;}
 .hero h1{font-size:62px;font-weight:800;margin:20px 0 0;}
@@ -84,13 +97,13 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .carr-flix{margin-top:8px;}
 .carr-stage{position:relative;overflow:hidden;border-radius:26px;background:linear-gradient(120deg,var(--teal-dd) 0%,var(--teal-d) 60%);background-size:cover;background-position:center;color:#fff;min-height:380px;display:flex;align-items:flex-end;padding:46px;transition:background-image .3s ease;}
 .carr-stage::before{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,40,36,.93) 0%,rgba(8,40,36,.78) 55%,rgba(8,40,36,.35) 100%);pointer-events:none;z-index:1;}
-.carr-stage::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 40%,rgba(249,115,22,.10) 0%,transparent 55%);pointer-events:none;z-index:1;}
+.carr-stage::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 40%,rgba(201,161,59,.10) 0%,transparent 55%);pointer-events:none;z-index:1;}
 .carr-art{position:absolute;right:0;top:50%;transform:translateY(-50%);opacity:.08;pointer-events:none;line-height:0;z-index:1;}
 .carr-art svg{width:300px;height:300px;stroke:var(--accent);fill:none;}
 .carr-stage-body{position:relative;z-index:2;max-width:600px;animation:carrIn .45s ease;}
 @keyframes carrIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
 .carr-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
-.carr-cat{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);background:rgba(249,115,22,.14);border:1px solid rgba(249,115,22,.32);border-radius:20px;padding:5px 14px;}
+.carr-cat{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);background:rgba(201,161,59,.14);border:1px solid rgba(201,161,59,.32);border-radius:20px;padding:5px 14px;}
 .carr-demand{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:20px;padding:5px 12px;}
 .carr-demand.alta{color:#7defcf;background:rgba(13,148,136,.20);border:1px solid rgba(125,239,207,.30);}
 .carr-demand.media{color:#fcd34d;background:rgba(251,191,36,.14);border:1px solid rgba(251,191,36,.32);}
@@ -129,7 +142,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .band .pct small{display:block;font-size:13px;font-weight:600;opacity:.8;letter-spacing:.04em;}
 /* ruleta de becas */
 .ruleta-wrap{background:linear-gradient(140deg,var(--teal-dd),var(--teal-d) 55%,var(--teal));border-radius:34px;padding:50px;color:#fff;display:grid;grid-template-columns:320px 1fr;gap:48px;align-items:center;overflow:hidden;position:relative;}
-.ruleta-wrap::after{content:'';position:absolute;right:-60px;bottom:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(249,115,22,.18),transparent 70%);pointer-events:none;}
+.ruleta-wrap::after{content:'';position:absolute;right:-60px;bottom:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(201,161,59,.18),transparent 70%);pointer-events:none;}
 .ruleta-stage{position:relative;width:300px;height:300px;justify-self:center;}
 .ruleta-pointer{position:absolute;top:-4px;left:50%;transform:translateX(-50%);z-index:5;width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:26px solid #fff;filter:drop-shadow(0 3px 4px rgba(0,0,0,.3));}
 .ruleta{width:300px;height:300px;border-radius:50%;border:8px solid #fff;box-shadow:0 20px 50px rgba(0,0,0,.32),inset 0 0 0 4px rgba(255,255,255,.2);transition:transform 4.6s cubic-bezier(.16,.7,.18,1);position:relative;}
@@ -143,7 +156,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .ruleta-form input{font-family:inherit;font-size:14.5px;padding:13px 16px;border-radius:12px;border:2px solid transparent;background:rgba(255,255,255,.96);color:var(--ink);outline:none;transition:.16s;}
 .ruleta-form input:focus{border-color:var(--accent);}
 .ruleta-form input::placeholder{color:#9aa7af;}
-.ruleta-spin{background:var(--accent);color:#fff;border:none;font-family:inherit;font-weight:800;font-size:16px;padding:15px;border-radius:12px;cursor:pointer;transition:.16s;box-shadow:0 12px 26px rgba(249,115,22,.35);}
+.ruleta-spin{background:var(--accent);color:#fff;border:none;font-family:inherit;font-weight:800;font-size:16px;padding:15px;border-radius:12px;cursor:pointer;transition:.16s;box-shadow:0 12px 26px rgba(201,161,59,.35);}
 .ruleta-spin:hover:not(:disabled){filter:brightness(1.06);transform:translateY(-1px);}
 .ruleta-spin:disabled{opacity:.5;cursor:not-allowed;box-shadow:none;}
 .ruleta-note{font-size:11.5px;color:rgba(255,255,255,.6);margin-top:14px;max-width:360px;}
@@ -151,7 +164,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .ruleta-result.show{display:block;animation:carrIn .45s ease;}
 .ruleta-prize{font-family:'Space Grotesk',sans-serif;font-size:58px;font-weight:800;color:#fff;line-height:1;margin-top:6px;}
 .ruleta-prize span{color:var(--accent);}
-.ruleta-urgency{display:inline-flex;align-items:center;gap:8px;background:rgba(249,115,22,.18);border:1px solid rgba(249,115,22,.42);color:#ffd9bf;font-weight:700;font-size:13px;padding:8px 14px;border-radius:30px;margin:18px 0;}
+.ruleta-urgency{display:inline-flex;align-items:center;gap:8px;background:rgba(201,161,59,.18);border:1px solid rgba(201,161,59,.42);color:#f3e2b8;font-weight:700;font-size:13px;padding:8px 14px;border-radius:30px;margin:18px 0;}
 .ruleta-urgency i{font-size:17px;}
 @media(max-width:820px){.ruleta-wrap{grid-template-columns:1fr;gap:30px;padding:34px 24px;}.ruleta-stage,.ruleta{width:260px;height:260px;}}
 /* planes */
@@ -184,7 +197,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .finalcta h2{font-size:40px;font-weight:800;}
 .finalcta p{color:rgba(255,255,255,.85);margin:14px auto 28px;max-width:480px;}
 /* footer */
-footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin-top:84px;}
+footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin-top:84px;}
 .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;}
 .foot .brand{color:#fff;}
 .flinks{display:flex;gap:28px;flex-wrap:wrap;font-size:14px;}
@@ -246,35 +259,170 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
   .carr-stage{min-height:500px;padding:24px 20px;}
   .carr-stage-body h3{font-size:clamp(22px,5vw,32px);}
 }
+/* ===== PRICING premium (navy + oro) ===== */
+.pricing{background:radial-gradient(120% 90% at 50% 0%,#114a35 0%,var(--navy) 62%);color:#fff;}
+.pr-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;}
+.pr-head{text-align:center;max-width:730px;margin:0 auto 8px;}
+.pr-kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--gold-l);font-weight:600;}
+.pr-kicker::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--gold);}
+.pr-head h2{font-size:clamp(30px,4.6vw,46px);font-weight:800;color:#fff;margin:18px 0 0;}
+.pr-head h2 em{color:var(--gold);font-style:normal;}
+.pr-head p{color:rgba(255,255,255,.66);font-size:16px;margin-top:16px;}
+.pr-legend{display:flex;justify-content:center;gap:26px;margin:26px 0 0;font-size:11px;color:rgba(255,255,255,.6);}
+.pr-legend span{display:inline-flex;align-items:center;gap:7px;}
+.pr-legend i{width:11px;height:11px;border-radius:3px;display:inline-block;}
+.pr-legend .i-time{background:var(--gold);}
+.pr-legend .i-margin{background:rgba(255,255,255,.28);}
+.pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start;max-width:1160px;margin:36px auto 0;}
+.pcard{position:relative;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:24px;padding:34px 30px;display:flex;flex-direction:column;}
+.pcard.feat{background:var(--cream);color:var(--navy);border:1px solid var(--gold);box-shadow:0 30px 70px rgba(0,0,0,.42);transform:translateY(-14px);z-index:2;}
+.pcard-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:11px;font-weight:800;letter-spacing:.12em;padding:6px 16px;border-radius:8px;font-family:ui-monospace,Menlo,monospace;text-transform:uppercase;}
+.pcard h3{font-family:'Space Grotesk';font-size:26px;font-weight:800;color:inherit;}
+.pcard .ptag-desc{font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;min-height:42px;}
+.pcard.feat .ptag-desc{color:rgba(10,51,34,.72);}
+.pcard .price{font-family:'Space Grotesk';font-size:48px;font-weight:800;color:inherit;letter-spacing:-.02em;margin-top:22px;line-height:1;}
+.pcard .price .cur{color:var(--gold);font-size:24px;vertical-align:super;margin-right:2px;}
+.pcard .price small{font-size:15px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:0;}
+.pcard.feat .price small{color:rgba(10,51,34,.55);}
+.pcard .ptot{font-size:13px;color:rgba(255,255,255,.6);margin-top:12px;}
+.pcard.feat .ptot{color:rgba(10,51,34,.68);}
+.pcard .ptot b{color:#fff;}.pcard.feat .ptot b{color:var(--navy);}
+.pbar-row{display:flex;justify-content:space-between;font-size:11px;margin:24px 0 8px;color:rgba(255,255,255,.5);}
+.pcard.feat .pbar-row{color:rgba(10,51,34,.6);}
+.pbar{height:6px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden;}
+.pcard.feat .pbar{background:rgba(10,51,34,.12);}
+.pbar i{display:block;height:100%;background:var(--gold);border-radius:6px;}
+.pdiv{height:1px;background:rgba(255,255,255,.10);margin:22px 0;}
+.pcard.feat .pdiv{background:rgba(10,51,34,.12);}
+.pfeat{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:26px;}
+.pfeat li{font-size:14px;padding-left:26px;position:relative;color:rgba(255,255,255,.82);}
+.pcard.feat .pfeat li{color:rgba(10,51,34,.85);}
+.pfeat li::before{content:'✓';position:absolute;left:0;top:1px;color:var(--gold);font-weight:800;}
+.pbtn{margin-top:auto;display:block;text-align:center;font-weight:700;padding:15px;border-radius:12px;border:1px solid rgba(255,255,255,.22);color:#fff;transition:.16s;}
+.pbtn:hover{background:rgba(255,255,255,.08);}
+.pbtn.solid{background:var(--navy);color:#fff;border-color:var(--navy);}
+.pcard.feat .pbtn.solid:hover{filter:brightness(1.18);}
+.pr-foot{display:flex;align-items:center;justify-content:center;gap:14px;margin:48px auto 0;max-width:780px;text-align:left;color:rgba(255,255,255,.52);font-size:13px;}
+.pr-foot .sep-badge{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;font-family:ui-monospace,Menlo,monospace;flex-shrink:0;}
+@media(max-width:900px){.pr-grid{grid-template-columns:1fr;max-width:440px;}.pcard.feat{transform:none;}.pr-foot{flex-direction:column;text-align:center;}}
+/* ===== CONÓCENOS ===== */
+.about-mv{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:42px;}
+.mv-card{background:linear-gradient(160deg,var(--navy-card),var(--navy));color:#fff;border-radius:24px;padding:38px 34px;position:relative;overflow:hidden;}
+.mv-card::before{content:'';position:absolute;left:0;top:34px;bottom:34px;width:4px;background:var(--gold);border-radius:0 4px 4px 0;}
+.mv-card .mv-k{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-l);}
+.mv-card h3{font-size:23px;font-weight:800;margin:12px 0 14px;color:#fff;}
+.mv-card p{color:rgba(255,255,255,.8);font-size:15px;line-height:1.7;}
+.values{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:42px;}
+.vcard{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:24px 20px;text-align:center;transition:.18s;}
+.vcard:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(15,27,41,.09);border-color:transparent;}
+.vcard .badge{width:60px;height:60px;margin:0 auto 14px;}
+.vcard .badge i{font-size:30px;}
+.vcard h4{font-size:15px;font-weight:800;margin-bottom:6px;}
+.vcard p{font-size:12.5px;color:var(--muted);line-height:1.5;}
+.about-quote{text-align:center;max-width:840px;margin:0 auto;font-family:'Space Grotesk';font-size:clamp(20px,2.6vw,28px);font-weight:700;line-height:1.4;color:var(--ink);}
+.about-quote .gq{color:var(--gold);}
+.about-quote .qa{display:block;font-family:'Inter';font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:20px;}
+@media(max-width:820px){.about-mv{grid-template-columns:1fr;}.values{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.values{grid-template-columns:1fr;}}
+/* ===== COMPARATIVA DE COSTOS ===== */
+.cmp{max-width:900px;margin:0 auto;}
+.cmp-row{display:grid;grid-template-columns:210px 1fr;gap:18px;align-items:center;margin-bottom:15px;}
+.cmp-name{font-size:14px;font-weight:700;color:var(--ink);line-height:1.25;}
+.cmp-name small{display:block;font-weight:500;color:var(--muted);font-size:12px;margin-top:2px;}
+.cmp-track{position:relative;background:#eef2f4;border-radius:10px;height:40px;overflow:hidden;}
+.cmp-fill{height:100%;width:0;border-radius:10px;display:flex;align-items:center;padding:0 14px;font-size:13px;font-weight:800;color:#fff;white-space:nowrap;transition:width 1.1s cubic-bezier(.2,.7,.2,1);}
+.cmp-fill.muted{background:#c2cbd1;color:var(--ink);}
+.cmp-fill.upd{background:linear-gradient(90deg,var(--green),var(--green-d));}
+.cmp-fill.upd.star{background:linear-gradient(90deg,var(--green) 0%,#1c7a4f 100%);box-shadow:inset 0 0 0 2px var(--gold);}
+.cmp-note{font-size:12px;color:var(--muted);max-width:780px;margin:28px auto 0;text-align:center;line-height:1.65;}
+@media(max-width:640px){.cmp-row{grid-template-columns:1fr;gap:6px;}.cmp-track{height:34px;}.cmp-fill{font-size:12px;}}
+/* ===== CONTACTO ===== */
+.contact{background:linear-gradient(160deg,var(--navy-card),var(--navy));color:#fff;border-radius:34px;padding:54px clamp(24px,4vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:start;position:relative;overflow:hidden;}
+.contact::after{content:'';position:absolute;right:-70px;top:-70px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(201,161,59,.16),transparent 70%);pointer-events:none;}
+.contact h2{font-size:clamp(28px,3.6vw,38px);font-weight:800;color:#fff;margin-top:12px;}
+.contact .csub{color:rgba(255,255,255,.74);margin:14px 0 24px;font-size:15.5px;line-height:1.7;max-width:430px;}
+.cways{display:flex;flex-direction:column;gap:13px;position:relative;z-index:2;}
+.cway{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:13px 18px;transition:.16s;}
+.cway:hover{background:rgba(255,255,255,.1);transform:translateY(-1px);}
+.cway .ci{width:44px;height:44px;border-radius:12px;background:rgba(201,161,59,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cway .ci i{font-size:24px;color:var(--gold-l);}
+.cway b{display:block;font-size:15px;color:#fff;}
+.cway span{font-size:13px;color:rgba(255,255,255,.62);}
+.cform{display:flex;flex-direction:column;gap:12px;position:relative;z-index:2;}
+.cform input,.cform select,.cform textarea{font-family:inherit;font-size:14.5px;padding:13px 16px;border-radius:12px;border:1.5px solid rgba(255,255,255,.16);background:rgba(255,255,255,.96);color:var(--ink);outline:none;transition:.16s;}
+.cform textarea{resize:vertical;min-height:80px;}
+.cform input:focus,.cform select:focus,.cform textarea:focus{border-color:var(--gold);}
+.cform .consent{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:rgba(255,255,255,.72);line-height:1.5;}
+.cform .consent input{width:18px;height:18px;flex-shrink:0;margin-top:1px;padding:0;accent-color:var(--gold);}
+.cform .consent a{color:var(--gold-l);text-decoration:underline;cursor:pointer;}
+.cform .cbtn{background:var(--gold);color:var(--navy);border:none;font-family:inherit;font-weight:800;font-size:16px;padding:15px;border-radius:12px;cursor:pointer;transition:.16s;display:flex;align-items:center;justify-content:center;gap:9px;}
+.cform .cbtn:hover{filter:brightness(1.07);transform:translateY(-1px);}
+.cform .cbtn i{font-size:21px;}
+@media(max-width:820px){.contact{grid-template-columns:1fr;gap:28px;padding:38px 22px;}}
+/* ===== MODAL (Aviso de Privacidad) ===== */
+.modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal.open{display:flex;}
+.modal-bg{position:absolute;inset:0;background:rgba(8,30,20,.62);backdrop-filter:blur(3px);}
+.modal-box{position:relative;background:#fff;border-radius:20px;max-width:640px;width:100%;max-height:84vh;overflow:auto;padding:38px clamp(22px,3vw,40px);box-shadow:0 30px 80px rgba(0,0,0,.4);}
+.modal-box h3{font-size:23px;font-weight:800;margin-bottom:6px;}
+.modal-box h4{font-size:14.5px;font-weight:800;margin:18px 0 6px;}
+.modal-box p{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:8px;}
+.modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:none;background:var(--soft);cursor:pointer;font-size:22px;color:var(--ink);line-height:1;}
+.modal-close:hover{background:var(--line);}
+/* ===== CALCULADORA ===== */
+.calc{max-width:780px;margin:0 auto;background:#fff;border:1.5px solid var(--line);border-radius:24px;padding:clamp(26px,4vw,40px);box-shadow:0 20px 50px rgba(15,27,41,.06);}
+.calc-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:26px;}
+.calc-plan{font-family:inherit;font-weight:700;font-size:14px;padding:14px 10px;border-radius:14px;border:1.5px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;transition:.16s;text-align:center;line-height:1.3;}
+.calc-plan small{display:block;font-weight:500;font-size:11.5px;color:var(--muted);margin-top:2px;}
+.calc-plan:hover{border-color:var(--green);color:var(--green);}
+.calc-plan.active{border-color:var(--green);background:var(--green-tint);color:var(--green-d);}
+.calc-plan.active small{color:var(--green-d);}
+.calc-slider{margin-bottom:26px;}
+.calc-slider-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;}
+.calc-slider-top .lbl{font-size:14px;font-weight:700;color:var(--ink);}
+.calc-slider-top .val{font-family:'Space Grotesk';font-size:24px;font-weight:800;color:var(--green);}
+.calc-slider input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--green) 0%,var(--green) 0%,var(--line) 0%);outline:none;}
+.calc-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--green);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.22);cursor:pointer;}
+.calc-slider input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--green);border:3px solid #fff;cursor:pointer;}
+.calc-slider-hint{font-size:11.5px;color:var(--muted);margin-top:8px;}
+.calc-out{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.calc-cell{background:var(--soft);border-radius:16px;padding:20px 16px;text-align:center;}
+.calc-cell .ck{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1.3;}
+.calc-cell .cv{font-family:'Space Grotesk';font-size:clamp(19px,2.6vw,26px);font-weight:800;color:var(--ink);margin-top:8px;letter-spacing:-.02em;}
+.calc-cell.save{background:linear-gradient(160deg,var(--green-tint),#fff);border:1.5px solid var(--green);}
+.calc-cell.save .cv{color:var(--green-d);}
+.calc-note{font-size:11.5px;color:var(--muted);text-align:center;margin-top:18px;line-height:1.6;}
+@media(max-width:560px){.calc-plans{grid-template-columns:1fr;}.calc-out{grid-template-columns:1fr;}}
 </style></head>
 <body>
 <header><div class="wrap nav">
-  <a class="brand"><svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;display:block;"><rect width="40" height="40" rx="10" fill="#0c8076"/><text x="20" y="27" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="800" font-size="17" fill="#fff" letter-spacing="-0.5">upd</text></svg>Universidad Politécnica Digital</a>
-  <nav class="nlinks"><a href="#camino">Cómo funciona</a><a href="#planes">Planes</a><a href="#carreras">Carreras</a><a href="#faq">Preguntas</a><a class="campus-mobile" href="campus/">Campus</a></nav>
+  <a class="brand"><svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;display:block;"><rect width="40" height="40" rx="10" fill="#15613f"/><text x="20" y="27" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="800" font-size="17" fill="#fff" letter-spacing="-0.5">upd</text></svg>Universidad Politécnica Digital</a>
+  <nav class="nlinks"><a href="#camino" data-en="How it works">Cómo funciona</a><a href="#nosotros" data-en="About">Conócenos</a><a href="#carreras" data-en="Programs">Carreras</a><a href="#planes" data-en="Plans">Planes</a><a href="#faq" data-en="FAQ">Preguntas</a><a href="#contacto" data-en="Contact">Contacto</a><a class="campus-mobile" href="campus/">Campus</a></nav>
   <div class="nr">
+    <button class="lang-btn" id="langBtn" type="button" aria-label="Cambiar idioma / Switch language"><span data-l="es">ES</span><span class="sep">/</span><span data-l="en">EN</span></button>
     <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-    <a class="btn btn-o" href="campus/" style="padding:10px 20px;font-size:14px;">Campus</a><a class="btn btn-p" href="#planes" style="padding:10px 22px;font-size:14px;">Inscríbete</a>
+    <a class="btn btn-o" href="campus/" style="padding:10px 20px;font-size:14px;">Campus</a><a class="btn btn-p" href="#planes" style="padding:10px 22px;font-size:14px;" data-en="Enroll">Inscríbete</a>
   </div>
 </div></header>
 
 <section class="wrap hero">
   <div>
-    <span class="eyebrow">Universidad con RVOE ante la SEP</span>
-    <h1>Prepárate.<br>Titúlate. <span class="rotw" id="rotw">Despega.</span></h1>
-    <p class="lead">Licenciatura 100% digital. Cambia tu futuro y el de tu familia, a tu ritmo y desde donde estés.</p>
+    <span class="eyebrow" data-en="University with official SEP accreditation (RVOE)">Universidad con RVOE ante la SEP</span>
+    <h1><span data-en="Get ready.">Prepárate.</span><br><span data-en="Get your degree.">Titúlate.</span> <span class="rotw" id="rotw">Despega.</span></h1>
+    <p class="lead" data-en="Your degree, at your pace, with official SEP accreditation. A 100% online bachelor's — change your future, from wherever you are.">Tu carrera, a tu ritmo, con validez oficial SEP. Licenciatura 100% digital: cambia tu futuro, desde donde estés.</p>
     <div class="hero-actions">
-      <a class="btn btn-p" href="#planes">Inscríbete hoy →</a>
-      <a class="btn btn-o" href="#carreras">Conoce las carreras</a>
+      <a class="btn btn-p" href="#planes" data-en="Enroll today →">Inscríbete hoy →</a>
+      <a class="btn btn-o" href="#carreras" data-en="Explore programs">Conoce las carreras</a>
     </div>
     <div class="creds">
-      <span><i class="ph-duotone ph-seal-check"></i> RVOE ante la SEP</span>
-      <span><i class="ph-duotone ph-monitor-play"></i> 100% en línea</span>
-      <span><i class="ph-duotone ph-certificate"></i> Título oficial</span>
-      <span><i class="ph-duotone ph-hand-coins"></i> Becas hasta 100%</span>
+      <span data-en-html='<i class="ph-duotone ph-seal-check"></i> SEP-accredited (RVOE)'><i class="ph-duotone ph-seal-check"></i> RVOE ante la SEP</span>
+      <span data-en-html='<i class="ph-duotone ph-monitor-play"></i> 100% online'><i class="ph-duotone ph-monitor-play"></i> 100% en línea</span>
+      <span data-en-html='<i class="ph-duotone ph-certificate"></i> Official degree'><i class="ph-duotone ph-certificate"></i> Título oficial</span>
+      <span data-en-html='<i class="ph-duotone ph-hand-coins"></i> Scholarships up to 100%'><i class="ph-duotone ph-hand-coins"></i> Becas hasta 100%</span>
     </div>
-    <div class="trust"><span><b>+2,400</b> estudiantes</span><span><b>+50</b> empresas aliadas</span><span><b>RVOE</b> ante la SEP</span></div>
+    <div class="trust"><span data-en-html="<b>+2,400</b> students"><b>+2,400</b> estudiantes</span><span data-en-html="<b>+50</b> partner companies"><b>+50</b> empresas aliadas</span><span data-en-html="<b>RVOE</b> · SEP-accredited"><b>RVOE</b> ante la SEP</span></div>
   </div>
   <div class="art">
     <div class="hero-carousel" id="heroCarousel">
@@ -284,10 +432,10 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
       <div class="hslide" style="background-image:url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1100&q=80&fit=crop')"></div>
     </div>
     <div class="hero-dots" id="heroDots"></div>
-    <div class="chip3d" style="left:22px;top:40px;"><i class="ph-duotone ph-laptop"></i>100% en línea</div>
-    <div class="chip3d" style="right:20px;top:110px;"><i class="ph-duotone ph-chart-line-up"></i>Mejor empleo</div>
-    <div class="chip3d" style="left:34px;bottom:46px;"><i class="ph-duotone ph-hand-coins"></i>Beca 100%</div>
-    <div class="chip3d" style="right:28px;bottom:70px;"><i class="ph-duotone ph-trophy"></i>Título oficial</div>
+    <div class="chip3d" style="left:22px;top:40px;" data-en-html='<i class="ph-duotone ph-laptop"></i>100% online'><i class="ph-duotone ph-laptop"></i>100% en línea</div>
+    <div class="chip3d" style="right:20px;top:110px;" data-en-html='<i class="ph-duotone ph-chart-line-up"></i>Better job'><i class="ph-duotone ph-chart-line-up"></i>Mejor empleo</div>
+    <div class="chip3d" style="left:34px;bottom:46px;" data-en-html='<i class="ph-duotone ph-hand-coins"></i>100% scholarship'><i class="ph-duotone ph-hand-coins"></i>Beca 100%</div>
+    <div class="chip3d" style="right:28px;bottom:70px;" data-en-html='<i class="ph-duotone ph-trophy"></i>Official degree'><i class="ph-duotone ph-trophy"></i>Título oficial</div>
   </div>
 </section>
 <script>
@@ -308,38 +456,176 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
 })();
 (function(){
   var el=document.getElementById('rotw');if(!el)return;
-  var words=['Despega.','Crece.','Triunfa.','Lidera.'],i=0;
+  var W={es:['Despega.','Crece.','Triunfa.','Lidera.'],en:['Take off.','Grow.','Succeed.','Lead.']},i=0;
+  function L(){return (window.UPD&&window.UPD.lang)||'es';}
+  function arr(){return W[L()]||W.es;}
   setInterval(function(){
     el.classList.add('out');
-    setTimeout(function(){i=(i+1)%words.length;el.textContent=words[i];el.classList.remove('out');},360);
+    setTimeout(function(){i=(i+1)%arr().length;el.textContent=arr()[i];el.classList.remove('out');},360);
   },2600);
+  document.addEventListener('updlang',function(){el.textContent=arr()[i];});
 })();
 </script>
 
 <section class="sec" id="camino" style="background:var(--soft);">
   <div class="wrap">
-    <div class="sec-head"><span class="eyebrow ctr">El camino UPD</span><h2>Tres pasos, una sola plataforma</h2><p>Del registro al título, todo en línea y guiado paso a paso.</p></div>
+    <div class="sec-head"><span class="eyebrow ctr" data-en="The UPD path">El camino UPD</span><h2 data-en="Three steps, one platform">Tres pasos, una sola plataforma</h2><p data-en="From sign-up to degree, all online and guided step by step.">Del registro al título, todo en línea y guiado paso a paso.</p></div>
     <div class="grid3">
-      <div class="scard"><div class="badge"><i class="ph-duotone ph-file-text"></i></div><div class="snum">PASO 01</div><h3>Inscríbete</h3><p>Completa tu inscripción 100% en línea y asegura tu lugar hoy mismo.</p></div>
-      <div class="scard"><div class="badge"><i class="ph-duotone ph-books"></i></div><div class="snum">PASO 02</div><h3>Aprende</h3><p>Lecciones cortas, rutas guiadas y un tutor con IA disponible 24/7.</p></div>
-      <div class="scard"><div class="badge"><i class="ph-duotone ph-graduation-cap"></i></div><div class="snum">PASO 03</div><h3>Titúlate</h3><p>Licenciatura con validez oficial RVOE ante la SEP.</p></div>
+      <div class="scard"><div class="badge"><i class="ph-duotone ph-file-text"></i></div><div class="snum" data-en="STEP 01">PASO 01</div><h3 data-en="Enroll">Inscríbete</h3><p data-en="Complete your enrollment 100% online and secure your spot today.">Completa tu inscripción 100% en línea y asegura tu lugar hoy mismo.</p></div>
+      <div class="scard"><div class="badge"><i class="ph-duotone ph-books"></i></div><div class="snum" data-en="STEP 02">PASO 02</div><h3 data-en="Learn">Aprende</h3><p data-en="Short lessons, guided paths and an AI tutor available 24/7.">Lecciones cortas, rutas guiadas y un tutor con IA disponible 24/7.</p></div>
+      <div class="scard"><div class="badge"><i class="ph-duotone ph-graduation-cap"></i></div><div class="snum" data-en="STEP 03">PASO 03</div><h3 data-en="Graduate">Titúlate</h3><p data-en="A bachelor's degree with official SEP accreditation (RVOE).">Licenciatura con validez oficial RVOE ante la SEP.</p></div>
     </div>
   </div>
 </section>
 
-<section class="sec" id="planes">
-  <div class="wrap">
-    <div class="sec-head"><span class="eyebrow ctr">Planes y costos</span><h2>Un plan para cada meta</h2><p>Elige el ritmo que se ajusta a tu vida. Financiamiento hasta 48 meses.</p></div>
-    <div class="plans">
-      <div class="plan"><div class="ptop"><div class="badge"><i class="ph-duotone ph-star"></i></div><div><h3>Avanzado</h3></div></div><div class="dur">1 año · Título Profesional</div><div class="price">$2,499<small> MXN/mes</small></div><div class="tot">Inversión total $30,000 MXN</div><ul class="feat"><li>Tutor IA 24/7</li><li>Certificaciones rápidas</li><li>Ritmo 100% flexible</li></ul><a class="btn btn-o" href="#">Elegir plan</a></div>
-      <div class="plan pop"><div class="poptag">MÁS POPULAR</div><div class="ptop"><div class="badge"><i class="ph-duotone ph-diamond"></i></div><div><h3>Professional</h3></div></div><div class="dur">3 años · Licenciatura acelerada</div><div class="price">$899<small> MXN/mes</small></div><div class="tot">Inversión total $32,364 MXN · RVOE</div><ul class="feat"><li>Bolsa de trabajo UPD Talent</li><li>Certificaciones adicionales</li><li>Mentoría de carrera</li></ul><a class="btn btn-p" href="#">Elegir plan</a></div>
-      <div class="plan"><div class="ptop"><div class="badge"><i class="ph-duotone ph-crown"></i></div><div><h3>Integral</h3></div></div><div class="dur">5 años · Formación completa</div><div class="price">$699<small> MXN/mes</small></div><div class="tot">Inversión total $41,940 MXN</div><ul class="feat"><li>Titulación completa</li><li>Especialización</li><li>Estancias virtuales</li></ul><a class="btn btn-o" href="#">Elegir plan</a></div>
+<!-- CONÓCENOS -->
+<section class="sec" id="nosotros"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow ctr" data-en="About us">Conócenos</span><h2 data-en="Education that adapts to your real life">Educación que se adapta a tu vida real</h2><p data-en="We were born 100% digital to remove the barriers of time, distance and rigidity that keep thousands of people from finishing their degree.">Nacimos 100% digitales para eliminar las barreras de tiempo, distancia y rigidez que impiden a miles de personas terminar su carrera.</p></div>
+  <div class="about-mv">
+    <div class="mv-card"><div class="mv-k" data-en="Our mission">Nuestra misión</div><h3 data-en="Your professional goal, without obstacles">Tu meta profesional, sin obstáculos</h3><p data-en="We help every person achieve their professional goals so that education is never an obstacle, but the most direct path to reach them: a dynamic, flexible and effective virtual campus, with official SEP accreditation, at the pace your real life allows.">Ayudamos a que cada persona cumpla sus metas profesionales sin que la educación sea un obstáculo, sino el camino más directo para lograrlo: un campus virtual dinámico, flexible y eficaz, con validez oficial SEP, al ritmo que tu vida real permite.</p></div>
+    <div class="mv-card"><div class="mv-k" data-en="Our vision">Nuestra visión</div><h3 data-en="Mexico's leading digital university">La universidad digital líder de México</h3><p data-en="To be the leading digital university in Mexico and the Bajío region by 2030, recognized for democratizing access to quality higher education, for the employability of its graduates, and for proving that learning online can be easier, more dynamic and more effective than the traditional path.">Ser la universidad digital líder en México y el Bajío para 2030, reconocida por democratizar el acceso a la educación superior de calidad, por la empleabilidad de sus egresados y por demostrar que aprender en línea puede ser más fácil, dinámico y efectivo que lo tradicional.</p></div>
+  </div>
+  <div class="values">
+    <div class="vcard"><div class="badge"><i class="ph-duotone ph-globe-hemisphere-west"></i></div><h4 data-en="Accessibility">Accesibilidad</h4><p data-en="Quality shouldn't depend on where you live or how much free time you have.">La calidad no depende de dónde vives ni de cuánto tiempo libre tienes.</p></div>
+    <div class="vcard"><div class="badge"><i class="ph-duotone ph-sliders-horizontal"></i></div><h4 data-en="Real flexibility">Flexibilidad real</h4><p data-en="The student sets the pace, not the institution.">El estudiante decide su ritmo, no la institución.</p></div>
+    <div class="vcard"><div class="badge"><i class="ph-duotone ph-medal"></i></div><h4 data-en="Academic excellence">Excelencia académica</h4><p data-en="SEP/RVOE accreditation and standards equal to or better than on-campus.">Validez SEP/RVOE y estándares iguales o superiores a la presencial.</p></div>
+    <div class="vcard"><div class="badge"><i class="ph-duotone ph-game-controller"></i></div><h4 data-en="Teaching innovation">Innovación pedagógica</h4><p data-en="Gamification, data and technology in service of learning.">Gamificación, datos y tecnología al servicio del aprendizaje.</p></div>
+    <div class="vcard"><div class="badge"><i class="ph-duotone ph-briefcase"></i></div><h4 data-en="Employability">Empleabilidad</h4><p data-en="We train for the real job market, with industry links and a job board.">Formamos para el mercado laboral real, con vinculación y bolsa de trabajo.</p></div>
+  </div>
+  <p class="about-quote" data-en-html='“Finish your degree in the time you decide, from wherever you are, with a degree that&#39;s <span class="gq">worth just as much</span> as any university&#39;s.”<span class="qa">— UPD value proposition</span>'>“Termina tu carrera en el tiempo que tú decidas, desde donde estés, con un título que <span class="gq">vale lo mismo</span> que el de cualquier universidad.”<span class="qa">— Propuesta de valor UPD</span></p>
+</div></section>
+
+<!-- PLANES Y COSTOS -->
+<section class="sec pricing" id="planes"><div class="wrap">
+  <div class="pr-head">
+    <span class="pr-kicker pr-mono" data-en="Universidad Politécnica Digital · 2026 Plans">Universidad Politécnica Digital · Planes 2026</span>
+    <h2 data-en-html="Your degree, <em>at your pace</em>.<br>Officially accredited.">Tu carrera, <em>a tu ritmo</em>.<br>Con validez oficial.</h2>
+    <p data-en="Three ways to reach the same professional degree with SEP (RVOE) accreditation. You decide how fast.">Tres formas de llegar al mismo título profesional con RVOE SEP. Tú decides qué tan rápido.</p>
+    <div class="pr-legend pr-mono"><span data-en-html='<i class="i-time"></i>Time spent'><i class="i-time"></i>Tiempo cursado</span><span data-en-html='<i class="i-margin"></i>Available margin'><i class="i-margin"></i>Margen disponible</span></div>
+  </div>
+  <div class="pr-grid">
+    <div class="pcard">
+      <h3>Exprés</h3>
+      <p class="ptag-desc" data-en="For those who need their degree as soon as possible.">Para quien necesita el título lo antes posible.</p>
+      <div class="price"><span class="cur">$</span>3,400<small data-en=" MXN / mo"> MXN / mes</small></div>
+      <div class="ptot" data-en-html="Estimated total: <b>$40,800 MXN</b> · 1 year">Total estimado: <b>$40,800 MXN</b> · 1 año</div>
+      <div class="pbar-row pr-mono"><span data-en="12 months">12 meses</span><span>100%</span></div>
+      <div class="pbar"><i style="width:100%"></i></div>
+      <div class="pdiv"></div>
+      <ul class="pfeat">
+        <li data-en="Intensive academic load">Carga académica intensiva</li>
+        <li data-en="Dedicated high-priority tutor">Tutor dedicado de alta prioridad</li>
+        <li data-en="Same degree and professional license">Mismo título y cédula profesional</li>
+        <li data-en="Ideal for promotions and urgent licensing">Ideal para ascensos y cédula urgente</li>
+      </ul>
+      <a class="pbtn" href="#becas" data-en="Choose Express">Elegir Exprés</a>
+    </div>
+    <div class="pcard feat">
+      <div class="pcard-tag" data-en="Most chosen">Más elegido</div>
+      <h3>Estándar</h3>
+      <p class="ptag-desc" data-en="The classic university pace, fully online.">El ritmo universitario clásico, sin presencialidad.</p>
+      <div class="price"><span class="cur">$</span>2,650<small data-en=" MXN / mo"> MXN / mes</small></div>
+      <div class="ptot" data-en-html="Estimated total: <b>$95,400 MXN</b> · 3 years · 9 terms">Total estimado: <b>$95,400 MXN</b> · 3 años · 9 cuatrimestres</div>
+      <div class="pbar-row pr-mono"><span data-en="9 terms">9 cuatrimestres</span><span>100%</span></div>
+      <div class="pbar"><i style="width:100%"></i></div>
+      <div class="pdiv"></div>
+      <ul class="pfeat">
+        <li data-en="4–5 courses per term">4–5 materias por cuatrimestre</li>
+        <li data-en="Full gamified virtual campus">Campus virtual gamificado completo</li>
+        <li data-en="Job board and career placement">Bolsa de trabajo y vinculación laboral</li>
+        <li data-en="Cohort community and mentorship">Comunidad de cohorte y mentoría</li>
+        <li data-en="Same degree and professional license">Mismo título y cédula profesional</li>
+      </ul>
+      <a class="pbtn solid" href="#becas" data-en="Choose Standard">Elegir Estándar</a>
+    </div>
+    <div class="pcard">
+      <h3>Flexible</h3>
+      <p class="ptag-desc" data-en="Advance course by course, with no time pressure.">Avanza materia por materia, sin presión de tiempo.</p>
+      <div class="price"><span class="cur">$</span>1,950<small data-en=" MXN / mo"> MXN / mes</small></div>
+      <div class="ptot" data-en-html="Estimated total: <b>from $97,500 MXN</b> · up to 5 years">Total estimado: <b>desde $97,500 MXN</b> · hasta 5 años</div>
+      <div class="pbar-row pr-mono"><span data-en="Up to 15 terms">Hasta 15 cuatr.</span><span data-en="You decide">Tú decides</span></div>
+      <div class="pbar"><i style="width:42%"></i></div>
+      <div class="pdiv"></div>
+      <ul class="pfeat">
+        <li data-en="Minimum 1 course per term">Mínimo 1 materia por cuatrimestre</li>
+        <li data-en="Pause and resume whenever you need">Pausa y retoma cuando lo necesites</li>
+        <li data-en="Lighter monthly tuition">Colegiatura mensual más ligera</li>
+        <li data-en="Same degree and professional license">Mismo título y cédula profesional</li>
+      </ul>
+      <a class="pbtn" href="#becas" data-en="Choose Flexible">Elegir Flexible</a>
     </div>
   </div>
-</section>
+  <div class="pr-foot">
+    <div class="sep-badge">SEP</div>
+    <span data-en="Officially accredited by Mexico's Ministry of Education (SEP) · Valid RVOE · Degree and professional license included.">Validez Oficial ante la Secretaría de Educación Pública · RVOE vigente · Título y cédula profesional incluidos.</span>
+  </div>
+</div></section>
+
+<!-- CALCULADORA DE COLEGIATURA -->
+<section class="sec" id="calculadora"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow ctr" data-en="Calculate your investment">Calcula tu inversión</span><h2 data-en="How much would your degree cost?">¿Cuánto costaría tu carrera?</h2><p data-en="Pick your plan and scholarship: see your real monthly tuition and how much you save.">Elige tu plan y tu beca: te decimos tu mensualidad real y cuánto ahorras.</p></div>
+  <div class="calc">
+    <div class="calc-plans" id="calcPlans">
+      <button type="button" class="calc-plan active" data-m="3400" data-months="12">Exprés<small data-en="1 year">1 año</small></button>
+      <button type="button" class="calc-plan" data-m="2650" data-months="36">Estándar<small data-en="3 years">3 años</small></button>
+      <button type="button" class="calc-plan" data-m="1950" data-months="50">Flexible<small data-en="up to 5 years">hasta 5 años</small></button>
+    </div>
+    <div class="calc-slider">
+      <div class="calc-slider-top"><span class="lbl" data-en="Performance scholarship">Beca por desempeño</span><span class="val" id="calcBecaVal">0%</span></div>
+      <input type="range" id="calcBeca" min="0" max="100" step="5" value="0" aria-label="Beca">
+      <div class="calc-slider-hint" data-en="Your grades and consistency can raise your scholarship up to 100%.">Tus calificaciones y constancia pueden subir tu beca hasta 100%.</div>
+    </div>
+    <div class="calc-out">
+      <div class="calc-cell"><div class="ck" data-en="Monthly tuition">Mensualidad</div><div class="cv" id="calcMonthly">$3,400</div></div>
+      <div class="calc-cell"><div class="ck" data-en="Estimated total">Total estimado</div><div class="cv" id="calcTotal">$40,800</div></div>
+      <div class="calc-cell save"><div class="ck" data-en="You save vs. on-campus">Ahorras vs. presencial</div><div class="cv" id="calcSave">$154,800</div></div>
+    </div>
+    <p class="calc-note" data-en="Estimate in MXN. “You save” compares the total against the average private on-campus degree ($195,600, INEGI). Final price is confirmed at enrollment.">Estimación en MXN. "Ahorras" compara el total contra el promedio de una licenciatura privada presencial ($195,600, INEGI). El precio final se confirma al inscribirte.</p>
+  </div>
+</div></section>
+<script>
+(function(){
+  var plans=document.getElementById('calcPlans');if(!plans)return;
+  var beca=document.getElementById('calcBeca'),becaVal=document.getElementById('calcBecaVal'),
+      outM=document.getElementById('calcMonthly'),outT=document.getElementById('calcTotal'),outS=document.getElementById('calcSave');
+  var PRESENCIAL=195600;
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function render(){
+    var p=plans.querySelector('.calc-plan.active')||plans.querySelector('.calc-plan');
+    var m=+p.dataset.m, months=+p.dataset.months, d=1-(+beca.value)/100;
+    becaVal.textContent=beca.value+'%';
+    outM.textContent=fmt(m*d);
+    outT.textContent=fmt(m*months*d);
+    var save=PRESENCIAL-(m*months*d);
+    outS.textContent= save>0? fmt(save) : '—';
+    beca.style.background='linear-gradient(90deg,var(--green) '+beca.value+'%,var(--line) '+beca.value+'%)';
+  }
+  plans.querySelectorAll('.calc-plan').forEach(function(b){
+    b.addEventListener('click',function(){
+      plans.querySelectorAll('.calc-plan').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');render();
+    });
+  });
+  beca.addEventListener('input',render);
+  render();
+})();
+</script>
+
+<!-- COMPARATIVA DE COSTOS -->
+<section class="sec" id="comparativa" style="background:var(--soft);"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow ctr" data-en="Cost comparison">Comparativa de costos</span><h2 data-en="The same degree, for far less">El mismo título, por mucho menos</h2><p data-en="Estimated total cost of a bachelor's degree vs. the online and on-campus market in Mexico.">Costo total estimado de una licenciatura frente al mercado en línea y presencial de México.</p></div>
+  <div class="cmp">
+    <div class="cmp-row"><div class="cmp-name"><span>UPD · Exprés</span><small data-en="1 year">1 año</small></div><div class="cmp-track"><div class="cmp-fill upd" data-w="15%">$40,800</div></div></div>
+    <div class="cmp-row"><div class="cmp-name"><span>UPD · Estándar</span><small data-en="3 years · most chosen">3 años · más elegido</small></div><div class="cmp-track"><div class="cmp-fill upd star" data-w="34%">$95,400</div></div></div>
+    <div class="cmp-row"><div class="cmp-name"><span>UTEL</span><small data-en="online reference">referencia en línea</small></div><div class="cmp-track"><div class="cmp-fill muted" data-w="41%">$86,000 – $145,000</div></div></div>
+    <div class="cmp-row"><div class="cmp-name"><span data-en="Avg. private on-campus">Privada presencial prom.</span><small data-en="4 years · INEGI">4 años · INEGI</small></div><div class="cmp-track"><div class="cmp-fill muted" data-w="70%">$195,600</div></div></div>
+    <div class="cmp-row"><div class="cmp-name"><span>UNITEC / UVM</span><small data-en="mid-high market">mercado medio-alto</small></div><div class="cmp-track"><div class="cmp-fill muted" data-w="96%">$145,000 – $400,000+</div></div></div>
+  </div>
+  <p class="cmp-note" data-en="Figures in MXN, estimated total cost of the degree. Public prices consulted in 2026 (UTEL, INEGI/ANUIES and specialized portals); they may vary by program. UPD is VAT-exempt thanks to its RVOE.">Cifras en MXN, costo total estimado de la carrera. Precios públicos consultados en 2026 (UTEL, INEGI/ANUIES y portales especializados); pueden variar por programa. UPD está exenta de IVA gracias a su RVOE.</p>
+</div></section>
 
 <!-- RULETA DE BECAS -->
-<section class="sec" style="background:var(--soft);"><div class="wrap">
+<section class="sec" id="becas" style="background:var(--soft);"><div class="wrap">
   <div class="ruleta-wrap">
     <div class="ruleta-stage">
       <div class="ruleta-pointer"></div>
@@ -347,23 +633,23 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
       <div class="ruleta-hub"><i class="ph-duotone ph-gift"></i></div>
     </div>
     <div class="ruleta-panel">
-      <span class="eyebrow light">Solo por hoy · cupos limitados</span>
+      <span class="eyebrow light" data-en="Today only · limited spots">Solo por hoy · cupos limitados</span>
       <div id="ruletaIntro">
-        <h2>Gira y gana tu beca</h2>
-        <p>Regístrate y gira la ruleta: el porcentaje que caiga es tu beca real… <b>pero solo si te inscribes hoy mismo</b>.</p>
+        <h2 data-en="Spin and win your scholarship">Gira y gana tu beca</h2>
+        <p data-en-html="Sign up and spin the wheel: whatever percentage lands is your real scholarship… <b>but only if you enroll today</b>.">Regístrate y gira la ruleta: el porcentaje que caiga es tu beca real… <b>pero solo si te inscribes hoy mismo</b>.</p>
         <form class="ruleta-form" id="ruletaForm" onsubmit="return false;">
-          <input id="rNombre" type="text" placeholder="Tu nombre completo" autocomplete="name" required>
-          <input id="rTel" type="tel" placeholder="Tu WhatsApp (10 dígitos)" autocomplete="tel" inputmode="numeric" required>
-          <button class="ruleta-spin" id="rSpin" type="button" disabled>🎁 Registrarme y girar</button>
+          <input id="rNombre" type="text" placeholder="Tu nombre completo" data-en-ph="Your full name" autocomplete="name" required>
+          <input id="rTel" type="tel" placeholder="Tu WhatsApp (10 dígitos)" data-en-ph="Your WhatsApp (10 digits)" autocomplete="tel" inputmode="numeric" required>
+          <button class="ruleta-spin" id="rSpin" type="button" disabled data-en="🎁 Sign up and spin">🎁 Registrarme y girar</button>
         </form>
-        <p class="ruleta-note">Una sola participación por persona. Al participar aceptas que un asesor te contacte por WhatsApp para activar tu beca.</p>
+        <p class="ruleta-note" data-en="One entry per person. By participating you agree that an advisor may contact you via WhatsApp to activate your scholarship.">Una sola participación por persona. Al participar aceptas que un asesor te contacte por WhatsApp para activar tu beca.</p>
       </div>
       <div class="ruleta-result" id="ruletaResult">
         <h2 id="rWinName">¡Felicidades!</h2>
-        <div class="ruleta-prize">Beca del <span id="rPrize">0%</span></div>
+        <div class="ruleta-prize"><span data-en="Scholarship of">Beca del</span> <span id="rPrize">0%</span></div>
         <div class="ruleta-urgency"><i class="ph-duotone ph-timer"></i> <span id="rCountdown">Válida por 15:00</span></div>
-        <p>Asegura tu lugar antes de que tu beca expire. Un asesor te contactará para completar tu inscripción.</p>
-        <a class="btn" href="#planes" style="background:#fff;color:var(--teal-dd);">Inscríbete y conservo mi beca →</a>
+        <p data-en="Secure your spot before your scholarship expires. An advisor will contact you to complete your enrollment.">Asegura tu lugar antes de que tu beca expire. Un asesor te contactará para completar tu inscripción.</p>
+        <a class="btn" href="#planes" style="background:#fff;color:var(--teal-dd);" data-en="Enroll and keep my scholarship →">Inscríbete y conservo mi beca →</a>
       </div>
     </div>
   </div>
@@ -371,11 +657,12 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
 <script>
 (function(){
   var wheel=document.getElementById('ruleta');if(!wheel)return;
+  function L(){return (window.UPD&&window.UPD.lang)||'es';}
   var prizes=[
     {v:'15%',w:24},{v:'100%',w:3},{v:'40%',w:18},{v:'25%',w:24},
     {v:'60%',w:10},{v:'30%',w:18},{v:'50%',w:13},{v:'20%',w:24}
   ];
-  var N=prizes.length, seg=360/N, colors=['#f97316','#0b524b'], ns='http://www.w3.org/2000/svg';
+  var N=prizes.length, seg=360/N, colors=['#c9a13b','#15613f'], ns='http://www.w3.org/2000/svg';
   function pt(a,r){var rad=(a-90)*Math.PI/180;return [100+r*Math.cos(rad),100+r*Math.sin(rad)];}
   var svg=document.createElementNS(ns,'svg');
   svg.setAttribute('viewBox','0 0 200 200');svg.setAttribute('width','100%');svg.setAttribute('height','100%');
@@ -404,7 +691,7 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
   function pick(){var tot=0;prizes.forEach(function(p){tot+=p.w;});var r=Math.random()*tot;for(var i=0;i<N;i++){if(r<prizes[i].w)return i;r-=prizes[i].w;}return 0;}
   var spun=false;
   function spin(){
-    if(spun)return;spun=true;btn.disabled=true;btn.textContent='Girando…';
+    if(spun)return;spun=true;btn.disabled=true;btn.textContent=(L()==='en'?'Spinning…':'Girando…');
     var k=pick();
     var base=((360-((k*seg+seg/2)%360))%360);
     var R=5*360+base+(Math.random()*6-3); // 5 vueltas + pequeño jitter
@@ -415,7 +702,8 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
     document.getElementById('ruletaIntro').style.display='none';
     document.getElementById('ruletaResult').classList.add('show');
     var nm=nombre.value.trim().split(' ')[0];
-    document.getElementById('rWinName').textContent='¡Felicidades'+(nm?', '+nm:'')+'!';
+    var hi=L()==='en'?'Congratulations':'¡Felicidades';
+    document.getElementById('rWinName').textContent=hi+(nm?', '+nm:'')+'!';
     document.getElementById('rPrize').textContent=v;
     countdown();
   }
@@ -423,7 +711,8 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
     var el=document.getElementById('rCountdown'),t=15*60;
     (function tick(){
       var m=Math.floor(t/60),s=t%60;
-      el.textContent= t>0 ? ('Válida por '+m+':'+(s<10?'0':'')+s) : 'Tu beca expiró — contáctanos';
+      var vp=L()==='en'?'Valid for ':'Válida por ', exp=L()==='en'?'Your scholarship expired — contact us':'Tu beca expiró — contáctanos';
+      el.textContent= t>0 ? (vp+m+':'+(s<10?'0':'')+s) : exp;
       if(t>0){t=t-1;setTimeout(tick,1000);}
     })();
   }
@@ -433,106 +722,118 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
 
 <section class="sec" id="carreras">
   <div class="wrap">
-    <div class="sec-head"><span class="eyebrow ctr">Oferta académica</span><h2>Carreras para el mercado digital</h2><p>Seis programas con salida profesional clara, todos con RVOE vigente.</p></div>
+    <div class="sec-head"><span class="eyebrow ctr" data-en="Academic offering">Oferta académica</span><h2 data-en="Programs for the digital market">Carreras para el mercado digital</h2><p data-en="Six programs with clear career paths, all with valid RVOE accreditation.">Seis programas con salida profesional clara, todos con RVOE vigente.</p></div>
     <div class="carr-flix">
       <!-- Escenario destacado -->
       <div class="carr-stage" id="carrStage">
         <div class="carr-art" id="carrArt"></div>
         <div class="carr-stage-body">
           <div class="carr-header">
-            <span class="carr-cat" id="carrCat">Programa destacado</span>
+            <span class="carr-cat" id="carrCat" data-en="Featured program">Programa destacado</span>
             <span class="carr-demand" id="carrDemand"><span class="carr-demand-dot"></span><span id="carrDemandTxt">Alta demanda</span></span>
           </div>
           <h3 id="carrTitle">Desarrollo de Software</h3>
           <p id="carrDesc">Crea aplicaciones, sistemas y plataformas con las tecnologías más demandadas del mercado tech.</p>
           <div class="carr-salary-row">
-            <span class="carr-salary-lbl">Salario promedio</span>
+            <span class="carr-salary-lbl" data-en="Average salary">Salario promedio</span>
             <span class="carr-salary-val" id="carrSalary">$18,000 – $45,000/mes</span>
           </div>
           <div class="carr-skills" id="carrSkills"></div>
           <div class="carr-meta" id="carrMeta"></div>
-          <a href="#planes" class="btn btn-p carr-cta">Inscríbete a esta carrera
+          <a href="#planes" class="btn btn-p carr-cta"><span data-en="Enroll in this program">Inscríbete a esta carrera</span>
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
       <!-- Fila de carreras (siempre visibles) -->
       <div class="carr-rail">
         <button class="carr-thumb active" type="button"
-          data-title="Desarrollo de Software"
-          data-dur="9 cuatrimestres"
+          data-title="Desarrollo de Software" data-title-en="Software Development"
+          data-dur="9 cuatrimestres" data-dur-en="9 terms"
           data-desc="Crea aplicaciones web, móviles y sistemas escalables con las tecnologías más demandadas: React, Node.js, Python y nube."
+          data-desc-en="Build web, mobile and scalable applications and systems with the most in-demand technologies: React, Node.js, Python and cloud."
           data-salary="$18,000 – $45,000/mes"
-          data-demand="alta" data-demand-txt="Alta demanda"
+          data-demand="alta" data-demand-txt="Alta demanda" data-demand-txt-en="High demand"
           data-skills="JavaScript · Python · React · Node.js · SQL · Git"
+          data-skills-en="JavaScript · Python · React · Node.js · SQL · Git"
           data-img="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1200&q=80&fit=crop">
           <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
-          <span class="carr-thumb-t">Desarrollo de Software</span>
-          <small>9 cuatrimestres</small>
+          <span class="carr-thumb-t" data-en="Software Development">Desarrollo de Software</span>
+          <small data-en="9 terms">9 cuatrimestres</small>
           <span class="carr-salary-mini">$18k – $45k/mes</span>
         </button>
         <button class="carr-thumb" type="button"
-          data-title="Inteligencia Artificial y Datos"
-          data-dur="9 cuatrimestres"
+          data-title="Inteligencia Artificial y Datos" data-title-en="Artificial Intelligence & Data"
+          data-dur="9 cuatrimestres" data-dur-en="9 terms"
           data-desc="Domina machine learning, redes neuronales y ciencia de datos para construir soluciones que transforman industrias."
+          data-desc-en="Master machine learning, neural networks and data science to build solutions that transform industries."
           data-salary="$22,000 – $60,000/mes"
-          data-demand="alta" data-demand-txt="Alta demanda"
+          data-demand="alta" data-demand-txt="Alta demanda" data-demand-txt-en="High demand"
           data-skills="Python · TensorFlow · SQL · Power BI · Scikit-learn"
+          data-skills-en="Python · TensorFlow · SQL · Power BI · Scikit-learn"
           data-img="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&q=80&fit=crop">
           <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></span>
-          <span class="carr-thumb-t">Inteligencia Artificial y Datos</span>
-          <small>9 cuatrimestres</small>
+          <span class="carr-thumb-t" data-en="Artificial Intelligence & Data">Inteligencia Artificial y Datos</span>
+          <small data-en="9 terms">9 cuatrimestres</small>
           <span class="carr-salary-mini">$22k – $60k/mes</span>
         </button>
         <button class="carr-thumb" type="button"
-          data-title="Negocios Digitales"
-          data-dur="9 cuatrimestres"
+          data-title="Negocios Digitales" data-title-en="Digital Business"
+          data-dur="9 cuatrimestres" data-dur-en="9 terms"
           data-desc="Lidera empresas en la era digital: e-commerce, fintech, transformación organizacional y estrategia de negocios online."
+          data-desc-en="Lead companies in the digital era: e-commerce, fintech, organizational transformation and online business strategy."
           data-salary="$15,000 – $40,000/mes"
-          data-demand="alta" data-demand-txt="Alta demanda"
+          data-demand="alta" data-demand-txt="Alta demanda" data-demand-txt-en="High demand"
           data-skills="E-commerce · Finanzas · Liderazgo · ERP · Analytics"
+          data-skills-en="E-commerce · Finance · Leadership · ERP · Analytics"
           data-img="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1200&q=80&fit=crop">
           <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
-          <span class="carr-thumb-t">Negocios Digitales</span>
-          <small>9 cuatrimestres</small>
+          <span class="carr-thumb-t" data-en="Digital Business">Negocios Digitales</span>
+          <small data-en="9 terms">9 cuatrimestres</small>
           <span class="carr-salary-mini">$15k – $40k/mes</span>
         </button>
         <button class="carr-thumb" type="button"
-          data-title="Marketing Digital"
-          data-dur="8 cuatrimestres"
+          data-title="Marketing Digital" data-title-en="Digital Marketing"
+          data-dur="8 cuatrimestres" data-dur-en="8 terms"
           data-desc="Diseña estrategias de marca, campañas pagadas, SEO y contenido para posicionar negocios y generar resultados reales."
+          data-desc-en="Design brand strategies, paid campaigns, SEO and content to position businesses and drive real results."
           data-salary="$12,000 – $35,000/mes"
-          data-demand="media" data-demand-txt="Demanda creciente"
+          data-demand="media" data-demand-txt="Demanda creciente" data-demand-txt-en="Growing demand"
           data-skills="SEO · Google Ads · Meta Ads · Email · Analytics · Canva"
+          data-skills-en="SEO · Google Ads · Meta Ads · Email · Analytics · Canva"
           data-img="https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=1200&q=80&fit=crop">
           <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></span>
-          <span class="carr-thumb-t">Marketing Digital</span>
-          <small>8 cuatrimestres</small>
+          <span class="carr-thumb-t" data-en="Digital Marketing">Marketing Digital</span>
+          <small data-en="8 terms">8 cuatrimestres</small>
           <span class="carr-salary-mini">$12k – $35k/mes</span>
         </button>
         <button class="carr-thumb" type="button"
-          data-title="Ciberseguridad"
-          data-dur="9 cuatrimestres"
+          data-title="Ciberseguridad" data-title-en="Cybersecurity"
+          data-dur="9 cuatrimestres" data-dur-en="9 terms"
           data-desc="Protege infraestructuras, redes y datos críticos frente a ciberataques. El perfil más escaso y mejor pagado del sector tech."
+          data-desc-en="Protect critical infrastructure, networks and data from cyberattacks. The scarcest and best-paid profile in tech."
           data-salary="$25,000 – $70,000/mes"
-          data-demand="alta" data-demand-txt="Déficit de talento"
+          data-demand="alta" data-demand-txt="Déficit de talento" data-demand-txt-en="Talent shortage"
           data-skills="Ethical Hacking · Redes · SIEM · ISO 27001 · Criptografía"
+          data-skills-en="Ethical Hacking · Networks · SIEM · ISO 27001 · Cryptography"
           data-img="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80&fit=crop">
           <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-          <span class="carr-thumb-t">Ciberseguridad</span>
-          <small>9 cuatrimestres</small>
+          <span class="carr-thumb-t" data-en="Cybersecurity">Ciberseguridad</span>
+          <small data-en="9 terms">9 cuatrimestres</small>
           <span class="carr-salary-mini">$25k – $70k/mes</span>
         </button>
         <button class="carr-thumb" type="button"
-          data-title="Diseño UX/UI"
-          data-dur="8 cuatrimestres"
+          data-title="Diseño UX/UI" data-title-en="UX/UI Design"
+          data-dur="8 cuatrimestres" data-dur-en="8 terms"
           data-desc="Diseña productos digitales centrados en las personas: investigación de usuarios, prototipado y sistemas de diseño escalables."
+          data-desc-en="Design human-centered digital products: user research, prototyping and scalable design systems."
           data-salary="$14,000 – $38,000/mes"
-          data-demand="alta" data-demand-txt="Alta demanda"
+          data-demand="alta" data-demand-txt="Alta demanda" data-demand-txt-en="High demand"
           data-skills="Figma · Investigación · Prototipado · Design System · CSS"
+          data-skills-en="Figma · Research · Prototyping · Design System · CSS"
           data-img="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80&fit=crop">
           <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>
-          <span class="carr-thumb-t">Diseño UX/UI</span>
-          <small>8 cuatrimestres</small>
+          <span class="carr-thumb-t" data-en="UX/UI Design">Diseño UX/UI</span>
+          <small data-en="8 terms">8 cuatrimestres</small>
           <span class="carr-salary-mini">$14k – $38k/mes</span>
         </button>
       </div>
@@ -552,15 +853,17 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
       var imgCache={};
       function preload(url){if(!imgCache[url]){var i=new Image();i.src=url;imgCache[url]=i;}}
       thumbs.forEach(function(t){if(t.dataset.img)preload(t.dataset.img);});
+      function L(){return (window.UPD&&window.UPD.lang)||'es';}
+      function V(t,k){var en=t.dataset[k+'En'];return (L()==='en'&&en)?en:t.dataset[k];}
       function pick(t){
         thumbs.forEach(function(x){x.classList.remove('active');});
         t.classList.add('active');
-        T.textContent=t.dataset.title;
-        D.textContent=t.dataset.desc;
+        T.textContent=V(t,'title');
+        D.textContent=V(t,'desc');
         if(Sal)Sal.textContent=t.dataset.salary||'';
         if(Skl){
           Skl.innerHTML='';
-          (t.dataset.skills||'').split('·').forEach(function(s){
+          (V(t,'skills')||'').split('·').forEach(function(s){
             var el=document.createElement('span');
             el.className='carr-skill';
             el.textContent=s.trim();
@@ -570,9 +873,9 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
         if(Dem&&DemTxt){
           var demLevel=t.dataset.demand||'alta';
           Dem.className='carr-demand '+(demLevel==='media'?'media':'alta');
-          DemTxt.textContent=t.dataset.demandTxt||'Alta demanda';
+          DemTxt.textContent=V(t,'demandTxt')||(L()==='en'?'High demand':'Alta demanda');
         }
-        M.innerHTML='<span>'+t.dataset.dur+'</span><span>100% en línea</span><span>RVOE vigente</span>';
+        M.innerHTML='<span>'+V(t,'dur')+'</span><span>'+(L()==='en'?'100% online':'100% en línea')+'</span><span>'+(L()==='en'?'Valid RVOE':'RVOE vigente')+'</span>';
         A.innerHTML=t.querySelector('.ic').innerHTML;
         var img=t.dataset.img;
         if(img){stage.style.backgroundImage='url('+img+')';}
@@ -586,33 +889,82 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
         t.addEventListener('click',function(){pick(t);});
       });
       pick(document.querySelector('.carr-thumb.active')||thumbs[0]);
+      document.addEventListener('updlang',function(){pick(document.querySelector('.carr-thumb.active')||thumbs[0]);});
     })();
     </script>
   </div>
 </section>
 
 <section class="sec" id="faq"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow ctr">Preguntas frecuentes</span><h2>Antes de empezar</h2></div>
+  <div class="sec-head"><span class="eyebrow ctr" data-en="Frequently asked questions">Preguntas frecuentes</span><h2 data-en="Before you start">Antes de empezar</h2></div>
   <div class="faq">
-    <details open><summary>¿Los títulos tienen validez oficial? <span class="pl">+</span></summary><div class="ans">Sí. Los planes Professional e Integral cuentan con Reconocimiento de Validez Oficial de Estudios (RVOE) ante la SEP. El plan Avanzado otorga certificaciones profesionales.</div></details>
-    <details><summary>¿Cuánto tiempo tengo para terminar? <span class="pl">+</span></summary><div class="ans">Cada plan tiene una duración estándar (1, 3 o 5 años), pero puedes avanzar más rápido o pausar temporadas según tu ritmo, sin perder tu progreso.</div></details>
-    <details><summary>¿Cómo funciona la beca por desempeño? <span class="pl">+</span></summary><div class="ans">No llenas ninguna solicitud. Tu constancia y tus calificaciones generan automáticamente descuentos en tu siguiente mensualidad, hasta una beca del 100%.</div></details>
-    <details><summary>¿Necesito experiencia previa en tecnología? <span class="pl">+</span></summary><div class="ans">No. Todos los planes inician con un diagnóstico que ajusta tu ruta de aprendizaje desde lo básico, sin importar tu punto de partida.</div></details>
+    <details open><summary><span data-en="Are the degrees officially accredited?">¿Los títulos tienen validez oficial?</span> <span class="pl">+</span></summary><div class="ans" data-en="Yes. All three plans —Express, Standard and Flexible— lead to the same bachelor's degree with official SEP accreditation (RVOE), including the degree and professional license.">Sí. Los tres planes —Exprés, Estándar y Flexible— conducen al mismo título de licenciatura con Reconocimiento de Validez Oficial de Estudios (RVOE) ante la SEP, incluyendo título y cédula profesional.</div></details>
+    <details><summary><span data-en="How long do I have to finish?">¿Cuánto tiempo tengo para terminar?</span> <span class="pl">+</span></summary><div class="ans" data-en="Each plan has a standard duration (1, 3 or 5 years), but you can move faster or pause for a while at your own pace, without losing your progress.">Cada plan tiene una duración estándar (1, 3 o 5 años), pero puedes avanzar más rápido o pausar temporadas según tu ritmo, sin perder tu progreso.</div></details>
+    <details><summary><span data-en="How does the performance scholarship work?">¿Cómo funciona la beca por desempeño?</span> <span class="pl">+</span></summary><div class="ans" data-en="You don't fill out any application. Your consistency and grades automatically generate discounts on your next monthly payment, up to a 100% scholarship.">No llenas ninguna solicitud. Tu constancia y tus calificaciones generan automáticamente descuentos en tu siguiente mensualidad, hasta una beca del 100%.</div></details>
+    <details><summary><span data-en="Do I need prior tech experience?">¿Necesito experiencia previa en tecnología?</span> <span class="pl">+</span></summary><div class="ans" data-en="No. Every plan starts with a diagnostic that tailors your learning path from the basics, no matter your starting point.">No. Todos los planes inician con un diagnóstico que ajusta tu ruta de aprendizaje desde lo básico, sin importar tu punto de partida.</div></details>
   </div>
 </div></section>
 
+<!-- CONTACTO -->
+<section class="sec" id="contacto"><div class="wrap"><div class="contact">
+  <div>
+    <span class="eyebrow light" data-en="Get in touch">Contáctanos</span>
+    <h2 data-en="Ready to start? Let's talk.">¿List@ para empezar? Hablemos.</h2>
+    <p class="csub" data-en="Leave your details and an advisor will reach out via WhatsApp to guide your enrollment — no commitment.">Déjanos tus datos y un asesor te contactará por WhatsApp para guiar tu inscripción, sin compromiso.</p>
+    <div class="cways">
+      <a class="cway" id="waDirect" href="#" target="_blank" rel="noopener"><span class="ci"><i class="ph-duotone ph-whatsapp-logo"></i></span><div><b>WhatsApp</b><span data-en="Chat with an advisor now">Chatea con un asesor ahora</span></div></a>
+      <a class="cway" id="mailDirect" href="mailto:contacto@upd.mx"><span class="ci"><i class="ph-duotone ph-envelope-simple"></i></span><div><b data-en="Email">Correo</b><span>contacto@upd.mx</span></div></a>
+      <div class="cway"><span class="ci"><i class="ph-duotone ph-map-pin"></i></span><div><b data-en="Location">Ubicación</b><span data-en="Querétaro, Mexico · 100% online">Querétaro, México · 100% en línea</span></div></div>
+    </div>
+  </div>
+  <form class="cform" id="contactForm" onsubmit="return false;">
+    <input id="cNombre" type="text" placeholder="Nombre completo" data-en-ph="Full name" autocomplete="name" required>
+    <input id="cTel" type="tel" placeholder="WhatsApp (10 dígitos)" data-en-ph="WhatsApp (10 digits)" autocomplete="tel" inputmode="numeric" required>
+    <select id="cProg">
+      <option value="" data-en="Program of interest">Programa de interés</option>
+      <option>Desarrollo de Software</option>
+      <option>Inteligencia Artificial y Datos</option>
+      <option>Negocios Digitales</option>
+      <option>Marketing Digital</option>
+      <option>Ciberseguridad</option>
+      <option>Diseño UX/UI</option>
+    </select>
+    <textarea id="cMsg" placeholder="Cuéntanos tu objetivo (opcional)" data-en-ph="Tell us your goal (optional)"></textarea>
+    <label class="consent"><input type="checkbox" id="cConsent"><span data-en-html='I accept the <a class="js-aviso">Privacy Notice</a> and to be contacted.'>Acepto el <a class="js-aviso">Aviso de Privacidad</a> y ser contactad@.</span></label>
+    <button type="button" class="cbtn" id="cSend"><i class="ph-duotone ph-whatsapp-logo"></i><span data-en="Send via WhatsApp">Enviar por WhatsApp</span></button>
+  </form>
+</div></div></section>
+
+<!-- MODAL AVISO DE PRIVACIDAD -->
+<div class="modal" id="avisoModal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-bg js-modal-close"></div>
+  <div class="modal-box">
+    <button class="modal-close js-modal-close" type="button" aria-label="Cerrar / Close">×</button>
+    <h3 data-en="Privacy Notice">Aviso de Privacidad</h3>
+    <p data-en="In accordance with Mexico's Federal Law on Protection of Personal Data Held by Private Parties (LFPDPPP).">En cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).</p>
+    <h4 data-en="Data controller">Responsable</h4>
+    <p data-en="Universidad Politécnica Digital (UPD), based in Querétaro, Mexico, is responsible for the processing of your personal data.">Universidad Politécnica Digital (UPD), con domicilio en Querétaro, México, es responsable del tratamiento de sus datos personales.</p>
+    <h4 data-en="Data we collect">Datos que recabamos</h4>
+    <p data-en="Full name, phone/WhatsApp, email and program of interest, provided voluntarily through this form.">Nombre completo, teléfono/WhatsApp, correo electrónico y programa de interés, proporcionados de forma voluntaria mediante este formulario.</p>
+    <h4 data-en="Purposes">Finalidades</h4>
+    <p data-en="To contact you, provide information about academic programs, costs and scholarships, and manage your enrollment process. We will not share your data with third parties for purposes other than those described.">Contactarle, brindar información sobre programas académicos, costos y becas, y dar seguimiento a su proceso de inscripción. No compartiremos sus datos con terceros para fines distintos a los descritos.</p>
+    <h4 data-en="ARCO rights">Derechos ARCO</h4>
+    <p data-en="You may access, rectify, cancel or object to the processing of your data, or revoke your consent, by writing to contacto@upd.mx.">Puede acceder, rectificar, cancelar u oponerse al tratamiento de sus datos, o revocar su consentimiento, escribiendo a contacto@upd.mx.</p>
+  </div>
+</div>
+
 <section class="sec" style="padding-top:0;"><div class="wrap"><div class="finalcta">
-  <h2>Tu nueva carrera empieza hoy</h2>
-  <p>Únete a +2,400 estudiantes que ya están cambiando su futuro con UNIPOLI.</p>
-  <a class="btn" href="#planes" style="background:#fff;color:var(--teal-dd);">Inscríbete ahora →</a>
+  <h2 data-en="Your new career starts today">Tu nueva carrera empieza hoy</h2>
+  <p data-en="Join +2,400 students already changing their future with Universidad Politécnica Digital.">Únete a +2,400 estudiantes que ya están cambiando su futuro con la Universidad Politécnica Digital.</p>
+  <a class="btn" href="#planes" style="background:#fff;color:var(--teal-dd);" data-en="Enroll now →">Inscríbete ahora →</a>
 </div></div></section>
 
 <footer><div class="wrap">
   <div class="foot">
-    <div><div class="brand" style="display:flex;align-items:center;gap:10px;"><svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;display:block;"><rect width="40" height="40" rx="10" fill="#fff"/><text x="20" y="27" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="800" font-size="17" fill="#0c8076" letter-spacing="-0.5">upd</text></svg>Universidad Politécnica Digital</div><p style="margin-top:12px;max-width:280px;font-size:13.5px;">Educación superior 100% digital con validez oficial. Desde Durango para todo México.</p></div>
-    <div class="flinks"><a href="#carreras">Carreras</a><a href="#planes">Planes</a><a href="#faq">Preguntas</a><a href="campus/">Campus</a></div>
+    <div><div class="brand" style="display:flex;align-items:center;gap:10px;"><svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;display:block;"><rect width="40" height="40" rx="10" fill="#fff"/><text x="20" y="27" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="800" font-size="17" fill="#15613f" letter-spacing="-0.5">upd</text></svg>Universidad Politécnica Digital</div><p style="margin-top:12px;max-width:280px;font-size:13.5px;" data-en="100% digital higher education with official accreditation. From Querétaro to all of Mexico.">Educación superior 100% digital con validez oficial. Desde Querétaro para todo México.</p></div>
+    <div class="flinks"><a href="#nosotros" data-en="About">Conócenos</a><a href="#carreras" data-en="Programs">Carreras</a><a href="#planes" data-en="Plans">Planes</a><a href="#comparativa" data-en="Compare">Comparativa</a><a href="#contacto" data-en="Contact">Contacto</a><a href="campus/">Campus</a></div>
   </div>
-  <div class="fbottom"><span>© 2026 UNIPOLI · Universidad Politécnica Digital · upd.mx</span><span>RVOE vigente ante la SEP</span></div>
+  <div class="fbottom"><span>© 2026 Universidad Politécnica Digital · upd.mx</span><span data-en="Valid RVOE accreditation (SEP)">RVOE vigente ante la SEP</span></div>
 </div></footer>
 <script>
 (function(){
@@ -625,6 +977,93 @@ footer{background:#0a1622;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
   nav.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click',function(){nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');});
   });
+})();
+</script>
+<!-- Contacto + WhatsApp + Aviso + Comparativa -->
+<script>
+(function(){
+  function L(){return (window.UPD&&window.UPD.lang)||'es';}
+  // ===== CONFIG: número de WhatsApp y correo (PLACEHOLDER — reemplazar por los reales) =====
+  var WA='524420000000';          // formato internacional sin '+': 52 + 10 dígitos
+  var MAIL='contacto@upd.mx';
+  function waLink(msg){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(msg);}
+
+  // Botón directo de WhatsApp
+  var waDirect=document.getElementById('waDirect');
+  function setDirect(){if(waDirect)waDirect.href=waLink(L()==='en'?'Hi! I would like information about UPD programs.':'¡Hola! Quiero información sobre las carreras de la UPD.');}
+  setDirect();document.addEventListener('updlang',setDirect);
+
+  // Envío del formulario por WhatsApp
+  var send=document.getElementById('cSend');
+  if(send)send.addEventListener('click',function(){
+    var nom=(document.getElementById('cNombre').value||'').trim();
+    var tel=(document.getElementById('cTel').value||'').replace(/\D/g,'');
+    var prog=document.getElementById('cProg').value||'';
+    var msg=(document.getElementById('cMsg').value||'').trim();
+    var ok=document.getElementById('cConsent').checked;
+    if(nom.length<3||tel.length<10){alert(L()==='en'?'Please enter your name and a valid 10-digit WhatsApp.':'Escribe tu nombre y un WhatsApp válido de 10 dígitos.');return;}
+    if(!ok){alert(L()==='en'?'Please accept the Privacy Notice.':'Acepta el Aviso de Privacidad para continuar.');return;}
+    var text=(L()==='en'
+      ?('New lead — UPD\nName: '+nom+'\nWhatsApp: '+tel+(prog?('\nProgram: '+prog):'')+(msg?('\nGoal: '+msg):''))
+      :('Nuevo prospecto — UPD\nNombre: '+nom+'\nWhatsApp: '+tel+(prog?('\nPrograma: '+prog):'')+(msg?('\nObjetivo: '+msg):'')));
+    window.open(waLink(text),'_blank','noopener');
+  });
+
+  // ===== Modal Aviso de Privacidad (delegación, sobrevive a cambios de idioma) =====
+  var modal=document.getElementById('avisoModal');
+  function openModal(){if(modal){modal.classList.add('open');modal.setAttribute('aria-hidden','false');}}
+  function closeModal(){if(modal){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');}}
+  document.addEventListener('click',function(e){
+    if(e.target.closest('.js-aviso')){e.preventDefault();openModal();}
+    else if(e.target.closest('.js-modal-close')){closeModal();}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+
+  // ===== Animación de barras de comparativa al entrar en viewport =====
+  var fills=document.querySelectorAll('.cmp-fill');
+  if(fills.length){
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){if(en.isIntersecting){en.target.style.width=en.target.dataset.w;io.unobserve(en.target);}});
+      },{threshold:.35});
+      fills.forEach(function(f){io.observe(f);});
+    } else {
+      fills.forEach(function(f){f.style.width=f.dataset.w;});
+    }
+  }
+})();
+</script>
+<!-- i18n ES/EN -->
+<script>
+(function(){
+  var KEY='upd_lang';
+  window.UPD=window.UPD||{};
+  function apply(lang){
+    window.UPD.lang=lang;
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      if(el.dataset.es===undefined)el.dataset.es=el.textContent;
+      el.textContent= lang==='en'? el.getAttribute('data-en') : el.dataset.es;
+    });
+    document.querySelectorAll('[data-en-html]').forEach(function(el){
+      if(el.dataset.esHtml===undefined)el.dataset.esHtml=el.innerHTML;
+      el.innerHTML= lang==='en'? el.getAttribute('data-en-html') : el.dataset.esHtml;
+    });
+    document.querySelectorAll('[data-en-ph]').forEach(function(el){
+      if(el.dataset.esPh===undefined)el.dataset.esPh=el.placeholder;
+      el.placeholder= lang==='en'? el.getAttribute('data-en-ph') : el.dataset.esPh;
+    });
+    document.querySelectorAll('#langBtn span[data-l]').forEach(function(s){
+      s.classList.toggle('on', s.getAttribute('data-l')===lang);
+    });
+    try{localStorage.setItem(KEY,lang);}catch(e){}
+    document.dispatchEvent(new CustomEvent('updlang',{detail:lang}));
+  }
+  window.UPD.setLang=apply;
+  var btn=document.getElementById('langBtn');
+  if(btn)btn.addEventListener('click',function(){apply(window.UPD.lang==='en'?'es':'en');});
+  var saved='es';try{saved=localStorage.getItem(KEY)||'es';}catch(e){}
+  apply(saved);
 })();
 </script>
 </body></html>
