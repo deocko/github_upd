@@ -518,7 +518,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
         <li data-en="Same degree and professional license">Mismo título y cédula profesional</li>
         <li data-en="Ideal for promotions and urgent licensing">Ideal para ascensos y cédula urgente</li>
       </ul>
-      <a class="pbtn" href="#becas" data-en="Choose Express">Elegir Exprés</a>
+      <a class="pbtn" href="#contacto" data-plan="Exprés" data-en="Choose Express">Elegir Exprés</a>
     </div>
     <div class="pcard feat">
       <div class="pcard-tag" data-en="Most chosen">Más elegido</div>
@@ -536,7 +536,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
         <li data-en="Cohort community and mentorship">Comunidad de cohorte y mentoría</li>
         <li data-en="Same degree and professional license">Mismo título y cédula profesional</li>
       </ul>
-      <a class="pbtn solid" href="#becas" data-en="Choose Standard">Elegir Estándar</a>
+      <a class="pbtn solid" href="#contacto" data-plan="Estándar" data-en="Choose Standard">Elegir Estándar</a>
     </div>
     <div class="pcard">
       <h3>Flexible</h3>
@@ -552,7 +552,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
         <li data-en="Lighter monthly tuition">Colegiatura mensual más ligera</li>
         <li data-en="Same degree and professional license">Mismo título y cédula profesional</li>
       </ul>
-      <a class="pbtn" href="#becas" data-en="Choose Flexible">Elegir Flexible</a>
+      <a class="pbtn" href="#contacto" data-plan="Flexible" data-en="Choose Flexible">Elegir Flexible</a>
     </div>
   </div>
   <div class="pr-foot">
@@ -649,7 +649,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
         <div class="ruleta-prize"><span data-en="Scholarship of">Beca del</span> <span id="rPrize">0%</span></div>
         <div class="ruleta-urgency"><i class="ph-duotone ph-timer"></i> <span id="rCountdown">Válida por 15:00</span></div>
         <p data-en="Secure your spot before your scholarship expires. An advisor will contact you to complete your enrollment.">Asegura tu lugar antes de que tu beca expire. Un asesor te contactará para completar tu inscripción.</p>
-        <a class="btn" href="#planes" style="background:#fff;color:var(--teal-dd);" data-en="Enroll and keep my scholarship →">Inscríbete y conservo mi beca →</a>
+        <a class="btn" id="rGoContact" href="#contacto" style="background:#fff;color:var(--teal-dd);" data-en="Enroll and keep my scholarship →">Inscríbete y conservo mi beca →</a>
       </div>
     </div>
   </div>
@@ -689,7 +689,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
   nombre.addEventListener('input',check);tel.addEventListener('input',check);
 
   function pick(){var tot=0;prizes.forEach(function(p){tot+=p.w;});var r=Math.random()*tot;for(var i=0;i<N;i++){if(r<prizes[i].w)return i;r-=prizes[i].w;}return 0;}
-  var spun=false;
+  var spun=false,lastPrize='';
   function spin(){
     if(spun)return;spun=true;btn.disabled=true;btn.textContent=(L()==='en'?'Spinning…':'Girando…');
     var k=pick();
@@ -705,6 +705,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
     var hi=L()==='en'?'Congratulations':'¡Felicidades';
     document.getElementById('rWinName').textContent=hi+(nm?', '+nm:'')+'!';
     document.getElementById('rPrize').textContent=v;
+    lastPrize=v;
     countdown();
   }
   function countdown(){
@@ -717,6 +718,14 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
     })();
   }
   btn.addEventListener('click',spin);
+  // Al reclamar la beca, pasa los datos al formulario de contacto
+  var goC=document.getElementById('rGoContact');
+  if(goC)goC.addEventListener('click',function(){
+    var cN=document.getElementById('cNombre'),cT=document.getElementById('cTel'),cM=document.getElementById('cMsg');
+    if(cN&&nombre.value)cN.value=nombre.value;
+    if(cT&&tel.value)cT.value=tel.value;
+    if(cM)cM.value=(L()==='en'?('I won a '+lastPrize+' scholarship on the wheel and want to enroll.'):('Gané una beca del '+lastPrize+' en la ruleta y quiero inscribirme.'));
+  });
 })();
 </script>
 
@@ -1007,6 +1016,15 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
       ?('New lead — UPD\nName: '+nom+'\nWhatsApp: '+tel+(prog?('\nProgram: '+prog):'')+(msg?('\nGoal: '+msg):''))
       :('Nuevo prospecto — UPD\nNombre: '+nom+'\nWhatsApp: '+tel+(prog?('\nPrograma: '+prog):'')+(msg?('\nObjetivo: '+msg):'')));
     window.open(waLink(text),'_blank','noopener');
+  });
+
+  // Pre-llenar el mensaje del formulario al elegir un plan (rompe el bucle planes<->ruleta)
+  function planMsg(plan){return L()==='en'?('Hi! I\'m interested in the '+plan+' plan.'):('¡Hola! Me interesa el plan '+plan+'.');}
+  document.querySelectorAll('.pbtn[data-plan]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var msg=document.getElementById('cMsg');
+      if(msg)msg.value=planMsg(b.getAttribute('data-plan'));
+    });
   });
 
   // ===== Modal Aviso de Privacidad (delegación, sobrevive a cambios de idioma) =====
