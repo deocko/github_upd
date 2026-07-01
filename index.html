@@ -127,12 +127,12 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .carr-meta span{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:30px;padding:5px 13px;}
 .carr-cta{display:inline-flex;align-items:center;gap:8px;}
 .carr-rail{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:16px;}
-.carr-thumb{font-family:inherit;text-align:left;background:var(--soft);border:2px solid transparent;border-radius:16px;padding:20px 16px;cursor:pointer;transition:.22s;display:flex;flex-direction:column;align-items:flex-start;}
+.carr-thumb{font-family:inherit;text-align:center;background:var(--soft);border:2px solid transparent;border-radius:18px;padding:22px 16px;cursor:pointer;transition:.22s;display:flex;flex-direction:column;align-items:center;}
 .carr-thumb:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(15,27,41,.12);}
 .carr-thumb.active{background:#fff;border-color:var(--accent);box-shadow:0 16px 36px rgba(15,27,41,.12);}
-.carr-thumb .ic{width:46px;height:46px;border-radius:13px;background:var(--teal-dd);display:flex;align-items:center;justify-content:center;margin-bottom:14px;transition:.22s;}
-.carr-thumb .ic svg{stroke:var(--accent);fill:none;transition:.22s;}
-.carr-thumb:hover .ic,.carr-thumb.active .ic{background:var(--accent);}
+.carr-thumb .ic{width:56px;height:56px;border-radius:18px;background:linear-gradient(145deg,var(--teal) 0%,var(--teal-dd) 100%);box-shadow:0 10px 22px rgba(12,128,118,.22);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;transition:transform .22s,background .22s,box-shadow .22s;}
+.carr-thumb .ic svg{width:26px;height:26px;stroke:#fff;stroke-width:1.9;fill:none;transition:.22s;}
+.carr-thumb:hover .ic,.carr-thumb.active .ic{background:linear-gradient(145deg,var(--gold-l),var(--gold));box-shadow:0 12px 26px rgba(201,161,59,.32);transform:translateY(-3px) scale(1.04);}
 .carr-thumb:hover .ic svg,.carr-thumb.active .ic svg{stroke:#fff;}
 .carr-thumb-t{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);line-height:1.2;margin-bottom:5px;}
 .carr-thumb small{font-size:12px;color:var(--muted);}
