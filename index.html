@@ -5,10 +5,10 @@
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
 <style>
 :root{
-/* Marca UPD — verde 'lpd' */
---green:#15613f;--green-d:#0f4a30;--green-dd:#0a3322;--green-tint:#e7f3ec;
+/* Marca UPD — teal #0C8076 */
+--green:#0c8076;--green-d:#0f766e;--green-dd:#115e59;--green-tint:#e2f8f3;
 /* Premium — verde profundo + oro (superficies oscuras) */
---navy:#0c3a28;--navy-d:#082619;--navy-card:#13503a;--gold:#c9a13b;--gold-l:#e6c879;--cream:#f6eed7;
+--navy:#115e59;--navy-d:#0d4a45;--navy-card:#0f766e;--gold:#c9a13b;--gold-l:#e6c879;--cream:#f6eed7;
 /* Base */
 --ink:#0f1b29;--muted:#5b6b78;--line:#e8edf1;--soft:#f5f8f9;
 /* Alias de compatibilidad (componentes existentes) */
@@ -197,7 +197,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .finalcta h2{font-size:40px;font-weight:800;}
 .finalcta p{color:rgba(255,255,255,.85);margin:14px auto 28px;max-width:480px;}
 /* footer */
-footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin-top:84px;}
+footer{background:#0d4a45;color:rgba(255,255,255,.55);padding:54px 0 30px;margin-top:84px;}
 .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;}
 .foot .brand{color:#fff;}
 .flinks{display:flex;gap:28px;flex-wrap:wrap;font-size:14px;}
@@ -260,7 +260,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
   .carr-stage-body h3{font-size:clamp(22px,5vw,32px);}
 }
 /* ===== PRICING premium (navy + oro) ===== */
-.pricing{background:radial-gradient(120% 90% at 50% 0%,#114a35 0%,var(--navy) 62%);color:#fff;}
+.pricing{background:radial-gradient(120% 90% at 50% 0%,#0f766e 0%,var(--navy) 62%);color:#fff;}
 .pr-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;}
 .pr-head{text-align:center;max-width:730px;margin:0 auto 8px;}
 .pr-kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--gold-l);font-weight:600;}
@@ -279,24 +279,24 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
 .pcard-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:11px;font-weight:800;letter-spacing:.12em;padding:6px 16px;border-radius:8px;font-family:ui-monospace,Menlo,monospace;text-transform:uppercase;}
 .pcard h3{font-family:'Space Grotesk';font-size:26px;font-weight:800;color:inherit;}
 .pcard .ptag-desc{font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;min-height:42px;}
-.pcard.feat .ptag-desc{color:rgba(10,51,34,.72);}
+.pcard.feat .ptag-desc{color:rgba(17,94,89,.72);}
 .pcard .price{font-family:'Space Grotesk';font-size:48px;font-weight:800;color:inherit;letter-spacing:-.02em;margin-top:22px;line-height:1;}
 .pcard .price .cur{color:var(--gold);font-size:24px;vertical-align:super;margin-right:2px;}
 .pcard .price small{font-size:15px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:0;}
-.pcard.feat .price small{color:rgba(10,51,34,.55);}
+.pcard.feat .price small{color:rgba(17,94,89,.55);}
 .pcard .ptot{font-size:13px;color:rgba(255,255,255,.6);margin-top:12px;}
-.pcard.feat .ptot{color:rgba(10,51,34,.68);}
+.pcard.feat .ptot{color:rgba(17,94,89,.68);}
 .pcard .ptot b{color:#fff;}.pcard.feat .ptot b{color:var(--navy);}
 .pbar-row{display:flex;justify-content:space-between;font-size:11px;margin:24px 0 8px;color:rgba(255,255,255,.5);}
-.pcard.feat .pbar-row{color:rgba(10,51,34,.6);}
+.pcard.feat .pbar-row{color:rgba(17,94,89,.6);}
 .pbar{height:6px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden;}
-.pcard.feat .pbar{background:rgba(10,51,34,.12);}
+.pcard.feat .pbar{background:rgba(17,94,89,.12);}
 .pbar i{display:block;height:100%;background:var(--gold);border-radius:6px;}
 .pdiv{height:1px;background:rgba(255,255,255,.10);margin:22px 0;}
-.pcard.feat .pdiv{background:rgba(10,51,34,.12);}
+.pcard.feat .pdiv{background:rgba(17,94,89,.12);}
 .pfeat{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:26px;}
 .pfeat li{font-size:14px;padding-left:26px;position:relative;color:rgba(255,255,255,.82);}
-.pcard.feat .pfeat li{color:rgba(10,51,34,.85);}
+.pcard.feat .pfeat li{color:rgba(17,94,89,.85);}
 .pfeat li::before{content:'✓';position:absolute;left:0;top:1px;color:var(--gold);font-weight:800;}
 .pbtn{margin-top:auto;display:block;text-align:center;font-weight:700;padding:15px;border-radius:12px;border:1px solid rgba(255,255,255,.22);color:#fff;transition:.16s;}
 .pbtn:hover{background:rgba(255,255,255,.08);}
@@ -307,7 +307,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
 @media(max-width:900px){.pr-grid{grid-template-columns:1fr;max-width:440px;}.pcard.feat{transform:none;}.pr-foot{flex-direction:column;text-align:center;}}
 /* ===== CONÓCENOS ===== */
 .about-mv{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:42px;}
-.mv-card{background:linear-gradient(160deg,var(--navy-card),var(--navy));color:#fff;border-radius:24px;padding:38px 34px;position:relative;overflow:hidden;}
+.mv-card{background:linear-gradient(160deg,var(--teal),var(--teal-dd));color:#fff;border-radius:24px;padding:38px 34px;position:relative;overflow:hidden;}
 .mv-card::before{content:'';position:absolute;left:0;top:34px;bottom:34px;width:4px;background:var(--gold);border-radius:0 4px 4px 0;}
 .mv-card .mv-k{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-l);}
 .mv-card h3{font-size:23px;font-weight:800;margin:12px 0 14px;color:#fff;}
@@ -667,7 +667,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
     {v:'15%',w:24},{v:'100%',w:3},{v:'40%',w:18},{v:'25%',w:24},
     {v:'60%',w:10},{v:'30%',w:18},{v:'50%',w:13},{v:'20%',w:24}
   ];
-  var N=prizes.length, seg=360/N, colors=['#c9a13b','#15613f'], ns='http://www.w3.org/2000/svg';
+  var N=prizes.length, seg=360/N, colors=['#c9a13b','#0c8076'], ns='http://www.w3.org/2000/svg';
   function pt(a,r){var rad=(a-90)*Math.PI/180;return [100+r*Math.cos(rad),100+r*Math.sin(rad)];}
   var svg=document.createElementNS(ns,'svg');
   svg.setAttribute('viewBox','0 0 200 200');svg.setAttribute('width','100%');svg.setAttribute('height','100%');
