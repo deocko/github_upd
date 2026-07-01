@@ -38,6 +38,7 @@ img{display:block;max-width:100%;}
 header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
 .nav{display:flex;align-items:center;justify-content:space-between;height:76px;}
 .brand{display:flex;align-items:center;gap:11px;font-family:'Space Grotesk';font-weight:800;font-size:16px;}
+.brand .hlogo{width:clamp(46px,4.6vw,58px);height:auto;flex-shrink:0;display:block;border-radius:12px;}
 .blogo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--teal),var(--teal-dd));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;}
 .nlinks{display:flex;gap:30px;font-size:14.5px;font-weight:600;color:var(--muted);}
 .nlinks a:hover{color:var(--teal);}
@@ -406,7 +407,7 @@ footer{background:#0d4a45;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
 </style></head>
 <body>
 <header><div class="wrap nav">
-  <a class="brand"><img src="logo-upd.svg" width="40" height="40" alt="UPD" style="flex-shrink:0;display:block;border-radius:10px;">Universidad Politécnica Digital</a>
+  <a class="brand"><img class="hlogo" src="logo-upd.svg" width="58" height="58" alt="UPD">Universidad Politécnica Digital</a>
   <nav class="nlinks"><a href="#camino" data-en="How it works">Cómo funciona</a><a href="#nosotros" data-en="About">Conócenos</a><a href="#carreras" data-en="Programs">Carreras</a><a href="#planes" data-en="Plans">Planes</a><a href="#faq" data-en="FAQ">Preguntas</a><a href="#contacto" data-en="Contact">Contacto</a><a class="campus-mobile" href="campus/">Campus</a></nav>
   <div class="nr">
     <button class="lang-btn" id="langBtn" type="button" aria-label="Cambiar idioma / Switch language"><span data-l="es">ES</span><span class="sep">/</span><span data-l="en">EN</span></button>
