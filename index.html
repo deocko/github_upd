@@ -1141,4 +1141,178 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
   stags.forEach(function(el){io.observe(el);});
 })();
 </script>
+
+<!-- ============ CAPA 3D / INTERACTIVA (partículas, tilt, parallax, contadores, CTA magnético) ============ -->
+<style id="fx3d">
+.hero{position:relative;}
+#heroParticles{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+.hero>div{position:relative;z-index:1;}
+/* transiciones suaves para tilt/parallax */
+.fx-tilt{transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s;transform-style:preserve-3d;will-change:transform;}
+.chip3d{transition:transform .22s cubic-bezier(.2,.7,.2,1),box-shadow .3s;will-change:transform;}
+.hero-carousel{transition:transform .3s ease;will-change:transform;}
+/* brillo dorado que barre en botones rellenos */
+.fx-shine{position:relative;overflow:hidden;}
+.fx-shine::after{content:'';position:absolute;top:0;left:-120%;width:55%;height:100%;
+  background:linear-gradient(100deg,transparent 0%,rgba(230,200,121,.0) 20%,rgba(230,200,121,.55) 50%,rgba(230,200,121,0) 80%,transparent 100%);
+  transform:skewX(-18deg);pointer-events:none;z-index:2;}
+.fx-shine:hover::after{left:135%;transition:left .8s ease;}
+.fx-magnetic{will-change:transform;}
+@media (prefers-reduced-motion:reduce){
+  .fx-tilt,.chip3d,.hero-carousel{transition:none;}
+  .fx-shine::after{display:none;}
+}
+</style>
+<script>
+(function(){
+  var mq=function(q){return window.matchMedia&&window.matchMedia(q).matches;};
+  var reduce=mq('(prefers-reduced-motion: reduce)');
+  var cursorFx=!reduce && mq('(hover: hover) and (pointer: fine)');
+
+  /* ---------- 1. Contadores animados (+2,400 / +50) ---------- */
+  (function(){
+    var nodes=document.querySelectorAll('.trust b');
+    if(!nodes.length)return;
+    var targets=[];
+    nodes.forEach(function(b){
+      var m=(b.textContent||'').match(/^(\D*)([\d.,]+)(.*)$/);
+      if(!m)return;
+      var num=parseInt(m[2].replace(/[^\d]/g,''),10);
+      if(isNaN(num))return;
+      targets.push({el:b,pre:m[1],suf:m[3],val:num});
+    });
+    function fmt(t,n){return t.pre+n.toLocaleString('en-US')+t.suf;}
+    if(reduce){targets.forEach(function(t){t.el.textContent=fmt(t,t.val);});return;}
+    var done=false;
+    function run(){
+      if(done)return;done=true;
+      var dur=1400,start=null;
+      function step(ts){
+        if(!start)start=ts;
+        var p=Math.min((ts-start)/dur,1),e=1-Math.pow(1-p,3);
+        targets.forEach(function(t){t.el.textContent=fmt(t,Math.round(t.val*e));});
+        if(p<1)requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    var trust=document.querySelector('.trust');
+    if('IntersectionObserver' in window && trust){
+      var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){run();io.disconnect();}});},{threshold:.4});
+      io.observe(trust);
+    }else run();
+  })();
+
+  if(!cursorFx)return; /* el resto es efecto de cursor: se desactiva en touch/móvil/reduced-motion */
+
+  /* ---------- 2. Red de partículas en el hero ---------- */
+  (function(){
+    var hero=document.querySelector('.hero');if(!hero)return;
+    var cv=document.createElement('canvas');cv.id='heroParticles';
+    hero.insertBefore(cv,hero.firstChild);
+    var ctx=cv.getContext('2d'),W=0,H=0,dpr=Math.min(window.devicePixelRatio||1,2);
+    var pts=[],mouse={x:-9999,y:-9999};
+    function resize(){
+      var r=hero.getBoundingClientRect();W=r.width;H=r.height;
+      cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      var count=Math.max(22,Math.min(56,Math.round(W/26)));
+      pts=[];
+      for(var i=0;i<count;i++){
+        pts.push({x:Math.random()*W,y:Math.random()*H,
+          vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,
+          r:Math.random()*1.6+1,gold:Math.random()<.28});
+      }
+    }
+    hero.addEventListener('pointermove',function(e){var r=hero.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
+    hero.addEventListener('pointerleave',function(){mouse.x=mouse.y=-9999;});
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<pts.length;i++){
+        var p=pts[i];
+        var dx=p.x-mouse.x,dy=p.y-mouse.y,d2=dx*dx+dy*dy;
+        if(d2<14400){var d=Math.sqrt(d2)||1,f=(120-d)/120*1.2;p.vx+=dx/d*f*.08;p.vy+=dy/d*f*.08;}
+        p.vx*=.985;p.vy*=.985;p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+        p.x=Math.max(0,Math.min(W,p.x));p.y=Math.max(0,Math.min(H,p.y));
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);
+        ctx.fillStyle=p.gold?'rgba(201,161,59,.55)':'rgba(12,128,118,.5)';ctx.fill();
+      }
+      for(var a=0;a<pts.length;a++)for(var b=a+1;b<pts.length;b++){
+        var A=pts[a],B=pts[b],ddx=A.x-B.x,ddy=A.y-B.y,dd=ddx*ddx+ddy*ddy;
+        if(dd<12100){var al=(1-dd/12100)*.34;
+          ctx.strokeStyle='rgba(12,128,118,'+al.toFixed(3)+')';ctx.lineWidth=1;
+          ctx.beginPath();ctx.moveTo(A.x,A.y);ctx.lineTo(B.x,B.y);ctx.stroke();}
+      }
+      requestAnimationFrame(draw);
+    }
+    resize();window.addEventListener('resize',resize);requestAnimationFrame(draw);
+  })();
+
+  /* ---------- 3. Tilt 3D genérico (tarjetas de planes, pasos, escenario carreras) ---------- */
+  function addTilt(el,maxDeg,lift,persp){
+    el.classList.add('fx-tilt');
+    el.addEventListener('pointermove',function(e){
+      var r=el.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      el.style.transition='transform .08s linear';
+      el.style.transform='perspective('+persp+'px) rotateX('+(-py*maxDeg).toFixed(2)+'deg) rotateY('+(px*maxDeg).toFixed(2)+'deg) translateY(-'+lift+'px)';
+    });
+    el.addEventListener('pointerleave',function(){
+      el.style.transition='transform .5s cubic-bezier(.2,.7,.2,1)';
+      el.style.transform='';
+    });
+  }
+  document.querySelectorAll('.pcard').forEach(function(el){addTilt(el,7,6,900);});
+  document.querySelectorAll('.scard').forEach(function(el){addTilt(el,8,6,800);});
+  var stage=document.getElementById('carrStage');
+  if(stage){
+    stage.classList.add('fx-tilt');
+    stage.addEventListener('pointermove',function(e){
+      var r=stage.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      stage.style.transition='transform .12s linear, background-image .3s ease';
+      stage.style.transform='perspective(1400px) rotateX('+(-py*4).toFixed(2)+'deg) rotateY('+(px*5).toFixed(2)+'deg)';
+    });
+    stage.addEventListener('pointerleave',function(){
+      stage.style.transition='transform .6s cubic-bezier(.2,.7,.2,1), background-image .3s ease';
+      stage.style.transform='';
+    });
+  }
+
+  /* ---------- 4. Parallax de chips en el arte del hero (distintas profundidades) ---------- */
+  (function(){
+    var art=document.querySelector('.hero .art');if(!art)return;
+    var chips=[].slice.call(art.querySelectorAll('.chip3d'));
+    var carousel=art.querySelector('.hero-carousel');
+    var depths=[20,28,24,32];
+    art.addEventListener('pointermove',function(e){
+      var r=art.getBoundingClientRect();
+      var ox=(e.clientX-r.left)/r.width-.5, oy=(e.clientY-r.top)/r.height-.5;
+      chips.forEach(function(c,i){var d=depths[i%depths.length];
+        c.style.transform='translate('+(ox*d).toFixed(1)+'px,'+(oy*d).toFixed(1)+'px)';});
+      if(carousel)carousel.style.transform='translate('+(-ox*8).toFixed(1)+'px,'+(-oy*8).toFixed(1)+'px) scale(1.04)';
+    });
+    art.addEventListener('pointerleave',function(){
+      chips.forEach(function(c){c.style.transform='';});
+      if(carousel)carousel.style.transform='';
+    });
+  })();
+
+  /* ---------- 5. Botón CTA magnético + brillo dorado ---------- */
+  document.querySelectorAll('.btn-p, .pbtn.solid').forEach(function(b){b.classList.add('fx-shine');});
+  document.querySelectorAll('.hero-actions .btn-p, .pbtn').forEach(function(b){
+    b.classList.add('fx-magnetic');
+    b.addEventListener('pointermove',function(e){
+      var r=b.getBoundingClientRect();
+      var dx=(e.clientX-r.left-r.width/2), dy=(e.clientY-r.top-r.height/2);
+      b.style.transition='transform .12s ease';
+      b.style.transform='translate('+(dx*.28).toFixed(1)+'px,'+(dy*.4).toFixed(1)+'px)';
+    });
+    b.addEventListener('pointerleave',function(){
+      b.style.transition='transform .45s cubic-bezier(.2,.9,.3,1.4)';
+      b.style.transform='';
+    });
+  });
+})();
+</script>
 </body></html>
