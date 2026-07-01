@@ -393,6 +393,11 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
 .calc-cell.save .cv{color:var(--green-d);}
 .calc-note{font-size:11.5px;color:var(--muted);text-align:center;margin-top:18px;line-height:1.6;}
 @media(max-width:560px){.calc-plans{grid-template-columns:1fr;}.calc-out{grid-template-columns:1fr;}}
+/* ===== SCROLL REVEAL (animación de entrada por sección) ===== */
+@media (prefers-reduced-motion: no-preference){
+  .rv{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform;}
+  .rv.in{opacity:1;transform:none;}
+}
 </style></head>
 <body>
 <header><div class="wrap nav">
@@ -469,7 +474,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
 
 <section class="sec" id="camino" style="background:var(--soft);">
   <div class="wrap">
-    <div class="sec-head"><span class="eyebrow ctr" data-en="The UPD path">El camino UPD</span><h2 data-en="Three steps, one platform">Tres pasos, una sola plataforma</h2><p data-en="From sign-up to degree, all online and guided step by step.">Del registro al título, todo en línea y guiado paso a paso.</p></div>
+    <div class="sec-head"><span class="eyebrow ctr" data-en="The UPD path">El camino UPD</span><h2 data-en="Three steps, one platform">Tres pasos, una sola plataforma</h2><p data-en="From sign-up to your degree, all online, and we guide you step by step.">Del registro hasta tu título, todo en línea y te guiamos paso a paso.</p></div>
     <div class="grid3">
       <div class="scard"><div class="badge"><i class="ph-duotone ph-file-text"></i></div><div class="snum" data-en="STEP 01">PASO 01</div><h3 data-en="Enroll">Inscríbete</h3><p data-en="Complete your enrollment 100% online and secure your spot today.">Completa tu inscripción 100% en línea y asegura tu lugar hoy mismo.</p></div>
       <div class="scard"><div class="badge"><i class="ph-duotone ph-books"></i></div><div class="snum" data-en="STEP 02">PASO 02</div><h3 data-en="Learn">Aprende</h3><p data-en="Short lessons, guided paths and an AI tutor available 24/7.">Lecciones cortas, rutas guiadas y un tutor con IA disponible 24/7.</p></div>
@@ -483,7 +488,7 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
   <div class="sec-head"><span class="eyebrow ctr" data-en="About us">Conócenos</span><h2 data-en="Education that adapts to your real life">Educación que se adapta a tu vida real</h2><p data-en="We were born 100% digital to remove the barriers of time, distance and rigidity that keep thousands of people from finishing their degree.">Nacimos 100% digitales para eliminar las barreras de tiempo, distancia y rigidez que impiden a miles de personas terminar su carrera.</p></div>
   <div class="about-mv">
     <div class="mv-card"><div class="mv-k" data-en="Our mission">Nuestra misión</div><h3 data-en="Your professional goal, without obstacles">Tu meta profesional, sin obstáculos</h3><p data-en="We help every person achieve their professional goals so that education is never an obstacle, but the most direct path to reach them: a dynamic, flexible and effective virtual campus, with official SEP accreditation, at the pace your real life allows.">Ayudamos a que cada persona cumpla sus metas profesionales sin que la educación sea un obstáculo, sino el camino más directo para lograrlo: un campus virtual dinámico, flexible y eficaz, con validez oficial SEP, al ritmo que tu vida real permite.</p></div>
-    <div class="mv-card"><div class="mv-k" data-en="Our vision">Nuestra visión</div><h3 data-en="Mexico's leading digital university">La universidad digital líder de México</h3><p data-en="To be the leading digital university in Mexico and the Bajío region by 2030, recognized for democratizing access to quality higher education, for the employability of its graduates, and for proving that learning online can be easier, more dynamic and more effective than the traditional path.">Ser la universidad digital líder en México y el Bajío para 2030, reconocida por democratizar el acceso a la educación superior de calidad, por la empleabilidad de sus egresados y por demostrar que aprender en línea puede ser más fácil, dinámico y efectivo que lo tradicional.</p></div>
+    <div class="mv-card"><div class="mv-k" data-en="Our vision">Nuestra visión</div><h3 data-en="Mexico's leading digital university">La universidad digital líder de México</h3><p data-en="To be the leading digital university in Mexico and the Bajío region by 2030, recognized for guaranteeing access to quality higher education, for the employability of its graduates, and, through new models, for making online learning easier, more dynamic and more effective than the traditional model.">Ser la universidad digital líder en México y del Bajío para 2030, reconocida por garantizar el acceso a la educación superior de calidad, por la empleabilidad de sus egresados y a través de los nuevos modelos para aprender en línea puede ser más fácil, dinámico y efectivo en comparación al modelo tradicional.</p></div>
   </div>
   <div class="values">
     <div class="vcard"><div class="badge"><i class="ph-duotone ph-globe-hemisphere-west"></i></div><h4 data-en="Accessibility">Accesibilidad</h4><p data-en="Quality shouldn't depend on where you live or how much free time you have.">La calidad no depende de dónde vives ni de cuánto tiempo libre tienes.</p></div>
@@ -1082,6 +1087,51 @@ footer{background:#082619;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
   if(btn)btn.addEventListener('click',function(){apply(window.UPD.lang==='en'?'es':'en');});
   var saved='es';try{saved=localStorage.getItem(KEY)||'es';}catch(e){}
   apply(saved);
+})();
+</script>
+<!-- Scroll reveal: anima cada sección al entrar en el viewport -->
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Progressive enhancement: sin IntersectionObserver o con reduce-motion, todo queda visible tal cual.
+  if(reduce || !('IntersectionObserver' in window)) return;
+
+  // Bloques que aparecen como una sola pieza
+  var blockSel='.hero>div:first-child,.sec-head,.pr-head,.about-quote,.calc,.cmp,.cmp-note,.ruleta-wrap,.carr-flix,.faq,.contact,.finalcta';
+  // Rejillas cuyos hijos entran de forma escalonada (stagger)
+  var stagSel='.grid3,.grid4,.values,.about-mv,.pr-grid,.plans';
+
+  var blocks=[].slice.call(document.querySelectorAll(blockSel));
+  var stags=[].slice.call(document.querySelectorAll(stagSel));
+
+  blocks.forEach(function(el){el.classList.add('rv');});
+
+  // Estado inicial del stagger vía inline (para no pisar transforms/hover de las tarjetas)
+  stags.forEach(function(g){
+    [].slice.call(g.children).forEach(function(c,i){
+      c.style.opacity='0';
+      c.style.transform='translateY(26px)';
+      c.style.transition='opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)';
+      c.style.transitionDelay=(i*90)+'ms';
+    });
+  });
+
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var t=e.target; io.unobserve(t);
+      if(t.classList.contains('rv')){ t.classList.add('in'); return; }
+      // contenedor con stagger: limpiamos el estado inline para volver al natural (respeta hover y tarjeta destacada)
+      var kids=[].slice.call(t.children);
+      kids.forEach(function(c){c.style.opacity='';c.style.transform='';});
+      setTimeout(function(){
+        kids.forEach(function(c){c.style.transition='';c.style.transitionDelay='';});
+      },1300);
+    });
+  },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+
+  blocks.forEach(function(el){io.observe(el);});
+  stags.forEach(function(el){io.observe(el);});
 })();
 </script>
 </body></html>
