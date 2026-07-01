@@ -141,7 +141,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .band .pct{font-family:'Space Grotesk';font-weight:800;font-size:64px;line-height:1;}
 .band .pct small{display:block;font-size:13px;font-weight:600;opacity:.8;letter-spacing:.04em;}
 /* ruleta de becas */
-.ruleta-wrap{background:linear-gradient(140deg,var(--teal-dd),var(--teal-d) 55%,var(--teal));border-radius:34px;padding:50px;color:#fff;display:grid;grid-template-columns:320px 1fr;gap:48px;align-items:center;overflow:hidden;position:relative;}
+.ruleta-wrap{background:linear-gradient(140deg,var(--teal-dd),var(--teal-d) 55%,var(--teal));border-radius:34px;padding:50px;color:#fff;display:grid;grid-template-columns:320px auto;justify-content:center;gap:48px;align-items:center;overflow:hidden;position:relative;}
 .ruleta-wrap::after{content:'';position:absolute;right:-60px;bottom:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(201,161,59,.18),transparent 70%);pointer-events:none;}
 .ruleta-stage{position:relative;width:300px;height:300px;justify-self:center;}
 .ruleta-pointer{position:absolute;top:-4px;left:50%;transform:translateX(-50%);z-index:5;width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:26px solid #fff;filter:drop-shadow(0 3px 4px rgba(0,0,0,.3));}
