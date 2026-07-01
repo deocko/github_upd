@@ -30,7 +30,6 @@ img{display:block;max-width:100%;}
 .btn-o:hover{border-color:var(--teal);color:var(--teal);}
 .badge{width:88px;height:88px;border-radius:50%;background:radial-gradient(120% 120% at 32% 22%,#fff 0%,#e2f8f3 55%,#c8f1e8 100%);box-shadow:0 16px 30px rgba(12,128,118,.16),inset 0 2px 5px rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .badge i{font-size:42px;color:var(--teal);line-height:1;}
-.badge .emo{font-size:46px;line-height:1;filter:drop-shadow(0 6px 10px rgba(12,128,118,.20));}
 .sec{padding:84px 0;}
 .sec-head{text-align:center;max-width:600px;margin:0 auto 50px;}
 .sec-head h2{font-size:38px;font-weight:800;margin-top:14px;}
@@ -85,7 +84,8 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdro
 .scard:hover{transform:translateY(-6px);box-shadow:0 24px 46px rgba(15,27,41,.10);border-color:transparent;}
 .scard>*{position:relative;z-index:1;}
 .scard .ghost{position:absolute;top:-14px;right:8px;z-index:0;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:120px;line-height:1;color:var(--teal);opacity:.14;pointer-events:none;user-select:none;}
-.scard .badge{margin:0 auto 18px;transition:transform .22s;}
+.scard .badge{width:104px;height:104px;margin:0 auto 18px;transition:transform .22s;}
+.scard .badge i{font-size:56px;}
 .scard:hover .badge{transform:scale(1.06);}
 .scard h3{font-size:19px;font-weight:800;margin-bottom:8px;}
 .scard p{color:var(--muted);font-size:14px;max-width:30ch;margin:0 auto;}
@@ -483,9 +483,9 @@ footer{background:#0d4a45;color:rgba(255,255,255,.55);padding:54px 0 30px;margin
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow ctr" data-en="The UPD path">El camino UPD</span><h2 data-en="Three steps, one platform">Tres pasos, una sola plataforma</h2><p data-en="From sign-up to your degree, all online, and we guide you step by step.">Del registro hasta tu título, todo en línea y te guiamos paso a paso.</p></div>
     <div class="grid3 steps">
-      <div class="scard"><span class="ghost" aria-hidden="true">01</span><span class="snum" data-en="STEP">PASO</span><div class="badge"><span class="emo">🖥️</span></div><h3 data-en="Enroll">Inscríbete</h3><p data-en="Complete your enrollment 100% online and secure your spot today.">Completa tu inscripción 100% en línea y asegura tu lugar hoy mismo.</p></div>
-      <div class="scard"><span class="ghost" aria-hidden="true">02</span><span class="snum" data-en="STEP">PASO</span><div class="badge"><span class="emo">🎯</span></div><h3 data-en="Learn">Aprende</h3><p data-en="Short lessons, guided paths and an AI tutor available 24/7.">Lecciones cortas, rutas guiadas y un tutor con IA disponible 24/7.</p></div>
-      <div class="scard"><span class="ghost" aria-hidden="true">03</span><span class="snum" data-en="STEP">PASO</span><div class="badge"><span class="emo">📜</span></div><h3 data-en="Graduate">Titúlate</h3><p data-en="A bachelor's degree with official SEP accreditation (RVOE).">Licenciatura con validez oficial RVOE ante la SEP.</p></div>
+      <div class="scard"><span class="ghost" aria-hidden="true">01</span><span class="snum" data-en="STEP">PASO</span><div class="badge"><i class="ph-duotone ph-user-plus"></i></div><h3 data-en="Enroll">Inscríbete</h3><p data-en="Complete your enrollment 100% online and secure your spot today.">Completa tu inscripción 100% en línea y asegura tu lugar hoy mismo.</p></div>
+      <div class="scard"><span class="ghost" aria-hidden="true">02</span><span class="snum" data-en="STEP">PASO</span><div class="badge"><i class="ph-duotone ph-lightbulb"></i></div><h3 data-en="Learn">Aprende</h3><p data-en="Short lessons, guided paths and an AI tutor available 24/7.">Lecciones cortas, rutas guiadas y un tutor con IA disponible 24/7.</p></div>
+      <div class="scard"><span class="ghost" aria-hidden="true">03</span><span class="snum" data-en="STEP">PASO</span><div class="badge"><i class="ph-duotone ph-certificate"></i></div><h3 data-en="Graduate">Titúlate</h3><p data-en="A bachelor's degree with official SEP accreditation (RVOE).">Licenciatura con validez oficial RVOE ante la SEP.</p></div>
     </div>
   </div>
 </section>
