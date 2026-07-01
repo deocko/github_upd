@@ -675,6 +675,7 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
         <form class="ruleta-form" id="ruletaForm" onsubmit="return false;">
           <input id="rNombre" type="text" placeholder="Tu nombre completo" data-en-ph="Your full name" autocomplete="name" required>
           <input id="rTel" type="tel" placeholder="Tu WhatsApp (10 dígitos)" data-en-ph="Your WhatsApp (10 digits)" autocomplete="tel" inputmode="numeric" required>
+          <label class="consent" style="color:rgba(255,255,255,.95);"><input type="checkbox" id="rConsent"><span data-en-html='I accept the <a class="js-aviso" style="text-decoration:underline;">Privacy Notice</a> and the terms of this promo.'>Acepto el <a class="js-aviso" style="text-decoration:underline;">Aviso de Privacidad</a> y los términos de la dinámica.</span></label>
           <button class="ruleta-spin" id="rSpin" type="button" disabled data-en="🎁 Sign up and spin">🎁 Registrarme y girar</button>
         </form>
         <p class="ruleta-note" data-en="One entry per person. By participating you agree that an advisor may contact you via WhatsApp to activate your scholarship.">Una sola participación por persona. Al participar aceptas que un asesor te contacte por WhatsApp para activar tu beca.</p>
@@ -719,9 +720,10 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
   }
   wheel.appendChild(svg);
 
-  var nombre=document.getElementById('rNombre'),tel=document.getElementById('rTel'),btn=document.getElementById('rSpin');
-  function check(){btn.disabled=!(nombre.value.trim().length>2 && tel.value.replace(/\D/g,'').length>=10);}
+  var nombre=document.getElementById('rNombre'),tel=document.getElementById('rTel'),btn=document.getElementById('rSpin'),consent=document.getElementById('rConsent');
+  function check(){btn.disabled=!(nombre.value.trim().length>2 && tel.value.replace(/\D/g,'').length>=10 && (!consent || consent.checked));}
   nombre.addEventListener('input',check);tel.addEventListener('input',check);
+  if(consent)consent.addEventListener('change',check);
 
   function pick(){var tot=0;prizes.forEach(function(p){tot+=p.w;});var r=Math.random()*tot;for(var i=0;i<N;i++){if(r<prizes[i].w)return i;r-=prizes[i].w;}return 0;}
   var spun=false,lastPrize='';
@@ -741,6 +743,12 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
     document.getElementById('rWinName').textContent=hi+(nm?', '+nm:'')+'!';
     document.getElementById('rPrize').textContent=v;
     lastPrize=v;
+    // Guarda el lead en el navegador (no hay backend aún): clave 'upd_leads'.
+    try{
+      var leads=JSON.parse(localStorage.getItem('upd_leads')||'[]');
+      leads.push({origen:'ruleta',nombre:nombre.value.trim(),tel:tel.value.replace(/\D/g,''),premio:v,fecha:new Date().toISOString()});
+      localStorage.setItem('upd_leads',JSON.stringify(leads));
+    }catch(e){}
     countdown();
   }
   function countdown(){
@@ -994,6 +1002,8 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
     <p data-en="To contact you, provide information about academic programs, costs and scholarships, and manage your enrollment process. We will not share your data with third parties for purposes other than those described.">Contactarle, brindar información sobre programas académicos, costos y becas, y dar seguimiento a su proceso de inscripción. No compartiremos sus datos con terceros para fines distintos a los descritos.</p>
     <h4 data-en="ARCO rights">Derechos ARCO</h4>
     <p data-en="You may access, rectify, cancel or object to the processing of your data, or revoke your consent, by writing to contacto@upd.mx.">Puede acceder, rectificar, cancelar u oponerse al tratamiento de sus datos, o revocar su consentimiento, escribiendo a contacto@upd.mx.</p>
+    <h4 data-en="Scholarship wheel — promo terms">Términos de la dinámica de becas (ruleta)</h4>
+    <p data-en="The wheel grants a scholarship percentage applicable to tuition once enrollment is completed within the validity shown. One entry per person. The scholarship is subject to validation by an advisor and seat availability; it is not redeemable for cash nor combinable with other promotions. UPD may modify or end this promotion at any time.">La ruleta otorga un porcentaje de beca aplicable a la colegiatura al completar la inscripción dentro de la vigencia mostrada. Una sola participación por persona. La beca está sujeta a validación por un asesor y a disponibilidad de cupo; no es canjeable por dinero ni acumulable con otras promociones. UPD puede modificar o concluir la dinámica en cualquier momento.</p>
   </div>
 </div>
 
@@ -1050,6 +1060,12 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
     var text=(L()==='en'
       ?('New lead — UPD\nName: '+nom+'\nWhatsApp: '+tel+(prog?('\nProgram: '+prog):'')+(msg?('\nGoal: '+msg):''))
       :('Nuevo prospecto — UPD\nNombre: '+nom+'\nWhatsApp: '+tel+(prog?('\nPrograma: '+prog):'')+(msg?('\nObjetivo: '+msg):'')));
+    // Guarda el lead en el navegador (no hay backend aún): clave 'upd_leads'.
+    try{
+      var leads=JSON.parse(localStorage.getItem('upd_leads')||'[]');
+      leads.push({origen:'contacto',nombre:nom,tel:tel,programa:prog||null,mensaje:msg||null,fecha:new Date().toISOString()});
+      localStorage.setItem('upd_leads',JSON.stringify(leads));
+    }catch(e){}
     window.open(waLink(text),'_blank','noopener');
   });
 
