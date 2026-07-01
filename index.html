@@ -432,7 +432,7 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
 <body>
 <header><div class="wrap nav">
   <a class="brand"><img class="hlogo" src="logo-upd.svg" width="58" height="58" alt="UPD">Universidad Politécnica Digital</a>
-  <nav class="nlinks"><a href="#camino" data-en="How it works">Cómo funciona</a><a href="#nosotros" data-en="About">Conócenos</a><a href="#carreras" data-en="Programs">Carreras</a><a href="#planes" data-en="Plans">Planes</a><a href="#faq" data-en="FAQ">Preguntas</a><a href="#contacto" data-en="Contact">Contacto</a><a class="campus-mobile" href="campus/">Campus</a></nav>
+  <nav class="nlinks"><a href="#camino" data-en="How it works">Cómo funciona</a><a href="#nosotros" data-en="About">Conócenos</a><a href="#carreras" data-en="Programs">Carreras</a><a href="#orientacion" data-en="Career test">Test vocacional</a><a href="#planes" data-en="Plans">Planes</a><a href="#faq" data-en="FAQ">Preguntas</a><a href="#contacto" data-en="Contact">Contacto</a><a class="campus-mobile" href="campus/">Campus</a></nav>
   <div class="nr">
     <button class="lang-btn" id="langBtn" type="button" aria-label="Cambiar idioma / Switch language"><span data-l="es">ES</span><span class="sep">/</span><span data-l="en">EN</span></button>
     <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
@@ -947,6 +947,249 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
   </div>
 </section>
 
+<!-- ===== WIZARD DE ORIENTACIÓN VOCACIONAL (portado del legacy, adaptado a la oferta 2026) ===== -->
+<style>
+.sec-wizard{background:var(--soft);}
+.wizard-layout{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-top:8px;}
+.wizard-trust{margin-top:28px;display:flex;flex-direction:column;gap:11px;}
+.trust-item{display:flex;align-items:center;gap:11px;font-size:14.5px;color:var(--muted);}
+.trust-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.wizard{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:28px 26px;box-shadow:0 6px 32px rgba(12,128,118,.08);}
+.wiz-top{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
+.wiz-progress{flex:1;height:5px;background:var(--line);border-radius:99px;overflow:hidden;}
+.wiz-bar{height:100%;background:var(--teal);border-radius:99px;transition:width .4s cubic-bezier(.22,1,.36,1);}
+.wiz-step-label{font-size:11px;color:var(--muted);letter-spacing:.05em;white-space:nowrap;font-weight:700;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;}
+.wiz-screen{display:none;}
+.wiz-screen.active{display:block;animation:wizIn .25s cubic-bezier(.22,1,.36,1);}
+@keyframes wizIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.wiz-q{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:14px;line-height:1.3;font-family:'Space Grotesk',sans-serif;}
+.wiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.wiz-opts.col1{grid-template-columns:1fr;}
+.wiz-opt{background:var(--soft);border:1.5px solid var(--line);border-radius:11px;padding:12px 13px;text-align:left;cursor:pointer;transition:.18s;display:flex;align-items:center;gap:11px;color:var(--ink);font-family:inherit;width:100%;}
+.wiz-opt:hover{background:#fff;border-color:var(--teal);box-shadow:0 3px 12px rgba(12,128,118,.16);}
+.wiz-opt-icon{width:32px;height:32px;flex-shrink:0;border-radius:8px;background:#fff;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;transition:.18s;}
+.wiz-opt-icon svg{width:15px;height:15px;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none;transition:.18s;}
+.wiz-opt:hover .wiz-opt-icon{background:var(--teal);border-color:var(--teal);}
+.wiz-opt:hover .wiz-opt-icon svg{stroke:#fff;}
+.wiz-opt-label{font-size:12.5px;font-weight:600;line-height:1.3;}
+.wiz-back-btn{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;padding:0;margin-top:14px;transition:.2s;font-family:inherit;display:block;}
+.wiz-back-btn:hover{color:var(--ink);}
+.wiz-form-head{background:var(--green-tint);border:1.5px solid var(--line);border-radius:11px;padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:16px;}
+.wiz-fh-icon{width:36px;height:36px;border-radius:9px;background:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.wiz-fh-icon svg{width:18px;height:18px;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:none;}
+.wiz-fh-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:2px;}
+.wiz-fh-title{font-size:13.5px;font-weight:800;color:var(--ink);}
+.wiz-fields{display:flex;flex-direction:column;gap:8px;margin-bottom:11px;}
+.wiz-field label{display:block;font-size:11.5px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.wiz-field input{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font-size:14px;font-family:inherit;color:var(--ink);background:#fff;box-sizing:border-box;transition:border-color .15s;}
+.wiz-field input:focus{outline:none;border-color:var(--teal);}
+.wiz-captcha{background:var(--soft);border:1.5px solid var(--line);border-radius:9px;padding:10px 13px;display:flex;align-items:center;gap:11px;margin-bottom:11px;}
+.wiz-captcha-q{font-size:13px;font-weight:600;color:var(--ink);flex:1;}
+.wiz-captcha input{width:58px;padding:8px 6px;border:1.5px solid var(--line);border-radius:7px;font-size:15px;font-weight:700;text-align:center;font-family:'Space Grotesk',sans-serif;}
+.wiz-captcha input:focus{outline:none;border-color:var(--teal);}
+.wiz-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;}
+.wiz-err{font-size:12px;color:#c0392b;background:#fef0ef;border:1px solid #fac0bb;border-radius:7px;padding:8px 11px;margin-bottom:10px;display:none;}
+.wiz-err.show{display:block;}
+.wiz-privacy{font-size:11px;color:var(--muted);text-align:center;margin-top:8px;}
+.wiz-success{text-align:center;padding:10px 0;}
+.wiz-success-title{font-size:19px;font-weight:800;color:var(--ink);margin:12px 0 7px;font-family:'Space Grotesk',sans-serif;}
+.wiz-success-desc{font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+.wiz-chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:18px;}
+.wiz-chip{font-size:11.5px;background:var(--green-tint);border:1px solid var(--line);color:var(--teal-dd);padding:4px 11px;border-radius:99px;font-weight:600;}
+@media(max-width:860px){.wizard-layout{grid-template-columns:1fr;gap:32px;}}
+</style>
+<section class="sec sec-wizard" id="orientacion"><div class="wrap">
+  <div class="wizard-layout">
+    <div>
+      <span class="eyebrow" data-en="Career guidance">Orientación vocacional</span>
+      <h2 data-en-html="Discover which<br>program is for you">Descubre qué<br>carrera es la tuya</h2>
+      <p data-en="Four quick questions and an advisor contacts you with your ideal option.">Cuatro preguntas rápidas y un asesor te contacta con tu opción ideal.</p>
+      <div class="wizard-trust">
+        <div class="trust-item"><span class="trust-dot"></span><span data-en="6 bachelor's programs, 100% online">6 licenciaturas 100% en línea</span></div>
+        <div class="trust-item"><span class="trust-dot"></span><span data-en="No fixed schedules — study at your pace">Sin horarios fijos · estudia a tu ritmo</span></div>
+        <div class="trust-item"><span class="trust-dot"></span><span data-en="AI tutor available 24/7">Tutor con IA disponible 24/7</span></div>
+        <div class="trust-item"><span class="trust-dot"></span><span data-en="Performance scholarship, automatic">Beca por desempeño automática</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="wizard">
+        <div class="wiz-top">
+          <div class="wiz-progress"><div class="wiz-bar" id="wizBar" style="width:0%"></div></div>
+          <span class="wiz-step-label" id="wizLabel">Paso 1 de 4</span>
+        </div>
+        <!-- Paso 1: situación -->
+        <div class="wiz-screen active" id="wizS1">
+          <p class="wiz-q" data-en="What is your current situation?">¿Cuál es tu situación actual?</p>
+          <div class="wiz-opts">
+            <button class="wiz-opt" data-s1="fresh"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3.33 1.67 8.67 1.67 12 0v-5"/></svg></span><span class="wiz-opt-label" data-en="I just finished high school">Acabo de terminar el bachillerato</span></button>
+            <button class="wiz-opt" data-s1="job"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="wiz-opt-label" data-en="I work and want to grow my income">Trabajo y quiero mejorar mis ingresos</span></button>
+            <button class="wiz-opt" data-s1="change"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span><span class="wiz-opt-label" data-en="I want to change careers">Quiero cambiar de carrera o área</span></button>
+            <button class="wiz-opt" data-s1="biz"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span><span class="wiz-opt-label" data-en="I own a business and want it to grow">Tengo un negocio y quiero crecer</span></button>
+          </div>
+        </div>
+        <!-- Paso 2: área → carrera -->
+        <div class="wiz-screen" id="wizS2">
+          <p class="wiz-q" data-en="Which area calls you the most?">¿Qué área te llama más?</p>
+          <div class="wiz-opts">
+            <button class="wiz-opt" data-s2="biz"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="wiz-opt-label" data-en="Leading companies and teams">Dirigir empresas y equipos</span></button>
+            <button class="wiz-opt" data-s2="law"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="3" x2="12" y2="21"/><line x1="7" y1="21" x2="17" y2="21"/><line x1="4" y1="7" x2="20" y2="7"/><path d="M4 7l-2 5a2 2 0 0 0 4 0z"/><path d="M20 7l-2 5a2 2 0 0 0 4 0z"/></svg></span><span class="wiz-opt-label" data-en="Law, justice and contracts">Leyes, justicia y contratos</span></button>
+            <button class="wiz-opt" data-s2="psy"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 0 7 4.5v.5a3 3 0 0 0-2 2.83A3 3 0 0 0 4 13a3 3 0 0 0 2 5.24V19a2 2 0 0 0 4 0V4.5A2.5 2.5 0 0 0 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 1 17 4.5v.5a3 3 0 0 1 2 2.83A3 3 0 0 1 20 13a3 3 0 0 1-2 5.24V19a2 2 0 0 1-4 0V4.5A2.5 2.5 0 0 1 14.5 2z"/></svg></span><span class="wiz-opt-label" data-en="Understanding and helping people">Entender y ayudar a las personas</span></button>
+            <button class="wiz-opt" data-s2="sys"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><span class="wiz-opt-label" data-en="Technology, software and systems">Tecnología, software y sistemas</span></button>
+            <button class="wiz-opt" data-s2="mkt"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></span><span class="wiz-opt-label" data-en="Brands, sales and social media">Marcas, ventas y redes sociales</span></button>
+            <button class="wiz-opt" data-s2="acc"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="18" x2="16" y2="18"/></svg></span><span class="wiz-opt-label" data-en="Numbers, finance and taxes">Números, finanzas e impuestos</span></button>
+          </div>
+          <button class="wiz-back-btn" data-to="1" data-en="← Back">← Volver</button>
+        </div>
+        <!-- Paso 3: tiempo disponible → plan -->
+        <div class="wiz-screen" id="wizS3">
+          <p class="wiz-q" data-en="How much time can you dedicate?">¿Cuánto tiempo puedes dedicarle?</p>
+          <div class="wiz-opts col1">
+            <button class="wiz-opt" data-s3="full"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span class="wiz-opt-label" data-en="Full time — I want to finish fast">Tiempo completo — quiero terminar rápido</span></button>
+            <button class="wiz-opt" data-s3="half"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span class="wiz-opt-label" data-en="I work — I'll study part time">Trabajo — estudiaré medio tiempo</span></button>
+            <button class="wiz-opt" data-s3="low"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></span><span class="wiz-opt-label" data-en="Little time — I need my own pace">Poco tiempo — necesito ir a mi ritmo</span></button>
+          </div>
+          <button class="wiz-back-btn" data-to="2" data-en="← Back">← Volver</button>
+        </div>
+        <!-- Paso 4: cuándo -->
+        <div class="wiz-screen" id="wizS4">
+          <p class="wiz-q" data-en="When do you want to start?">¿Cuándo quieres comenzar?</p>
+          <div class="wiz-opts col1">
+            <button class="wiz-opt" data-s4="now"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span class="wiz-opt-label" data-en="As soon as possible — enroll me now">Lo antes posible — quiero inscribirme ya</span></button>
+            <button class="wiz-opt" data-s4="soon"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span class="wiz-opt-label" data-en="In 1 to 3 months — getting ready">En 1 a 3 meses — estoy preparándome</span></button>
+            <button class="wiz-opt" data-s4="eval"><span class="wiz-opt-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="wiz-opt-label" data-en="Still evaluating — I want more info">Todavía evaluando — quiero más información</span></button>
+          </div>
+          <button class="wiz-back-btn" data-to="3" data-en="← Back">← Volver</button>
+        </div>
+        <!-- Paso 5: formulario -->
+        <div class="wiz-screen" id="wizS5">
+          <div class="wiz-form-head">
+            <div class="wiz-fh-icon" id="fhIcon"></div>
+            <div><p class="wiz-fh-lbl" data-en="Your recommended program">Tu carrera recomendada</p><p class="wiz-fh-title" id="fhTitle"></p></div>
+          </div>
+          <p class="wiz-q" style="margin-bottom:14px" data-en="An advisor contacts you today — no commitment">Un asesor te contacta hoy — sin compromiso</p>
+          <div class="wiz-hp" aria-hidden="true"><input type="text" name="website" id="wizHp" tabindex="-1" autocomplete="off"></div>
+          <form id="wizForm" novalidate>
+            <div class="wiz-fields">
+              <div class="wiz-field"><label for="wfName" data-en="Full name *">Nombre completo *</label><input type="text" id="wfName" placeholder="Ej: Ana García" data-en-ph="E.g.: Ana Garcia" autocomplete="name"></div>
+              <div class="wiz-field"><label for="wfPhone" data-en="WhatsApp (10 digits) *">WhatsApp (10 dígitos) *</label><input type="tel" id="wfPhone" placeholder="442 123 4567" autocomplete="tel" maxlength="15" inputmode="numeric"></div>
+              <div class="wiz-field"><label for="wfEmail" data-en="Email *">Correo electrónico *</label><input type="email" id="wfEmail" placeholder="tu@correo.com" autocomplete="email"></div>
+            </div>
+            <div class="wiz-captcha">
+              <span class="wiz-captcha-q" id="wizMathQ">¿Cuánto es ? + ?</span>
+              <input type="number" id="wizMathA" placeholder="?" min="0" max="20" autocomplete="off" inputmode="numeric">
+            </div>
+            <p class="wiz-err" id="wizErrMsg"></p>
+            <label class="consent" style="margin-bottom:12px;"><input type="checkbox" id="wfConsent"><span data-en-html='I accept the <a class="js-aviso">Privacy Notice</a> and to be contacted.'>Acepto el <a class="js-aviso">Aviso de Privacidad</a> y ser contactad@.</span></label>
+            <button type="submit" class="btn btn-p" style="width:100%;justify-content:center;" data-en="I want to be contacted →">Quiero que me contacten →</button>
+            <p class="wiz-privacy" data-en="No spam · Confidential · Reply within 2 business hours">Sin spam · Datos confidenciales · Respuesta en &lt;2 h hábiles</p>
+          </form>
+          <button class="wiz-back-btn" data-to="4" data-en="← Back">← Volver</button>
+        </div>
+        <!-- Éxito -->
+        <div class="wiz-screen" id="wizSuccess">
+          <div class="wiz-success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="50" height="50"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <h3 class="wiz-success-title" data-en="Done! We'll contact you soon">¡Listo! Te contactamos pronto</h3>
+            <p class="wiz-success-desc" data-en-html="An advisor will review your profile and reach out within <strong>2 business hours</strong>. Want a faster reply? Send it yourself via WhatsApp:">Un asesor revisará tu perfil y se comunicará en menos de <strong>2 horas hábiles</strong>. ¿Quieres respuesta más rápida? Envíalo tú mismo por WhatsApp:</p>
+            <a class="btn btn-p" id="wizWa" href="#" target="_blank" rel="noopener" data-en="Send via WhatsApp">Enviar por WhatsApp</a>
+            <div class="wiz-chips" style="margin-top:18px;"><span class="wiz-chip" data-en="✓ 100% online">✓ 100% en línea</span><span class="wiz-chip" data-en="✓ Performance scholarship">✓ Beca por desempeño</span><span class="wiz-chip" data-en="✓ AI tutor 24/7">✓ Tutor IA 24/7</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+<script>
+(function(){
+  if(!document.getElementById('wizS1'))return;
+  function L(){return (window.UPD&&window.UPD.lang)||'es';}
+  var SVG=function(d){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">'+d+'</svg>';};
+  // Carreras 2026 (mismas 6 de la sección Oferta académica).
+  var careers={
+    biz:{es:'Administración de Empresas',en:'Business Administration',icon:SVG('<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>')},
+    law:{es:'Derecho',en:'Law',icon:SVG('<line x1="12" y1="3" x2="12" y2="21"/><line x1="7" y1="21" x2="17" y2="21"/><line x1="4" y1="7" x2="20" y2="7"/><path d="M4 7l-2 5a2 2 0 0 0 4 0z"/><path d="M20 7l-2 5a2 2 0 0 0 4 0z"/>')},
+    psy:{es:'Psicología',en:'Psychology',icon:SVG('<path d="M9.5 2A2.5 2.5 0 0 0 7 4.5v.5a3 3 0 0 0-2 2.83A3 3 0 0 0 4 13a3 3 0 0 0 2 5.24V19a2 2 0 0 0 4 0V4.5A2.5 2.5 0 0 0 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 1 17 4.5v.5a3 3 0 0 1 2 2.83A3 3 0 0 1 20 13a3 3 0 0 1-2 5.24V19a2 2 0 0 1-4 0V4.5A2.5 2.5 0 0 1 14.5 2z"/>')},
+    sys:{es:'Ingeniería en Sistemas Computacionales',en:'Computer Systems Engineering',icon:SVG('<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>')},
+    mkt:{es:'Mercadotecnia Digital',en:'Digital Marketing',icon:SVG('<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>')},
+    acc:{es:'Contaduría Pública',en:'Public Accounting',icon:SVG('<rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="18" x2="16" y2="18"/>')}
+  };
+  // El tiempo disponible sugiere el plan.
+  var planes={full:{es:'Exprés (1 año)',en:'Express (1 year)'},half:{es:'Estándar (3 años)',en:'Standard (3 years)'},low:{es:'Flexible (a tu ritmo)',en:'Flexible (your pace)'}};
+  var state={s1:null,s2:null,s3:null,s4:null,startTime:Date.now()};
+  var mathA=0,mathB=0;
+  function setMath(){
+    mathA=Math.floor(Math.random()*9)+1;mathB=Math.floor(Math.random()*9)+1;
+    var q=document.getElementById('wizMathQ');
+    if(q)q.textContent=(L()==='en'?'How much is ':'¿Cuánto es ')+mathA+' + '+mathB+(L()==='en'?'?':'?');
+    var a=document.getElementById('wizMathA');if(a)a.value='';
+  }
+  function goTo(n){
+    document.querySelectorAll('#orientacion .wiz-screen').forEach(function(s){s.classList.remove('active');});
+    var sc=document.getElementById('wizS'+n);if(sc)sc.classList.add('active');
+    var bar=document.getElementById('wizBar'),lbl=document.getElementById('wizLabel');
+    if(n<=4){if(bar)bar.style.width=((n-1)/4*100)+'%';if(lbl)lbl.textContent=(L()==='en'?'Step ':'Paso ')+n+(L()==='en'?' of 4':' de 4');}
+    else{if(bar)bar.style.width='90%';if(lbl)lbl.textContent=(L()==='en'?'Almost done':'Casi listo');}
+  }
+  function showForm(){
+    var c=careers[state.s2]||careers.biz;
+    var icon=document.getElementById('fhIcon'),title=document.getElementById('fhTitle');
+    if(icon)icon.innerHTML=c.icon;
+    if(title)title.textContent=(L()==='en'?c.en:c.es);
+    setMath();goTo(5);
+  }
+  ['s1','s2','s3','s4'].forEach(function(k,i){
+    document.querySelectorAll('[data-'+k+']').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        state[k]=this.dataset[k];
+        setTimeout(function(){ i<3 ? goTo(i+2) : showForm(); },150);
+      });
+    });
+  });
+  document.querySelectorAll('#orientacion .wiz-back-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){goTo(+this.dataset.to);});
+  });
+  var form=document.getElementById('wizForm');
+  if(form)form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=document.getElementById('wizErrMsg');
+    function fail(es,en){if(err){err.textContent=(L()==='en'?en:es);err.classList.add('show');}}
+    if(err)err.classList.remove('show');
+    // Anti-bot: honeypot + tiempo mínimo + captcha aritmético (igual que el legacy).
+    var hp=document.getElementById('wizHp');if(hp&&hp.value.trim()!=='')return;
+    if(Date.now()-state.startTime<3500){fail('Por favor completa el formulario con calma.','Please take a moment to complete the form.');return;}
+    var ans=parseInt((document.getElementById('wizMathA')||{}).value||'',10);
+    if(isNaN(ans)||ans!==mathA+mathB){fail('Respuesta incorrecta. Intenta de nuevo.','Wrong answer. Try again.');setMath();return;}
+    var name=(document.getElementById('wfName')||{}).value||'';
+    var phone=((document.getElementById('wfPhone')||{}).value||'').replace(/\D/g,'');
+    var email=(document.getElementById('wfEmail')||{}).value||'';
+    if(name.trim().length<3){fail('Por favor ingresa tu nombre completo.','Please enter your full name.');return;}
+    if(phone.length!==10){fail('Ingresa un WhatsApp de 10 dígitos.','Enter a 10-digit WhatsApp.');return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())){fail('Ingresa un correo electrónico válido.','Enter a valid email.');return;}
+    var consent=document.getElementById('wfConsent');
+    if(consent&&!consent.checked){fail('Acepta el Aviso de Privacidad para continuar.','Please accept the Privacy Notice.');return;}
+    var c=careers[state.s2]||careers.biz, p=planes[state.s3]||planes.half;
+    // Guarda el lead en el navegador (no hay backend aún): clave 'upd_leads'.
+    try{
+      var leads=JSON.parse(localStorage.getItem('upd_leads')||'[]');
+      leads.push({origen:'wizard',nombre:name.trim(),tel:phone,email:email.trim(),carrera:c.es,plan:p.es,situacion:state.s1,inicio:state.s4,fecha:new Date().toISOString()});
+      localStorage.setItem('upd_leads',JSON.stringify(leads));
+    }catch(ex){}
+    // Botón de WhatsApp con el resumen del perfil.
+    var wa=document.getElementById('wizWa');
+    if(wa&&window.UPD&&window.UPD.waLink){
+      var msg=(L()==='en'
+        ?('New lead (career test) — UPD\nName: '+name.trim()+'\nWhatsApp: '+phone+'\nEmail: '+email.trim()+'\nProgram: '+c.en+'\nPlan: '+p.en)
+        :('Nuevo prospecto (test vocacional) — UPD\nNombre: '+name.trim()+'\nWhatsApp: '+phone+'\nCorreo: '+email.trim()+'\nCarrera: '+c.es+'\nPlan sugerido: '+p.es));
+      wa.href=window.UPD.waLink(msg);
+    }
+    document.querySelectorAll('#orientacion .wiz-screen').forEach(function(s){s.classList.remove('active');});
+    var suc=document.getElementById('wizSuccess');if(suc)suc.classList.add('active');
+    var bar=document.getElementById('wizBar'),lbl=document.getElementById('wizLabel');
+    if(bar)bar.style.width='100%';if(lbl)lbl.textContent=(L()==='en'?'Done!':'¡Completado!');
+  });
+})();
+</script>
+
 <section class="sec" id="faq"><div class="wrap">
   <div class="sec-head"><span class="eyebrow ctr" data-en="Frequently asked questions">Preguntas frecuentes</span><h2 data-en="Before you start">Antes de empezar</h2></div>
   <div class="faq">
@@ -1041,6 +1284,8 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
   var WA='524420000000';          // formato internacional sin '+': 52 + 10 dígitos
   var MAIL='contacto@upd.mx';
   function waLink(msg){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(msg);}
+  // Expuesto para otros módulos de la página (wizard vocacional).
+  window.UPD=window.UPD||{};window.UPD.waLink=waLink;
 
   // Botón directo de WhatsApp
   var waDirect=document.getElementById('waDirect');
