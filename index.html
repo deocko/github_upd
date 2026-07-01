@@ -467,10 +467,12 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
       <div class="hslide" style="background-image:url('assets/img/hero-4.jpg')"></div>
     </div>
     <div class="hero-dots" id="heroDots"></div>
+    <style>.hero-pause{position:absolute;right:14px;bottom:14px;width:34px;height:34px;border-radius:50%;border:none;background:rgba(0,0,0,.45);color:#fff;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;z-index:3;}.hero-pause:hover{background:rgba(0,0,0,.7);}</style>
+    <button class="hero-pause" id="heroPause" type="button" aria-pressed="false" aria-label="Pausar carrusel"><i class="ph-duotone ph-pause"></i></button>
     <div class="chip3d" style="left:22px;top:40px;" data-en-html='<i class="ph-duotone ph-laptop"></i>100% online'><i class="ph-duotone ph-laptop"></i>100% en línea</div>
     <div class="chip3d" style="right:20px;top:110px;" data-en-html='<i class="ph-duotone ph-chart-line-up"></i>Better job'><i class="ph-duotone ph-chart-line-up"></i>Mejor empleo</div>
     <div class="chip3d" style="left:34px;bottom:46px;" data-en-html='<i class="ph-duotone ph-hand-coins"></i>100% scholarship'><i class="ph-duotone ph-hand-coins"></i>Beca 100%</div>
-    <div class="chip3d" style="right:28px;bottom:70px;" data-en-html='<i class="ph-duotone ph-trophy"></i>Official degree'><i class="ph-duotone ph-trophy"></i>Título oficial</div>
+    <div class="chip3d" style="right:28px;bottom:70px;" data-en-html='<i class="ph-duotone ph-trophy"></i>Graduate online'><i class="ph-duotone ph-trophy"></i>Titúlate en línea</div>
   </div>
 </section>
 <script>
@@ -482,12 +484,26 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
   var dots=wrap.querySelectorAll('button');
   function go(i){slides[idx].classList.remove('active');dots[idx].classList.remove('active');idx=i;slides[idx].classList.add('active');dots[idx].classList.add('active');}
   function next(){go((idx+1)%n);}
-  function start(){timer=setInterval(next,4500);}
-  function restart(){clearInterval(timer);start();}
+  var paused=false;
+  function start(){clearInterval(timer);if(!paused)timer=setInterval(next,4500);}
+  function restart(){start();}
   var art=car.closest('.art');
   art.addEventListener('mouseenter',function(){clearInterval(timer);});
   art.addEventListener('mouseleave',start);
-  start();
+  // Pausa accesible (WCAG 2.2.2) + respeto a prefers-reduced-motion.
+  var pbtn=document.getElementById('heroPause');
+  function setPaused(p){
+    paused=p;clearInterval(timer);if(!p)start();
+    if(pbtn){
+      pbtn.setAttribute('aria-pressed',String(p));
+      pbtn.innerHTML=p?'<i class="ph-duotone ph-play"></i>':'<i class="ph-duotone ph-pause"></i>';
+      var es=p?'Reanudar carrusel':'Pausar carrusel',en=p?'Resume carousel':'Pause carousel';
+      pbtn.setAttribute('aria-label',(window.UPD&&window.UPD.lang)==='en'?en:es);
+    }
+  }
+  if(pbtn)pbtn.addEventListener('click',function(){setPaused(!paused);});
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)setPaused(true);
+  else start();
 })();
 (function(){
   var el=document.getElementById('rotw');if(!el)return;
