@@ -1615,4 +1615,134 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
   });
 })();
 </script>
+<!-- ════════ CAPA NEUMORFISMO (preview, override no destructivo) ════════ -->
+<style id="nm-layer">
+:root{
+  --nm-bg:#e9efec;        /* base suave (no blanco) para que se lean luz y sombra */
+  --nm-light:#ffffff;
+  --nm-dark:#c6d1cc;      /* sombra con leve tinte teal */
+  --nm-raise:8px 8px 18px var(--nm-dark),-8px -8px 18px var(--nm-light);
+  --nm-raise-sm:5px 5px 12px var(--nm-dark),-5px -5px 12px var(--nm-light);
+  --nm-press:inset 5px 5px 11px var(--nm-dark),inset -5px -5px 11px var(--nm-light);
+  --nm-press-sm:inset 4px 4px 8px var(--nm-dark),inset -4px -4px 8px var(--nm-light);
+  /* sombras para elementos sobre fondo teal plano */
+  --nm-teal-dark:color-mix(in srgb,var(--teal) 55%,#022420);
+  --nm-teal-light:color-mix(in srgb,var(--teal) 78%,#fff);
+  --nm-raise-teal:9px 9px 20px var(--nm-teal-dark),-9px -9px 20px var(--nm-teal-light);
+  --nm-raise-teal-sm:5px 5px 12px var(--nm-teal-dark),-5px -5px 12px var(--nm-teal-light);
+  --nm-press-teal:inset 5px 5px 11px var(--nm-teal-dark),inset -5px -5px 11px var(--nm-teal-light);
+  /* unificar el gris "soft" original con la base neumórfica */
+  --soft:var(--nm-bg);
+}
+/* Fondo general: de blanco a gris-teal muy suave (requisito del neumorfismo) */
+body{background:var(--nm-bg);}
+.hero .art{background:var(--nm-bg);box-shadow:var(--nm-raise);}
+
+/* Nav: relieve sutil en vez de sombra plana */
+header{background:color-mix(in srgb,var(--nm-bg) 86%,transparent);}
+.lang-btn{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise-sm);}
+.lang-btn:hover{box-shadow:var(--nm-press-sm);}
+
+/* Botones: primario teal mantiene contraste (solo relieve); secundario 100% neumórfico */
+.btn-p{box-shadow:6px 6px 15px var(--nm-dark),-4px -4px 12px var(--nm-light);}
+.btn-p:active{box-shadow:3px 3px 8px var(--nm-dark);transform:translateY(1px);}
+.btn-o{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise-sm);}
+.btn-o:hover{border-color:transparent;box-shadow:var(--nm-press-sm);color:var(--teal);}
+
+/* Chips / credenciales / píldoras claras
+   (.chip3d se queda con su estilo original: flota sobre fotos del carrusel,
+    donde la sombra clara del neumorfismo se vería como un manchón) */
+.creds span{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise-sm);}
+.snum{background:var(--nm-bg);box-shadow:var(--nm-press-sm);}
+.ccard .sal{background:var(--nm-bg);box-shadow:var(--nm-press-sm);}
+
+/* Insignia decorativa */
+.badge{background:var(--nm-bg);box-shadow:var(--nm-raise);}
+
+/* Tarjetas de característica (raised) */
+.scard{background:var(--nm-bg);border:none;box-shadow:var(--nm-raise);}
+.scard:hover{box-shadow:11px 11px 24px var(--nm-dark),-11px -11px 24px var(--nm-light);}
+
+/* Tarjeta de carrera + thumbnails */
+.ccard{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise);}
+.carr-thumb{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise-sm);}
+.carr-thumb.active{background:var(--nm-bg);box-shadow:var(--nm-press-sm);}
+
+/* Planes claros */
+.plan{background:var(--nm-bg);border:none;box-shadow:var(--nm-raise);}
+.plan.pop{background:var(--nm-bg);box-shadow:var(--nm-raise),0 0 0 2px var(--teal);}
+
+/* FAQ: se hunde (inset) al abrir */
+.faq details{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise-sm);}
+.faq details[open]{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-press-sm);}
+
+/* Campos de formulario (wizard / leads): inset con foco visible */
+input[type=text],input[type=email],input[type=tel],input[type=search],textarea,select{
+  background:var(--nm-bg)!important;border-color:transparent!important;box-shadow:var(--nm-press-sm);
+}
+input:focus,textarea:focus,select:focus{
+  box-shadow:var(--nm-press-sm),0 0 0 2px color-mix(in srgb,var(--teal) 55%,transparent)!important;outline:none;
+}
+input[type=number]{background:var(--nm-bg)!important;border-color:transparent!important;box-shadow:var(--nm-press-sm);}
+
+/* Tarjetas de valores (Conócenos) */
+.vcard{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise-sm);}
+.vcard:hover{transform:translateY(-5px);box-shadow:var(--nm-raise);border-color:transparent;}
+
+/* Wizard vocacional: tarjeta en relieve, opciones se hunden al pasar */
+.wizard{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise);}
+.wiz-opt{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise-sm);}
+.wiz-opt:hover{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-press-sm);}
+.wiz-opt-icon{border-color:transparent;}
+.wiz-captcha{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-press-sm);}
+.wiz-progress{box-shadow:var(--nm-press-sm);background:var(--nm-bg);}
+
+/* Comparativa de costos: pistas hundidas */
+.cmp-track{background:var(--nm-bg);box-shadow:var(--nm-press-sm);}
+
+/* Bloques teal grandes: quedan en relieve sobre la base clara */
+.band,.finalcta,.ruleta-wrap,.contact{box-shadow:var(--nm-raise);}
+
+/* Sección Planes (fondo teal): neumorfismo oscuro con sombras derivadas del teal */
+.pcard{background:var(--teal);border-color:transparent;box-shadow:var(--nm-raise-teal);}
+.pcard.feat{box-shadow:var(--nm-raise-teal),0 30px 70px rgba(0,0,0,.30);} /* conserva crema + oro */
+.pbar{background:color-mix(in srgb,var(--teal) 80%,#022420);box-shadow:var(--nm-press-teal);}
+.pcard.feat .pbar{box-shadow:none;}
+.pbtn{border-color:transparent;box-shadow:var(--nm-raise-teal-sm);}
+.pbtn:hover{background:transparent;box-shadow:var(--nm-press-teal);}
+
+/* Contacto (fondo teal): vías de contacto en relieve teal */
+.cway{background:var(--teal);border-color:transparent;box-shadow:var(--nm-raise-teal-sm);}
+.cway:hover{background:var(--teal);transform:translateY(-1px);box-shadow:var(--nm-raise-teal);}
+
+/* ── Calculadora: soft-UI completo ── */
+.calc{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise);}
+/* tabs segmentados: en relieve, el activo se hunde */
+.calc-plan{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-raise-sm);}
+.calc-plan:hover{border-color:transparent;color:var(--green);}
+.calc-plan:active{box-shadow:var(--nm-press-sm);}
+.calc-plan.active{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-press-sm);color:var(--green-d);}
+/* slider: pista hundida (el gradiente de llenado lo pinta JS inline, no se toca), perilla en relieve */
+.calc-slider input[type=range]{box-shadow:inset 3px 3px 6px var(--nm-dark),inset -3px -3px 6px var(--nm-light);}
+.calc-slider input[type=range]::-webkit-slider-thumb{border:3px solid var(--nm-bg);box-shadow:3px 3px 8px var(--nm-dark),-3px -3px 8px var(--nm-light);}
+.calc-slider input[type=range]::-moz-range-thumb{border:3px solid var(--nm-bg);box-shadow:3px 3px 8px var(--nm-dark);}
+/* displays de resultado: paneles hundidos tipo visor */
+.calc-cell{background:var(--nm-bg);box-shadow:var(--nm-press-sm);}
+.calc-cell.save{background:var(--nm-bg);border:none;box-shadow:var(--nm-press-sm),0 0 0 1.5px var(--green);}
+
+/* Remates */
+.blogo{box-shadow:var(--nm-raise-sm);}                     /* logo del nav */
+.wiz-form-head{background:var(--nm-bg);border-color:transparent;box-shadow:var(--nm-press-sm);}
+.pbtn:active,.btn-o:active,.wiz-opt:active{box-shadow:var(--nm-press-sm);transform:translateY(1px);}
+
+/* El relieve respira: transición suave de sombra en todo elemento neumórfico */
+.lang-btn,.btn-p,.btn-o,.creds span,.badge,.scard,.ccard,.carr-thumb,.vcard,.plan,
+.faq details,.wiz-opt,.pcard,.pbtn,.cway,.calc-plan,.calc-cell{
+  transition:box-shadow .22s ease,transform .22s ease,color .16s,background-color .16s;
+}
+@media(prefers-reduced-motion:reduce){
+  .lang-btn,.btn-p,.btn-o,.creds span,.badge,.scard,.ccard,.carr-thumb,.vcard,.plan,
+  .faq details,.wiz-opt,.pcard,.pbtn,.cway,.calc-plan,.calc-cell{transition:none;}
+}
+</style>
 </body></html>
