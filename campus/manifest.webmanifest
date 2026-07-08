@@ -1,0 +1,17 @@
+{
+  "name": "Campus UPD",
+  "short_name": "Campus UPD",
+  "description": "Aula virtual de la Universidad Politécnica Digital — clases, boleta, pagos y tutor IA.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eff3f0",
+  "theme_color": "#0c8076",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
