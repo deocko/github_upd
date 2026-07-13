@@ -617,9 +617,35 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
   <div class="sec-head"><span class="eyebrow ctr" data-en="Calculate your investment">Calcula tu inversión</span><h2 data-en="How much would your degree cost?">¿Cuánto costaría tu carrera?</h2><p data-en="Pick your plan and scholarship: see your real monthly tuition and how much you save.">Elige tu plan y tu beca: te decimos tu mensualidad real y cuánto ahorras.</p></div>
   <div class="calc">
     <div class="calc-plans" id="calcPlans">
-      <button type="button" class="calc-plan active" data-m="3400" data-months="12">Exprés<small data-en="1 year">1 año</small></button>
-      <button type="button" class="calc-plan" data-m="2650" data-months="36">Estándar<small data-en="3 years">3 años</small></button>
-      <button type="button" class="calc-plan" data-m="1950" data-months="50">Flexible<small data-en="up to 5 years">hasta 5 años</small></button>
+      <button type="button" class="calc-plan active" data-m="3400" data-months="12"
+        data-cap="12 meses · carga académica intensiva" data-cap-en="12 months · intensive academic load"
+        data-badge="Te titulas en 1 año" data-badge-en="You graduate in 1 year">Exprés<small data-en="1 year">1 año</small></button>
+      <button type="button" class="calc-plan" data-m="2650" data-months="36"
+        data-cap="9 cuatrimestres · 36 meses" data-cap-en="9 terms · 36 months"
+        data-badge="Te titulas en 3 años" data-badge-en="You graduate in 3 years">Estándar<small data-en="3 years">3 años</small></button>
+      <button type="button" class="calc-plan" data-m="1950" data-months="50" data-max="60"
+        data-cap="Hasta 15 cuatrimestres · tú marcas el ritmo" data-cap-en="Up to 15 terms · you set the pace"
+        data-badge="Hasta 5 años" data-badge-en="Up to 5 years">Flexible<small data-en="up to 5 years">hasta 5 años</small></button>
+    </div>
+
+    <!-- Línea de tiempo: eje FIJO de 5 años, así se ve de un vistazo cuánto antes
+         termina Exprés frente a Flexible. Se llena al entrar al viewport y al cambiar de plan. -->
+    <div class="ctl" id="ctl">
+      <div class="ctl-top">
+        <span class="ctl-cap" id="ctlCap">12 meses · carga académica intensiva</span>
+        <span class="ctl-badge" id="ctlBadge">Te titulas en 1 año</span>
+      </div>
+      <div class="ctl-track">
+        <div class="ctl-margin" id="ctlMargin"></div>
+        <div class="ctl-fill" id="ctlFill"><span class="ctl-flag"><i class="ph-duotone ph-graduation-cap"></i></span></div>
+        <div class="ctl-ticks" aria-hidden="true"></div>
+      </div>
+      <div class="ctl-axis" aria-hidden="true"><span>Año 1</span><span>Año 2</span><span>Año 3</span><span>Año 4</span><span>Año 5</span></div>
+      <div class="ctl-legend">
+        <span><i class="lg on"></i><span data-en="Time enrolled">Tiempo cursado</span></span>
+        <span><i class="lg off"></i><span data-en="Available margin">Margen disponible</span></span>
+        <span><i class="lg tick"></i><span data-en="Each mark = 1 term (4 months)">Cada marca = 1 cuatrimestre (4 meses)</span></span>
+      </div>
     </div>
     <div class="calc-slider">
       <div class="calc-slider-top"><span class="lbl" data-en="Performance scholarship">Beca por desempeño</span><span class="val" id="calcBecaVal">0%</span></div>
@@ -634,22 +660,73 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
     <p class="calc-note" data-en="Estimate in MXN. “You save” compares the total against the average private on-campus degree ($195,600, INEGI). Final price is confirmed at enrollment.">Estimación en MXN. "Ahorras" compara el total contra el promedio de una licenciatura privada presencial ($195,600, INEGI). El precio final se confirma al inscribirte.</p>
   </div>
 </div></section>
+<style>
+/* ---- Línea de tiempo de cuatrimestres (dentro de la calculadora) ------- */
+.ctl{margin:26px 0 4px;}
+.ctl-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+.ctl-cap{font-size:14px;font-weight:700;color:var(--ink);}
+.ctl-badge{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);
+  background:var(--nm-bg);box-shadow:var(--nm-press-sm);padding:6px 13px;border-radius:999px;}
+.ctl-track{position:relative;height:26px;border-radius:999px;background:var(--nm-bg);box-shadow:var(--nm-press-sm);overflow:hidden;}
+.ctl-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:999px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--teal) 80%,#fff),var(--teal));
+  transition:width .9s cubic-bezier(.22,.75,.25,1);}
+.ctl-flag{position:absolute;right:0;top:50%;transform:translate(50%,-50%);width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:var(--gold);color:#0f3d3a;box-shadow:0 4px 10px rgba(10,46,43,.3);}
+.ctl-flag i{font-size:15px;line-height:1;}
+/* Margen disponible (solo Flexible): tramo punteado hasta el tope de 5 años */
+.ctl-margin{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:999px;opacity:0;transition:width .9s cubic-bezier(.22,.75,.25,1),opacity .3s;
+  background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--teal) 20%,transparent) 0 6px,transparent 6px 12px);}
+.ctl-margin.show{opacity:1;}
+/* Marcas de cuatrimestre: 15 tramos de 4 meses sobre un eje fijo de 60 meses */
+.ctl-ticks{position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,transparent 0,transparent calc(6.6667% - 2px),rgba(255,255,255,.55) calc(6.6667% - 2px),rgba(255,255,255,.55) 6.6667%);}
+.ctl-axis{display:grid;grid-template-columns:repeat(5,1fr);margin-top:8px;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.04em;}
+.ctl-axis span{border-left:1px solid var(--line);padding-left:6px;}
+.ctl-legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:12px;color:var(--muted);}
+.ctl-legend>span{display:inline-flex;align-items:center;gap:7px;}
+.ctl-legend .lg{width:14px;height:9px;border-radius:3px;flex-shrink:0;}
+.ctl-legend .lg.on{background:var(--teal);}
+.ctl-legend .lg.off{background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--teal) 35%,transparent) 0 3px,transparent 3px 6px);box-shadow:0 0 0 1px var(--line);}
+.ctl-legend .lg.tick{width:2px;height:12px;border-radius:1px;background:var(--muted);}
+@media(max-width:560px){.ctl-axis span:nth-child(even){color:transparent;}} /* el eje se satura en móvil: alternamos etiquetas */
+@media(prefers-reduced-motion:reduce){.ctl-fill,.ctl-margin{transition:none;}}
+</style>
 <script>
 (function(){
   var plans=document.getElementById('calcPlans');if(!plans)return;
   var beca=document.getElementById('calcBeca'),becaVal=document.getElementById('calcBecaVal'),
       outM=document.getElementById('calcMonthly'),outT=document.getElementById('calcTotal'),outS=document.getElementById('calcSave');
   var PRESENCIAL=195600;
+  /* Línea de tiempo */
+  var AXIS=60, /* eje fijo: 5 años en meses */
+      tlCap=document.getElementById('ctlCap'),tlBadge=document.getElementById('ctlBadge'),
+      tlFill=document.getElementById('ctlFill'),tlMargin=document.getElementById('ctlMargin'),
+      seen=false;
+  function L(){return (window.UPD&&window.UPD.lang)||'es';}
+  function V(el,k){var en=el.dataset[k+'En'];return (L()==='en'&&en)?en:el.dataset[k];}
   function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function active(){return plans.querySelector('.calc-plan.active')||plans.querySelector('.calc-plan');}
+
+  function renderTL(p){
+    if(!tlFill)return;
+    var months=+p.dataset.months, max=+(p.dataset.max||p.dataset.months);
+    var w=Math.min(100,months/AXIS*100), mw=Math.min(100,max/AXIS*100);
+    if(tlCap)tlCap.textContent=V(p,'cap')||'';
+    if(tlBadge)tlBadge.textContent=V(p,'badge')||'';
+    tlMargin.style.width=mw+'%';
+    tlMargin.classList.toggle('show',mw>w+0.5); /* solo Flexible tiene margen */
+    tlFill.style.width=(seen?w:0)+'%';          /* hasta que la sección entra al viewport, la barra está vacía */
+  }
   function render(){
-    var p=plans.querySelector('.calc-plan.active')||plans.querySelector('.calc-plan');
-    var m=+p.dataset.m, months=+p.dataset.months, d=1-(+beca.value)/100;
+    var p=active(), m=+p.dataset.m, months=+p.dataset.months, d=1-(+beca.value)/100;
     becaVal.textContent=beca.value+'%';
     outM.textContent=fmt(m*d);
     outT.textContent=fmt(m*months*d);
     var save=PRESENCIAL-(m*months*d);
     outS.textContent= save>0? fmt(save) : '—';
     beca.style.background='linear-gradient(90deg,var(--green) '+beca.value+'%,var(--line) '+beca.value+'%)';
+    renderTL(p);
   }
   plans.querySelectorAll('.calc-plan').forEach(function(b){
     b.addEventListener('click',function(){
@@ -658,7 +735,18 @@ footer{background:var(--teal);color:rgba(255,255,255,.95);padding:54px 0 30px;ma
     });
   });
   beca.addEventListener('input',render);
+  document.addEventListener('updlang',function(){renderTL(active());});
   render();
+
+  /* La barra se llena cuando la sección entra al viewport (sin librería de scroll).
+     Sin IntersectionObserver o con reduce-motion, se pinta llena de inmediato. */
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var tl=document.getElementById('ctl');
+  if(!tl||reduce||!('IntersectionObserver' in window)){seen=true;render();return;}
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(x){if(x.isIntersecting){seen=true;render();io.disconnect();}});
+  },{threshold:.35});
+  io.observe(tl);
 })();
 </script>
 
@@ -1745,4 +1833,589 @@ input[type=number]{background:var(--nm-bg)!important;border-color:transparent!im
   .faq details,.wiz-opt,.pcard,.pbtn,.cway,.calc-plan,.calc-cell{transition:none;}
 }
 </style>
+
+<!-- ============================================================================
+     MICRO-INTERACCIONES DE CONVERSIÓN
+     1. Pulso del plan "Más elegido"
+     2. Validación de formularios en tiempo real (check verde / borde rojo)
+     3. Sticky CTA en móvil
+     Solo CSS + IntersectionObserver. Cero librerías. Respeta prefers-reduced-motion.
+============================================================================= -->
+<style>
+/* ---- 1. Pulso del plan destacado (Estándar) --------------------------- */
+/* Solo animamos box-shadow: .pcard.feat ya usa transform para levantarse y no queremos pisarlo. */
+@keyframes updPulse{
+  0%,100%{box-shadow:var(--nm-raise-teal),0 30px 70px rgba(0,0,0,.30),0 0 0 0 rgba(201,161,59,.30);}
+  50%    {box-shadow:var(--nm-raise-teal),0 30px 70px rgba(0,0,0,.30),0 0 0 7px rgba(201,161,59,.14);}
+}
+.pcard.feat{animation:updPulse 3.4s ease-in-out infinite;}
+@media(prefers-reduced-motion:reduce){.pcard.feat{animation:none;}}
+
+/* ---- 2. Validación en vivo -------------------------------------------- */
+/* El check va como background-image (no hace falta envolver los inputs en un wrapper).
+   Lleva !important porque la capa neumórfica declara `background:...!important` en los campos. */
+input.f-ok{
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230c8076' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;background-position:right 14px center!important;background-size:17px 17px!important;
+  padding-right:42px;box-shadow:var(--nm-press-sm),0 0 0 2px color-mix(in srgb,var(--teal) 45%,transparent);
+}
+input.f-bad{box-shadow:var(--nm-press-sm),0 0 0 2px rgba(190,58,58,.55);}
+.f-msg{display:block;font-size:11.5px;font-weight:600;color:#be3a3a;margin-top:-4px;}
+.ruleta-form .f-msg{color:#ffd9d9;}
+
+/* ---- 3. Sticky CTA móvil ---------------------------------------------- */
+.mcta{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;align-items:center;gap:10px;
+  padding:10px 14px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+  background:color-mix(in srgb,var(--nm-bg) 93%,transparent);backdrop-filter:blur(12px);
+  border-top:1px solid var(--line);visibility:hidden;transform:translateY(115%);
+  transition:transform .32s cubic-bezier(.2,.7,.2,1),visibility .32s;}
+.mcta.show{visibility:visible;transform:none;}
+.mcta-go{flex:1;display:inline-flex;align-items:center;justify-content:center;height:48px;border-radius:999px;
+  background:var(--teal);color:#fff;font-weight:800;font-size:15px;box-shadow:0 8px 18px rgba(12,128,118,.32);transition:transform .18s;}
+.mcta-go:active{transform:scale(.97);}
+.mcta-wa{width:48px;height:48px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--nm-bg);color:var(--teal);box-shadow:var(--nm-raise-sm);transition:transform .18s,box-shadow .2s;}
+.mcta-wa:active{transform:scale(.94);box-shadow:var(--nm-press-sm);}
+.mcta-wa i{font-size:25px;line-height:1;}
+@media(max-width:900px){
+  .mcta{display:flex;}
+  body.mcta-on{padding-bottom:74px;} /* el footer nunca queda tapado por la barra */
+}
+@media(prefers-reduced-motion:reduce){.mcta,.mcta-go,.mcta-wa{transition:none;}}
+</style>
+
+<div class="mcta" id="mcta">
+  <a class="mcta-wa" id="mctaWa" href="#contacto" rel="noopener" aria-label="Escríbenos por WhatsApp"><i class="ph-duotone ph-whatsapp-logo"></i></a>
+  <a class="mcta-go" href="#contacto" data-en="Enroll — free advising">Inscríbete — asesoría gratis</a>
+</div>
+
+<script>
+/* ---- Validación en vivo ------------------------------------------------ */
+(function(){
+  /* Mismas reglas que ya usan los submit del wizard y del formulario de contacto. */
+  var RULES={
+    name :function(v){return v.trim().length>=3;},
+    tel  :function(v){return v.replace(/\D/g,'').length===10;},
+    email:function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());}
+  };
+  var MSG={
+    name :{es:'Escribe tu nombre completo.',en:'Enter your full name.'},
+    tel  :{es:'Deben ser 10 dígitos.',en:'It must be 10 digits.'},
+    email:{es:'Revisa tu correo (ej: tu@correo.com).',en:'Check your email (e.g. you@mail.com).'}
+  };
+  /* [id del campo, tipo de regla] — wizard, contacto y ruleta */
+  var FIELDS=[['wfName','name'],['wfPhone','tel'],['wfEmail','email'],
+              ['cNombre','name'],['cTel','tel'],
+              ['rNombre','name'],['rTel','tel']];
+  function L(){return (window.UPD&&window.UPD.lang)||'es';}
+
+  FIELDS.forEach(function(f){
+    var el=document.getElementById(f[0]); if(!el) return;
+    var type=f[1], touched=false, msg=null;
+
+    function say(text){
+      if(!text){ if(msg){msg.remove();msg=null;} return; }
+      if(!msg){ msg=document.createElement('span'); msg.className='f-msg'; el.insertAdjacentElement('afterend',msg); }
+      msg.textContent=text;
+    }
+    function check(){
+      var v=el.value;
+      /* Campo vacío = estado neutro: no marcamos en rojo algo que el usuario aún no llena. */
+      if(!v.trim()){ el.classList.remove('f-ok','f-bad'); say(''); return; }
+      if(RULES[type](v)){ el.classList.add('f-ok'); el.classList.remove('f-bad'); say(''); }
+      else{
+        el.classList.remove('f-ok');
+        /* El rojo solo aparece después del primer blur: no regañamos mientras escribe. */
+        if(touched){ el.classList.add('f-bad'); say(MSG[type][L()]||MSG[type].es); }
+      }
+    }
+    el.addEventListener('input',check);
+    el.addEventListener('blur',function(){touched=true;check();});
+  });
+})();
+
+/* ---- Sticky CTA móvil -------------------------------------------------- */
+(function(){
+  var bar=document.getElementById('mcta'); if(!bar) return;
+  var hero=document.querySelector('.hero');
+  /* Zonas donde la barra estorba: ya hay un CTA a la vista. */
+  var ends=[].slice.call(document.querySelectorAll('#orientacion,#contacto,.finalcta'));
+  var wa=document.getElementById('mctaWa');
+
+  function setWa(){
+    /* Si por lo que sea no existe UPD.waLink, el botón se queda como ancla a #contacto (nunca roto). */
+    if(!wa||!window.UPD||!window.UPD.waLink) return;
+    var es='¡Hola! Quiero inscribirme y necesito orientación sobre las carreras de la UPD.';
+    var en='Hi! I want to enroll and need guidance about UPD programs.';
+    wa.href=window.UPD.waLink(((window.UPD.lang||'es')==='en')?en:es);
+    wa.target='_blank';
+  }
+  setWa();
+  document.addEventListener('updlang',setWa);
+
+  if(!('IntersectionObserver' in window)) return; /* sin IO la barra simplemente no aparece */
+  var pastHero=false, atEnd=false;
+  function sync(){
+    var show=pastHero && !atEnd;
+    bar.classList.toggle('show',show);
+    document.body.classList.toggle('mcta-on',show);
+  }
+  if(hero){
+    new IntersectionObserver(function(en){
+      en.forEach(function(x){pastHero=!x.isIntersecting;});
+      sync();
+    },{threshold:0}).observe(hero);
+  }else{pastHero=true;}
+  if(ends.length){
+    /* Un flag por sección (un contador +1/-1 se desincroniza con la primera ráfaga de callbacks). */
+    var flags=ends.map(function(){return false;});
+    var ioEnd=new IntersectionObserver(function(en){
+      en.forEach(function(x){var i=ends.indexOf(x.target); if(i>-1) flags[i]=x.isIntersecting;});
+      atEnd=flags.some(Boolean); sync();
+    },{threshold:0});
+    ends.forEach(function(e){ioEnd.observe(e);});
+  }
+  sync();
+})();
+</script>
+
+<!-- ============================================================================
+     MODO CUBO (scroll inmersivo de página completa)
+     Cada sección de la landing se vuelve la cara de un cubo que gira al hacer
+     scroll. NO se reescribe el HTML: este script re-empaqueta las secciones
+     existentes en caras al cargar, así todos los scripts previos (wizard,
+     ruleta, calculadora, contadores, validación...) siguen funcionando igual.
+
+     - El scroll primero recorre la sección por dentro (scroll interno); solo
+       al llegar al borde, el siguiente gesto voltea el cubo.
+     - El eje del giro varía: abajo → derecha → abajo → izquierda...
+     - Se desactiva solo (y la landing queda 100% normal) si: el sistema pide
+       menos movimiento, el navegador no soporta Web Animations, o la URL
+       lleva ?cube=off (interruptor rápido para comparar/publicar sin cubo).
+     Sin librerías.
+============================================================================= -->
+<style id="cube-mode">
+body.cube-on{overflow:hidden;}
+body.cube-on header{position:fixed;top:0;left:0;right:0;z-index:70;}
+#cbStage{position:fixed;inset:0;z-index:1;overflow:hidden;perspective:1500px;
+  /* fondo de producción: viñeta profunda con tinte de marca, no negro plano */
+  background:radial-gradient(120% 90% at 50% 42%,#0d453f 0%,#07302b 45%,#031311 100%);}
+#cbDeck{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;}
+.cb-face{position:absolute;inset:0;display:none;overflow:hidden;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);} /* arista sutil del cubo */
+.cb-face.on{display:block;}
+/* Cada cara cabe en UNA pantalla: sin scroll interno. El contenido se centra
+   verticalmente y, si no cabe, fitFace() lo compacta con zoom.
+   .cb-can-scroll es el último recurso (secciones larguísimas en móvil). */
+.cb-scroll{position:absolute;inset:0;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;
+  padding-top:var(--cbHdr,72px);padding-bottom:14px;}
+.cb-scroll.cb-can-scroll{justify-content:flex-start;overflow-y:auto;overflow-x:hidden;
+  overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
+.cb-shade{position:absolute;inset:0;background:#04211d;opacity:0;pointer-events:none;}
+/* Tapas laterales y cara trasera: cierran la caja durante el giro para que,
+   al alejarse la cámara, se vea un CUBO sólido y no dos tarjetas flotando */
+.cb-cap,.cb-back{position:absolute;display:none;pointer-events:none;
+  background:linear-gradient(160deg,#0f524b 0%,#083430 55%,#04211d 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),inset 0 0 90px rgba(0,0,0,.4);}
+.cb-cap{left:50%;top:50%;}
+.cb-back{inset:0;}
+/* Marca de agua en los costados: el lado del cubo se ve diseñado, no vacío */
+.cb-cap::after,.cb-back::after{content:'';position:absolute;inset:0;
+  background:url('logo-upd.svg') center/clamp(120px,22%,220px) no-repeat;
+  opacity:.16;filter:grayscale(1) brightness(2.2);}
+/* Vista previa de OTRA sección proyectada en el costado visible del cubo:
+   las tres caras que se ven durante el giro son todas contenido real */
+.cb-capview{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;pointer-events:none;}
+.cb-cap.has-view::after{display:none;}
+/* Relieve 3D durante el giro: los componentes neumórficos se DESPEGAN de la
+   cara (translateZ) para que, vista de lado, tenga profundidad real y no se
+   vea plana. Solo escritorio y solo mientras gira: al aterrizar, al plano. */
+@media(min-width:901px){
+  /* La cadena 3D completa: cara → scroller → todos los descendientes.
+     (El scroller TAMBIÉN necesita preserve-3d: si no, aplana a sus hijos
+     y ningún translateZ se renderiza.) */
+  .cb-face.lift3d{overflow:visible;transform-style:preserve-3d;}
+  .cb-face.lift3d .cb-scroll{overflow:visible;transform-style:preserve-3d;}
+  .cb-face.lift3d .cb-scroll *{transform-style:preserve-3d;}
+  /* Alturas generosas: con el cubo alejado (PULL 4.2) el relieve en pantalla
+     se reduce ~2.3x, así que aquí se habla en decenas de px */
+  .cb-face.lift3d .sec-head{transform:translateZ(36px);}
+  /* nivel 1: contenedores grandes */
+  .cb-face.lift3d .scard,.cb-face.lift3d .mv-card,.cb-face.lift3d .pcard,
+  .cb-face.lift3d .plan,.cb-face.lift3d .calc,.cb-face.lift3d .ccard,
+  .cb-face.lift3d .carr-stage,.cb-face.lift3d .faq details,
+  .cb-face.lift3d .cform,.cb-face.lift3d .ruleta,
+  .cb-face.lift3d .hero-carousel,.cb-face.lift3d .finalcta{transform:translateZ(70px);}
+  .cb-face.lift3d .pcard.feat{transform:translateY(-14px) translateZ(96px);}
+  /* nivel 2: tarjetas y píldoras */
+  .cb-face.lift3d .vcard,.cb-face.lift3d .carr-thumb,.cb-face.lift3d .cway,
+  .cb-face.lift3d .calc-plan,.cb-face.lift3d .calc-cell,.cb-face.lift3d .wiz-opt,
+  .cb-face.lift3d .creds span,.cb-face.lift3d .chip3d{transform:translateZ(46px);}
+  /* nivel 3: botones e insignias — SUMAN sobre su tarjeta (relieve apilado) */
+  .cb-face.lift3d .badge,.cb-face.lift3d .btn,.cb-face.lift3d .pbtn,
+  .cb-face.lift3d .cbtn,.cb-face.lift3d .snum{transform:translateZ(30px);}
+}
+/* Compactación en modo cubo: menos aire vertical para que las caras quepan
+   enteras casi sin encoger */
+body.cube-on .sec{padding:32px 0;}
+body.cube-on .sec-head{margin-bottom:18px;}
+body.cube-on .sec-head h2{font-size:clamp(23px,2.8vw,30px);}
+body.cube-on .sec-head p{margin-top:7px;font-size:14px;}
+body.cube-on .pcard{padding:24px 22px;}
+body.cube-on .scard,body.cube-on .vcard{padding-top:20px;padding-bottom:20px;}
+/* Puntos de progreso (solo escritorio: 12 puntos saturan un móvil) */
+#cbDots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:66;
+  display:flex;flex-direction:column;gap:9px;mix-blend-mode:difference;}
+#cbDots button{width:10px;height:10px;border-radius:50%;border:2px solid rgba(255,255,255,.6);
+  background:transparent;cursor:pointer;padding:0;transition:.25s;}
+#cbDots button[aria-current=true]{background:#fff;transform:scale(1.3);}
+#cbBar{position:fixed;left:0;bottom:0;height:4px;background:var(--gold);z-index:66;width:0;
+  transition:width 1.25s cubic-bezier(.55,.05,.25,1);}
+#cbHint{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:66;color:#fff;
+  mix-blend-mode:difference;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  transition:opacity .5s;pointer-events:none;}
+@media(max-width:900px){
+  #cbDots,#cbHint{display:none;}
+  .cb-scroll{padding-bottom:84px;} /* el contenido no queda tapado por el sticky CTA */
+}
+</style>
+<script>
+(function(){
+  /* -- Activación: solo si el entorno lo permite --------------------------- */
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var off=/[?&]cube=off/.test(location.search);
+  if(reduce||off||typeof document.body.animate!=='function'||!('IntersectionObserver' in window))return;
+
+  var secs=[].slice.call(document.querySelectorAll('body>section'));
+  if(secs.length<2)return;
+
+  /* -- Re-empaquetado: cada sección se muda intacta a una cara ------------- */
+  var hdr=document.querySelector('header');
+  document.documentElement.style.setProperty('--cbHdr',((hdr&&hdr.offsetHeight)||72)+'px');
+  var bodyBg=getComputedStyle(document.body).backgroundColor;
+
+  var stage=document.createElement('div');stage.id='cbStage';
+  var deck=document.createElement('div');deck.id='cbDeck';
+  var faces=secs.map(function(sec){
+    var f=document.createElement('div');f.className='cb-face';
+    var bg=getComputedStyle(sec).backgroundColor;
+    f.style.background=(!bg||bg==='transparent'||bg==='rgba(0, 0, 0, 0)')?bodyBg:bg;
+    var sc=document.createElement('div');sc.className='cb-scroll';
+    sc.appendChild(sec);                       /* mover el nodo conserva sus listeners */
+    var sh=document.createElement('div');sh.className='cb-shade';
+    f.appendChild(sc);f.appendChild(sh);
+    deck.appendChild(f);
+    return {el:f,sc:sc,sh:sh,sec:sec};
+  });
+  var foot=document.querySelector('body>footer');
+  if(foot)faces[faces.length-1].sc.appendChild(foot); /* el footer vive en la última cara */
+
+  /* Paneles que cierran la caja durante el giro (2 tapas + trasera).
+     La sección transversal del cubo es cuadrada por construcción
+     (profundidad 2D = alto en giros X, = ancho en giros Y), así que las
+     tapas encajan exactas en las aristas. */
+  function mkPanel(cls){var d=document.createElement('div');d.className=cls;deck.appendChild(d);return d;}
+  var capA=mkPanel('cb-cap'),capB=mkPanel('cb-cap'),backP=mkPanel('cb-back');
+  function boxSide(el,w,h,t){el.style.width=w+'px';el.style.height=h+'px';el.style.transform=t;el.style.display='block';}
+
+  /* Proyecta una COPIA de otra sección en la tapa visible: vista previa real.
+     El clon es solo decorativo (sin ids, sin scripts, sin interacción) y se
+     desecha al terminar el giro. */
+  function fillCap(cap,i){
+    var f=faces[i];
+    var v=document.createElement('div');v.className='cb-capview';
+    v.style.background=f.el.style.background;
+    var c=f.sec.cloneNode(true);
+    c.removeAttribute('id');
+    [].forEach.call(c.querySelectorAll('[id]'),function(el){el.removeAttribute('id');});
+    [].forEach.call(c.querySelectorAll('script'),function(el){el.parentNode.removeChild(el);});
+    /* deshacer estados "aún no revelado" del scroll-reveal en la copia */
+    [].forEach.call(c.querySelectorAll('.rv'),function(el){el.classList.add('in');});
+    [].forEach.call(c.querySelectorAll('*'),function(el){
+      if(el.style){el.style.opacity='';el.style.transform='';el.style.transitionDelay='';}
+    });
+    c.style.zoom='';
+    v.appendChild(c);cap.appendChild(v);cap.classList.add('has-view');
+    /* compactar la copia al alto de la tapa */
+    var h=parseFloat(cap.style.height),ch=c.offsetHeight;
+    if(ZOOM&&ch>h-40)c.style.zoom=Math.max((h-40)/ch,0.3);
+  }
+  function showBox(g,D,extraIdx){
+    var W=innerWidth,H=innerHeight;
+    if(g.ax==='X'){ /* gira sobre eje horizontal: tapas a izquierda y derecha */
+      boxSide(capA,2*D,H,'translate(-50%,-50%) rotateY(90deg) translateZ('+(W/2)+'px)');
+      boxSide(capB,2*D,H,'translate(-50%,-50%) rotateY(-90deg) translateZ('+(W/2)+'px)');
+    }else{          /* gira sobre eje vertical: tapas arriba y abajo */
+      boxSide(capA,W,2*D,'translate(-50%,-50%) rotateX(90deg) translateZ('+(H/2)+'px)');
+      boxSide(capB,W,2*D,'translate(-50%,-50%) rotateX(-90deg) translateZ('+(H/2)+'px)');
+    }
+    backP.style.transform='rotate'+g.ax+'(180deg) translateZ('+D+'px)';
+    backP.style.display='block';
+    /* la tapa que el ladeo de cámara deja ver: izquierda en giros X, superior en giros Y */
+    if(extraIdx>=0)fillCap(g.ax==='X'?capB:capA,extraIdx);
+  }
+  function hideBox(){
+    [capA,capB].forEach(function(c){c.innerHTML='';c.classList.remove('has-view');});
+    capA.style.display=capB.style.display=backP.style.display='none';
+  }
+
+  stage.appendChild(deck);
+  document.body.appendChild(stage);
+  document.body.classList.add('cube-on');
+
+  /* -- Ajuste a una pantalla: cada cara cabe completa, sin scroll ------------
+     Mide el contenido de la cara y, si no cabe, lo compacta con zoom.
+     Piso de legibilidad: 60% escritorio / 50% móvil — por debajo de eso el
+     texto ya no se lee, y esa cara conserva scroll interno como último
+     recurso (pasa solo con secciones larguísimas en pantallas chicas). */
+  var ZOOM=('zoom' in document.body.style);
+  function contentH(sc){var h=0;[].forEach.call(sc.children,function(c){h+=c.offsetHeight;});return h;}
+  function fitFace(f){
+    var sc=f.sc;
+    [].forEach.call(sc.children,function(c){c.style.zoom='';});
+    sc.classList.remove('cb-can-scroll');
+    var cs=getComputedStyle(sc),
+        avail=sc.clientHeight-(parseFloat(cs.paddingTop)||0)-(parseFloat(cs.paddingBottom)||0),
+        h=contentH(sc);
+    if(h<=avail+2)return;
+    /* Piso de legibilidad: en escritorio encogemos hasta 42% con tal de que
+       NUNCA haya scroll interno; en móvil 50% (menos ya es ilegible y esa
+       cara conserva scroll como último recurso). */
+    var floor=innerWidth<=900?0.5:0.42;
+    if(!ZOOM){sc.classList.add('cb-can-scroll');return;}
+    var z=avail/h*0.985;
+    if(z<floor){sc.classList.add('cb-can-scroll');return;}
+    [].forEach.call(sc.children,function(c){c.style.zoom=z;});
+    /* el zoom re-fluye el layout (los anchos relativos cambian): pasada fina */
+    if(sc.scrollHeight>sc.clientHeight+2){
+      z=z*(sc.clientHeight/sc.scrollHeight);
+      if(z<floor){
+        [].forEach.call(sc.children,function(c){c.style.zoom='';});
+        sc.classList.add('cb-can-scroll');
+      }else{
+        [].forEach.call(sc.children,function(c){c.style.zoom=z;});
+      }
+    }
+  }
+
+  /* HUD: puntos, barra dorada de progreso y pista */
+  var LBL={camino:'Cómo funciona',nosotros:'Conócenos',planes:'Planes',calculadora:'Calculadora',
+           comparativa:'Comparativa',becas:'Becas',carreras:'Carreras',orientacion:'Test vocacional',
+           faq:'Preguntas',contacto:'Contacto'};
+  var dots=document.createElement('div');dots.id='cbDots';
+  faces.forEach(function(f,i){
+    var b=document.createElement('button');b.type='button';
+    b.setAttribute('aria-label',f.sec.id?(LBL[f.sec.id]||f.sec.id):(i===0?'Inicio':'Únete'));
+    b.addEventListener('click',function(){jumpSmart(i);});
+    dots.appendChild(b);
+  });
+  var bar=document.createElement('div');bar.id='cbBar';
+  var hint=document.createElement('div');hint.id='cbHint';hint.textContent='Scroll para girar';
+  document.body.appendChild(dots);document.body.appendChild(bar);document.body.appendChild(hint);
+
+  /* -- Motor del cubo (mismo de la preview aprobada) ------------------------
+     Cara frontal en rotate(0) translateZ(D) + deck en translateZ(-D): se
+     cancelan y la ves plana. La entrante nace en la arista y el deck gira 90°.
+     El eje varía por FRONTERA (el regreso deshace el mismo giro):
+     abajo (X) → derecha (Y) → abajo → izquierda (Yl) → ... */
+  var AXES=['X','Y','X','Yl'];
+  /* tx/tv = eje y grados del LADEO de cámara durante el vuelo: vista en tres
+     cuartos para que se vean TRES caras del cubo (la que sale, la que entra
+     y el costado), no solo dos de frente. */
+  var GEO={
+    X :{fwd:{edge:-90,deck: 90},back:{edge: 90,deck:-90},D:function(){return innerHeight/2;},ax:'X',tx:'Y',tv:26},
+    Y :{fwd:{edge: 90,deck:-90},back:{edge:-90,deck: 90},D:function(){return innerWidth /2;},ax:'Y',tx:'X',tv:-20},
+    Yl:{fwd:{edge:-90,deck: 90},back:{edge: 90,deck:-90},D:function(){return innerWidth /2;},ax:'Y',tx:'X',tv:-20}
+  };
+  /* Sensación del giro:
+     DUR   = duración del giro (ms)
+     PULL  = cuánto retrocede la cámara (múltiplo de D; 4.2 ≈ el cubo se ve a mitad
+             de tamaño, completo y con aire alrededor)
+     PERSP = perspectiva (múltiplo de D; MENOS = 3D más dramático) */
+  var N=faces.length,index=0,animating=false,pending=0,DUR=1250,PULL=4.2,PERSP=2.9;
+
+  function modalOpen(){return !!document.querySelector('.modal.open');}
+  function sync(i){
+    if(i===undefined)i=index;
+    [].forEach.call(dots.children,function(b,k){b.setAttribute('aria-current',String(k===i));});
+    bar.style.width=(i/(N-1)*100)+'%';
+  }
+  function rest(){
+    var D=innerHeight/2;
+    stage.style.perspective=Math.round(D*PERSP)+'px';
+    deck.style.transform='translateZ('+(-D)+'px)';
+    faces.forEach(function(f,i){
+      f.el.classList.toggle('on',i===index);
+      f.sh.style.opacity='0';
+    });
+    faces[index].el.style.transform='translateZ('+D+'px)';
+  }
+  function spin(target,dir){
+    animating=true;
+    hint.style.opacity='0';
+    var g=GEO[AXES[Math.min(index,target)%AXES.length]],
+        mv=dir>0?g.fwd:g.back,D=g.D();
+    stage.style.perspective=Math.round(D*PERSP)+'px';
+    deck.style.transform='translateZ('+(-D)+'px)';
+    var cur=faces[index],nxt=faces[target];
+    cur.el.style.transform='translateZ('+D+'px)';
+    nxt.el.style.transform='rotate'+g.ax+'('+mv.edge+'deg) translateZ('+D+'px)';
+    nxt.el.classList.add('on');
+    fitFace(nxt);   /* la cara entrante se compacta a una pantalla antes de girar */
+    cur.el.classList.add('lift3d');nxt.el.classList.add('lift3d'); /* relieve al girar */
+    /* la tapa visible muestra la sección que sigue en la dirección del viaje
+       (o la anterior, si vamos al final): tres caras con contenido real */
+    var extra=target+dir;
+    if(extra<0||extra>=N)extra=index-dir;
+    if(extra<0||extra>=N)extra=-1;
+    showBox(g,D,extra); /* tapas + trasera: la caja se ve sólida al alejarse */
+    /* Coreografía de cámara en 3 actos: se ALEJA y se LADEA (tres cuartos),
+       SE QUEDA lejos mientras el cubo gira a la vista (tramo 30%→68%), y
+       regresa de frente para aterrizar en la cara nueva.
+       Las 4 keyframes usan la misma lista de transforms para que la
+       interpolación sea limpia. */
+    function fr(z,t,r){return 'translateZ('+z+'px) rotate'+g.tx+'('+t+'deg) rotate'+g.ax+'('+r+'deg)';}
+    var anim=deck.animate([
+      {transform:fr(-D,0,0),easing:'cubic-bezier(.45,.05,.35,1)'},
+      {transform:fr(-D*PULL,g.tv,mv.deck*0.32),offset:.3,easing:'linear'},
+      {transform:fr(-D*PULL,g.tv,mv.deck*0.68),offset:.68,easing:'cubic-bezier(.4,0,.55,1)'},
+      {transform:fr(-D,0,mv.deck)}
+    ],{duration:DUR,fill:'forwards'});
+    /* Sombreado de profundidad en las caras que salen/entran */
+    var s1=cur.sh.animate([{opacity:0},{opacity:.6}],{duration:DUR,easing:'ease-in',fill:'forwards'});
+    var s2=nxt.sh.animate([{opacity:.65},{opacity:0}],{duration:DUR,easing:'ease-out',fill:'forwards'});
+    anim.onfinish=function(){
+      cur.el.classList.remove('on');
+      cur.el.classList.remove('lift3d');nxt.el.classList.remove('lift3d'); /* de vuelta al plano */
+      index=target;
+      rest();
+      hideBox();
+      anim.cancel();s1.cancel();s2.cancel();
+      sync();
+      animating=false;
+      if(pending){var p=pending;pending=0;setTimeout(function(){go(p);},60);}
+    };
+    sync(target); /* la barra y los puntos avanzan junto con el giro */
+  }
+  function go(dir){
+    var t=index+dir;
+    if(t<0||t>=N){bounce(dir);return;}
+    if(animating){pending=dir;return;}
+    spin(t,dir);
+  }
+  function jumpSmart(i){if(i!==index&&!animating)spin(i,i>index?1:-1);}
+  /* Tope elástico en los extremos */
+  function bounce(dir){
+    if(animating)return;animating=true;
+    var D=innerHeight/2,a=dir>0?9:-9;
+    var anim=deck.animate([
+      {transform:'translateZ('+(-D)+'px) rotateX(0deg)'},
+      {transform:'translateZ('+(-D*1.35)+'px) rotateX('+a+'deg)',offset:.4},
+      {transform:'translateZ('+(-D)+'px) rotateX(0deg)'}
+    ],{duration:480,easing:'ease-out'});
+    anim.onfinish=function(){anim.cancel();animating=false;};
+  }
+
+  /* -- Entradas --------------------------------------------------------------
+     Regla de oro: el scroll primero recorre la sección POR DENTRO; solo si ya
+     está en el borde, un gesto NUEVO voltea el cubo. La inercia del trackpad
+     que venía scrolleando contenido no cuenta (burstScrolled). */
+  function atTop(sc){return sc.scrollTop<=4;}
+  function atBottom(sc){return sc.scrollTop+sc.clientHeight>=sc.scrollHeight-6;}
+
+  /* Sensibilidad: el giro se dispara casi al instante (umbral 25 ≈ 1 tick de
+     rueda). En vez de exigir "soltar y volver a scrollear", hay un
+     enfriamiento por TIEMPO: scroll continuo encadena giros, uno por
+     animación. En las caras con scroll interno (raras), seguir scrolleando
+     en el borde también voltea — solo pide un poco más de recorrido (260)
+     para que la inercia no lo haga por ti. */
+  var acc=0,lastW=0,lastFlip=0,burstScrolled=false;
+  window.addEventListener('wheel',function(e){
+    if(modalOpen()||e.ctrlKey)return;   /* modal abierto o gesto de zoom: no interferimos */
+    var now=Date.now(),sameBurst=now-lastW<=180;lastW=now;
+    if(!sameBurst){burstScrolled=false;acc=0;}
+    if(animating){e.preventDefault();return;}
+    if(now-lastFlip<250){e.preventDefault();return;} /* respiro breve tras aterrizar */
+    var sc=faces[index].sc,down=e.deltaY>0;
+    if(!(down?atBottom(sc):atTop(sc))){burstScrolled=true;acc=0;return;} /* scroll interno nativo */
+    e.preventDefault();
+    acc+=e.deltaY;
+    var need=burstScrolled?260:25;
+    if(Math.abs(acc)>need){acc=0;burstScrolled=false;lastFlip=now;go(down?1:-1);}
+  },{passive:false});
+
+  /* Táctil: dentro de la cara se scrollea nativo; en el borde el swipe gira.
+     Si el mismo dedo venía scrolleando contenido, girar pide un poco más de
+     recorrido (80px) en vez de exigir levantar el dedo. */
+  var tY=null,tX=null,tPrev=null,tScrolled=false,tAcc=0;
+  window.addEventListener('touchstart',function(e){
+    if(modalOpen())return;
+    tY=e.touches[0].clientY;tPrev=tY;tX=e.touches[0].clientX;tScrolled=false;tAcc=0;
+  },{passive:true});
+  window.addEventListener('touchmove',function(e){
+    if(tY===null||modalOpen())return;
+    var y=e.touches[0].clientY,step=tPrev-y;tPrev=y;
+    var dyTot=tY-y,dx=tX-e.touches[0].clientX;
+    if(Math.abs(dx)>Math.abs(dyTot))return;         /* gesto horizontal: no es nuestro */
+    if(animating){e.preventDefault();return;}
+    var sc=faces[index].sc,down=(step||dyTot)>0;
+    if(!(down?atBottom(sc):atTop(sc))){tScrolled=true;tAcc=0;return;}
+    e.preventDefault();
+    tAcc+=step;
+    var need=tScrolled?80:34;
+    if(Math.abs(tAcc)>need){tY=null;go(tAcc>0?1:-1);}
+  },{passive:false});
+  window.addEventListener('touchend',function(){tY=null;});
+
+  /* Teclado (los campos de formulario quedan fuera) */
+  window.addEventListener('keydown',function(e){
+    if(modalOpen())return;
+    var t=e.target;
+    if(t&&(/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(t.tagName)||t.isContentEditable))return;
+    var sc=faces[index].sc;
+    function inner(d){sc.scrollBy({top:d*Math.round(sc.clientHeight*.8),behavior:'smooth'});}
+    if(e.key==='ArrowDown'||e.key==='PageDown'||e.key===' '){e.preventDefault();atBottom(sc)?go(1):inner(1);}
+    else if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();atTop(sc)?go(-1):inner(-1);}
+    else if(e.key==='Home'){e.preventDefault();jumpSmart(0);}
+    else if(e.key==='End'){e.preventDefault();jumpSmart(N-1);}
+  });
+
+  /* Anclas internas (menú, botones "Elegir plan", ruleta → contacto...):
+     ahora saltan a la cara correspondiente. Los demás listeners del enlace
+     (p. ej. preseleccionar plan) siguen ejecutándose normal. */
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]');if(!a)return;
+    var id=(a.getAttribute('href')||'').slice(1);if(!id)return;
+    var t=document.getElementById(id);if(!t)return;
+    var fi=-1;faces.forEach(function(f,i){if(f.el.contains(t))fi=i;});
+    if(fi<0)return;
+    e.preventDefault();
+    faces[fi].sc.scrollTop=0;
+    if(fi!==index)jumpSmart(fi);
+    var nl=document.querySelector('.nlinks');if(nl)nl.classList.remove('open'); /* cierra el menú móvil */
+  });
+
+  /* Si la URL trae #ancla, arrancamos en esa cara */
+  if(location.hash){
+    var t0=document.getElementById(location.hash.slice(1));
+    if(t0)faces.forEach(function(f,i){if(f.el.contains(t0))index=i;});
+  }
+  /* Re-ajustar la cara actual cuando su contenido cambia de tamaño:
+     FAQ que se abre, wizard que cambia de paso, cambio de idioma, resize,
+     fuentes web que terminan de cargar. */
+  var refitT;
+  function refit(){if(!animating)fitFace(faces[index]);}
+  window.addEventListener('resize',function(){if(!animating){rest();refit();}});
+  document.addEventListener('updlang',function(){setTimeout(refit,60);});
+  document.addEventListener('toggle',function(){setTimeout(refit,60);},true);
+  document.addEventListener('click',function(){clearTimeout(refitT);refitT=setTimeout(refit,380);});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){refit();});
+  window.addEventListener('load',function(){refit();});
+
+  rest();fitFace(faces[index]);sync();
+})();
+</script>
 </body></html>
