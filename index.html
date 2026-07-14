@@ -2143,11 +2143,21 @@ body.cube-on .scard,body.cube-on .vcard{padding-top:20px;padding-bottom:20px;}
     return v;
   }
   function fillCap(cap,i){
-    var v=capViewFor(i);
+    var v=capViewFor(i),c=v.firstChild;
     cap.appendChild(v);cap.classList.add('has-view');
-    /* compactar la copia al alto de ESTA tapa (varía según el eje del giro);
-       sin piso: la tapa es decorativa */
-    scaleChildren(v,parseFloat(cap.style.height)-40,0);
+    /* MINIATURA FIEL: el clon se maqueta al ancho real del viewport (tal
+       cual se ve su cara) y se escala uniforme para caber en la tapa.
+       Nada de re-flujos: eso chocaba con los max-width del contenido y
+       dejaba una columna angosta. */
+    var capW=parseFloat(cap.style.width),capH=parseFloat(cap.style.height);
+    c.style.transformOrigin='top center';
+    c.style.width=innerWidth+'px';
+    c.style.marginLeft='0px';c.style.marginBottom='';c.style.transform='';
+    var h=c.offsetHeight,cw=c.offsetWidth;
+    var z=Math.min(1,(capW-16)/cw,(capH-16)/h); /* miniatura lo más grande posible */
+    c.style.marginLeft=((capW-cw)/2)+'px';
+    c.style.transform='scale('+z+')';
+    c.style.marginBottom=(-h*(1-z))+'px';
   }
   function showBox(g,D,extraIdx){
     var W=innerWidth,H=innerHeight;
@@ -2204,7 +2214,7 @@ body.cube-on .scard,body.cube-on .vcard{padding-top:20px;padding-bottom:20px;}
       [].forEach.call(box.children,function(c){
         c.style.transformOrigin='top center';
         c.style.width=(100/z)+'%';
-        c.style.marginLeft=(-(100/z-100)/2)+'%';
+        c.style.marginLeft='0px';
         c.style.transform='';c.style.marginBottom='';
       });
       var z2=avail/contentH(box)*0.985;
@@ -2213,7 +2223,10 @@ body.cube-on .scard,body.cube-on .vcard{padding-top:20px;padding-bottom:20px;}
       z=z2;
     }
     [].forEach.call(box.children,function(c){
-      var ch=c.offsetHeight;
+      var ch=c.offsetHeight,cw=c.offsetWidth;
+      /* centrado en px REALES: si un max-width recortó el ancho pedido,
+         un margen en % lo descentraría */
+      c.style.marginLeft=((box.clientWidth-cw)/2)+'px';
       c.style.transform='scale('+z+')';
       c.style.marginBottom=(-ch*(1-z))+'px';
     });
@@ -2256,9 +2269,9 @@ body.cube-on .scard,body.cube-on .vcard{padding-top:20px;padding-bottom:20px;}
      cuartos para que se vean TRES caras del cubo (la que sale, la que entra
      y el costado), no solo dos de frente. */
   var GEO={
-    X :{fwd:{edge:-90,deck: 90},back:{edge: 90,deck:-90},D:function(){return innerHeight/2;},ax:'X',tx:'Y',tv:26},
-    Y :{fwd:{edge: 90,deck:-90},back:{edge:-90,deck: 90},D:function(){return innerWidth /2;},ax:'Y',tx:'X',tv:-20},
-    Yl:{fwd:{edge:-90,deck: 90},back:{edge: 90,deck:-90},D:function(){return innerWidth /2;},ax:'Y',tx:'X',tv:-20}
+    X :{fwd:{edge:-90,deck: 90},back:{edge: 90,deck:-90},D:function(){return innerHeight/2;},ax:'X',tx:'Y',tv:40},
+    Y :{fwd:{edge: 90,deck:-90},back:{edge:-90,deck: 90},D:function(){return innerWidth /2;},ax:'Y',tx:'X',tv:-32},
+    Yl:{fwd:{edge:-90,deck: 90},back:{edge: 90,deck:-90},D:function(){return innerWidth /2;},ax:'Y',tx:'X',tv:-32}
   };
   /* Sensación del giro:
      DUR   = duración del giro (ms)
