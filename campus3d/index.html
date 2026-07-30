@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus UPD 3D — Revisión de edificios</title>
+<style>
+  :root{ --navy:#0d1b2e; --navy2:#12263f; --gold:#c9a84c; --gold-l:#e8c86a; --ink:#eaf1f8; --muted:#9fb2c7; --line:rgba(255,255,255,.09); }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;color:var(--ink);
+    background:
+      radial-gradient(120% 80% at 50% -10%, #1a3350 0%, #0d1b2e 55%, #071120 100%) fixed;
+    min-height:100vh;line-height:1.55;}
+  .wrap{max-width:1120px;margin:0 auto;padding:38px 22px 60px;}
+  header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px;}
+  .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--gold),#8a6f2a);
+    display:flex;align-items:center;justify-content:center;font-weight:800;color:#241a06;font-size:15px;letter-spacing:.5px;}
+  h1{font-size:22px;margin:0;font-weight:700;}
+  .sub{color:var(--muted);font-size:14px;margin:2px 0 26px;}
+  .sub b{color:var(--gold-l);font-weight:700;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;
+    display:flex;flex-direction:column;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;}
+  .card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.5);box-shadow:0 16px 40px rgba(0,0,0,.4);}
+  .thumb{aspect-ratio:16/10;background:#0a1524 center/cover no-repeat;position:relative;}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .badge{position:absolute;top:10px;left:10px;font-size:11px;font-weight:700;letter-spacing:.06em;
+    background:rgba(46,120,80,.92);color:#eafff2;padding:4px 9px;border-radius:20px;text-transform:uppercase;}
+  .badge.todo{background:rgba(90,100,120,.85);color:#e7edf5;}
+  .body{padding:14px 16px 16px;}
+  .body h2{margin:0 0 3px;font-size:17px;}
+  .form{color:var(--gold-l);font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+  .body p{color:var(--muted);font-size:13.5px;margin:8px 0 12px;}
+  .go{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;color:var(--gold-l);}
+  .tips{margin-top:30px;padding:16px 18px;border:1px dashed var(--line);border-radius:14px;color:var(--muted);font-size:13.5px;}
+  .tips b{color:var(--ink);}
+  .extra{margin-top:22px;}
+  .extra a{color:var(--gold-l);font-weight:600;text-decoration:none;font-size:14px;}
+  .extra a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">UPD</div>
+    <div>
+      <h1>Campus UPD 3D — Revisión de edificios</h1>
+    </div>
+  </header>
+  <p class="sub">Three.js realista (atardecer · vidrio · bloom). Abre cada uno en pestaña nueva: <b>arrastra para orbitar</b>, rueda para acercar, clic en la puerta para “entrar”. <b>7 de 7 edificios listos + campus ensamblado.</b></p>
+
+  <div class="grid">
+    <a class="card" href="campus-completo.html" target="_blank" rel="noopener" style="grid-column:1/-1">
+      <div class="thumb" style="aspect-ratio:32/10"><span class="badge">NUEVO · RECORRIDO</span><img src="thumbs/campus.png" alt="Campus completo"></div>
+      <div class="body"><div class="form">Escena única · scroll por capítulos · hora real de Querétaro</div><h2>CAMPUS COMPLETO — Recorrido 3D</h2>
+        <p>Los 7 edificios en un campus VIVO: el cielo y el sol siguen la <b>hora real de Querétaro</b> (día/atardecer/noche + nubes según el clima), pasto, anillo vehicular con <b>autos circulando</b>, estacionamiento, <b>estudiantes caminando</b> por los andadores y cancha de fútbol en el estadio. Desliza para volar por capítulos, clic en una puerta para entrar. Trucos: <b>?perf</b>, <b>?cap=N</b>, <b>?hora=12</b> (forzar hora).</p>
+        <span class="go">Abrir el recorrido →</span></div>
+    </a>
+  </div>
+
+  <div class="grid" style="margin-top:20px">
+    <a class="card" href="rectoria-real.html" target="_blank" rel="noopener">
+      <div class="thumb"><span class="badge">Listo</span><img src="thumbs/rectoria.png" alt="Rectoría"></div>
+      <div class="body"><div class="form">Torre cilíndrica</div><h2>Rectoría</h2>
+        <p>Torre de vidrio en 3 tramos, emblema holográfico, interior con oficinas.</p>
+        <span class="go">Abrir en 3D →</span></div>
+    </a>
+
+    <a class="card" href="biblioteca-real.html" target="_blank" rel="noopener">
+      <div class="thumb"><span class="badge">Nuevo hoy</span><img src="thumbs/biblioteca.png" alt="Biblioteca"></div>
+      <div class="body"><div class="form">Anillo + patio</div><h2>Biblioteca</h2>
+        <p>Anillo de vidrio con celosías verticales, patio interior con espejo de agua y alero de concreto.</p>
+        <span class="go">Abrir en 3D →</span></div>
+    </a>
+
+    <a class="card" href="facultad-real.html" target="_blank" rel="noopener">
+      <div class="thumb"><span class="badge">Nuevo hoy</span><img src="thumbs/facultad.png" alt="Facultad"></div>
+      <div class="body"><div class="form">Barra + brise-soleil</div><h2>Facultad</h2>
+        <p>Bloque académico rectilíneo, muro cortina con aletas horizontales y núcleos de concreto.</p>
+        <span class="go">Abrir en 3D →</span></div>
+    </a>
+
+    <a class="card" href="auditorio-real.html" target="_blank" rel="noopener">
+      <div class="thumb"><span class="badge">Nuevo hoy</span><img src="thumbs/auditorio.png" alt="Auditorio"></div>
+      <div class="body"><div class="form">Domo / concha</div><h2>Auditorio</h2>
+        <p>Domo de concreto sobre tambor elíptico, foyer de vidrio curvo y óculo dorado.</p>
+        <span class="go">Abrir en 3D →</span></div>
+    </a>
+
+    <a class="card" href="estadio-real.html" target="_blank" rel="noopener">
+      <div class="thumb"><span class="badge">Nuevo hoy</span><img src="thumbs/estadio.png" alt="Estadio"></div>
+      <div class="body"><div class="form">Óvalo abierto</div><h2>Estadio</h2>
+        <p>Gradas azules en óvalo, cancha verde con pista, techo voladizo dorado y torres de iluminación.</p>
+        <span class="go">Abrir en 3D →</span></div>
+    </a>
+
+    <a class="card" href="cafeteria-real.html" target="_blank" rel="noopener">
+      <div class="thumb"><span class="badge">Nuevo</span><img src="thumbs/cafeteria.png" alt="Cafetería"></div>
+      <div class="body"><div class="form">Pabellón · techo mariposa</div><h2>Cafetería</h2>
+        <p>Pabellón bajo con techo mariposa, comedor encendido tras el vidrio y terrazas con pérgola de madera.</p>
+        <span class="go">Abrir en 3D →</span></div>
+    </a>
+
+    <a class="card" href="servicios-real.html" target="_blank" rel="noopener">
+      <div class="thumb"><span class="badge">Nuevo</span><img src="thumbs/servicios.png" alt="Servicios y Laboratorios"></div>
+      <div class="body"><div class="form">Doble piel · técnico</div><h2>Servicios / Laboratorios</h2>
+        <p>Bloque con celosía metálica separada del vidrio, núcleo de concreto, equipo de azotea y nave de talleres.</p>
+        <span class="go">Abrir en 3D →</span></div>
+    </a>
+  </div>
+
+  <div class="tips">
+    <b>Cómo evaluar:</b> abre el <b>CAMPUS COMPLETO</b> y desliza — es la propuesta para el hero de upd.mx: escena única con master plan (Rectoría al norte, eje peatonal, estadio y cafetería en la periferia), cámara de scroll con 9 capítulos y textos de admisión. Los 7 edificios individuales siguen abajo para revisar detalle. <b>Pendientes:</b> medirlo en un celular real de gama media, decidir hora del día definitiva y nombres reales de "Facultad"/"Servicios". <b>Nota color:</b> el Estadio trae verde/terracota y Servicios el azul UPD; puedo hacer el pase de color institucional a los demás cuando lo apruebes.
+  </div>
+
+  <div class="extra">
+    Extra: <a href="campus-hero.html" target="_blank" rel="noopener">Recorrido aéreo del campus (versión SVG ligera) →</a>
+  </div>
+</div>
+</body>
+</html>
