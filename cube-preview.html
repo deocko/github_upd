@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>UPD · Preview cubo (scroll inmersivo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#0c8076;--navy:#0f3d3a;--gold:#c9a13b;--gold-l:#e6c879;--cream:#f6eed7;
+  --ink:#16261f;--muted:#5c6b64;--nm-bg:#e9efec;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#071e1b;overflow:hidden;-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.05;}
+
+/* ---- Escenario del cubo ------------------------------------------------ */
+/* La "cámara": ocupa toda la pantalla y da la perspectiva 3D.
+   La perspectiva exacta se ajusta por JS según el eje del giro. */
+#stage{position:fixed;inset:0;perspective:1500px;overflow:hidden;}
+/* El "cubo": su transform lo maneja el Web Animations API (JS). */
+#deck{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;}
+/* Cada cara = una pantalla completa. Solo hay DOS caras físicas: se reciclan. */
+.face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  display:flex;align-items:center;justify-content:center;padding:clamp(24px,6vw,80px);}
+.face-inner{width:100%;max-width:1040px;max-height:100%;overflow:auto;scrollbar-width:none;}
+.face-inner::-webkit-scrollbar{display:none;}
+/* Sombreado de profundidad: se anima al entrar/salir cada cara (lo controla JS) */
+.shade{position:absolute;inset:0;background:#04211d;opacity:0;pointer-events:none;}
+
+/* ---- Estilo de las secciones (tu paleta) ------------------------------- */
+.sec-teal{background:linear-gradient(150deg,#0f8f83,var(--teal) 60%,#0a6b62);color:#fff;}
+.sec-cream{background:linear-gradient(150deg,#fff,var(--nm-bg));color:var(--ink);}
+.sec-navy{background:radial-gradient(120% 120% at 20% 10%,#12514c,var(--navy) 70%);color:#fff;}
+.sec-gold{background:linear-gradient(150deg,var(--gold-l),var(--gold));color:var(--navy);}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.9;margin-bottom:18px;}
+.eyebrow::before{content:'';width:26px;height:2px;background:currentColor;border-radius:2px;}
+.face h1{font-size:clamp(34px,6vw,66px);font-weight:800;margin-bottom:18px;}
+.face h2{font-size:clamp(28px,5vw,48px);font-weight:800;margin-bottom:16px;}
+.face p.lead{font-size:clamp(16px,2.4vw,21px);line-height:1.5;opacity:.92;max-width:620px;margin-bottom:26px;}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:700;
+  background:rgba(255,255,255,.16);backdrop-filter:blur(6px);margin:4px 6px 4px 0;}
+.sec-cream .pill{background:rgba(12,128,118,.1);color:var(--teal);}
+.sec-gold .pill{background:rgba(15,61,58,.12);color:var(--navy);}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 30px;border-radius:999px;font-weight:800;font-size:15px;cursor:pointer;border:0;font-family:inherit;margin-top:8px;}
+.btn-light{background:#fff;color:var(--teal);}
+.btn-dark{background:var(--navy);color:#fff;}
+.btn-teal{background:var(--teal);color:#fff;}
+
+/* Rejilla de tarjetas dentro de una cara */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px;}
+.card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:22px;}
+.sec-cream .card{background:#fff;border-color:#e4eae6;box-shadow:0 14px 34px rgba(15,27,41,.07);}
+.card .ic{font-size:30px;line-height:1;margin-bottom:12px;}
+.card h3{font-size:19px;margin-bottom:8px;}
+.card p{font-size:14px;line-height:1.5;opacity:.85;}
+.price{font-size:clamp(32px,5vw,50px);font-weight:800;font-family:'Space Grotesk';}
+.price small{font-size:16px;font-weight:600;opacity:.7;}
+@media(max-width:760px){.cards{grid-template-columns:1fr;gap:12px;}}
+
+/* ---- HUD: navegación y progreso --------------------------------------- */
+#hud-nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(18px,4vw,44px);color:#fff;mix-blend-mode:difference;pointer-events:none;}
+#hud-nav .brand{font-family:'Space Grotesk';font-weight:700;font-size:17px;pointer-events:auto;}
+#hud-nav nav{display:flex;gap:20px;pointer-events:auto;}
+#hud-nav a{color:#fff;font-size:13.5px;font-weight:700;opacity:.85;cursor:pointer;text-decoration:none;}
+#hud-nav a:hover{opacity:1;}
+@media(max-width:720px){#hud-nav nav{display:none;}}
+
+/* Puntos de progreso (derecha) */
+#dots{position:fixed;right:clamp(12px,2.5vw,26px);top:50%;transform:translateY(-50%);z-index:20;display:flex;flex-direction:column;gap:12px;}
+#dots button{width:11px;height:11px;border-radius:50%;border:2px solid rgba(255,255,255,.6);background:transparent;cursor:pointer;padding:0;transition:.25s;mix-blend-mode:difference;}
+#dots button[aria-current=true]{background:#fff;transform:scale(1.35);}
+
+/* Barra de progreso inferior */
+#bar{position:fixed;left:0;bottom:0;height:4px;background:var(--gold);z-index:20;width:0;transition:width .95s cubic-bezier(.55,.05,.25,1);}
+
+/* Pista de scroll */
+#hint{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:20;color:#fff;mix-blend-mode:difference;
+  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:6px;
+  animation:bob 1.8s ease-in-out infinite;transition:opacity .4s;}
+#hint .mouse{width:22px;height:34px;border:2px solid currentColor;border-radius:12px;position:relative;}
+#hint .mouse::before{content:'';position:absolute;left:50%;top:6px;width:3px;height:6px;border-radius:2px;background:currentColor;transform:translateX(-50%);animation:wheel 1.8s ease-in-out infinite;}
+@keyframes wheel{0%,100%{opacity:0;transform:translate(-50%,0);}40%{opacity:1;transform:translate(-50%,7px);}}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-5px);}}
+
+/* Aviso reduced-motion / fallback */
+#rm-note{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--navy);color:#fff;padding:10px 16px;font-size:13px;text-align:center;display:none;}
+
+/* ---- Fallback: prefers-reduced-motion -> scroll normal ----------------- */
+body.plain{overflow:auto;background:var(--nm-bg);}
+body.plain #stage{position:static;perspective:none;overflow:visible;}
+body.plain #deck{position:static;transform:none!important;transform-style:flat;}
+body.plain .face{position:relative;min-height:100vh;transform:none!important;backface-visibility:visible;}
+body.plain #dots,body.plain #bar,body.plain #hint{display:none;}
+</style>
+</head>
+<body>
+
+<div id="hud-nav">
+  <span class="brand">Universidad Politécnica Digital</span>
+  <nav id="nav"></nav>
+</div>
+
+<div id="stage">
+  <div id="deck">
+    <div class="face" id="faceA"></div>
+    <div class="face" id="faceB"></div>
+  </div>
+</div>
+
+<div id="dots"></div>
+<div id="bar"></div>
+<div id="hint"><span class="mouse"></span><span>Scroll · desliza</span></div>
+<div id="rm-note">Detectamos “reducir movimiento”: mostramos la versión sin giro. Actívalo/desactívalo en tu sistema para ver el cubo.</div>
+
+<script>
+/* ============================================================================
+   MOTOR DE CUBO A PANTALLA COMPLETA (scroll inmersivo) — v2
+   Mejoras sobre v1:
+   - Geometría corregida: la cara nueva RUEDA entrando por la arista (antes
+     aparecía de golpe al final del giro).
+   - El giro varía de eje: abajo → derecha → abajo → izquierda (y al regresar
+     se deshace el mismo giro, para que el espacio se sienta coherente).
+   - "Cámara" cinematográfica: el cubo se aleja a mitad del giro y regresa
+     (Web Animations API con keyframe intermedio), con sombreado de
+     profundidad en las caras que entran y salen.
+   - Entrada fluida: el scroll de trackpad se acumula (no dispara al primer
+     tick) y un gesto hecho durante la animación se encola en vez de perderse.
+   Sin librerías. prefers-reduced-motion -> página normal.
+============================================================================ */
+(function(){
+  /* -- 1. Contenido de cada cara (tus secciones reales, resumidas) -------- */
+  var SECTIONS=[
+    {key:'inicio',label:'Inicio',cls:'sec-teal',html:
+      '<div class="face-inner">'+
+      '<span class="eyebrow">100% en línea · RVOE en trámite</span>'+
+      '<h1>Prepárate.<br>Titúlate. Despega.</h1>'+
+      '<p class="lead">Una universidad digital hecha para tu vida real. Estudia a tu ritmo, desde donde estés, con un título que vale lo mismo que el de cualquier universidad.</p>'+
+      '<button class="btn btn-light">Inscríbete hoy →</button>'+
+      '<div style="margin-top:26px"><span class="pill">✓ Beca por desempeño</span><span class="pill">✓ Tutor IA 24/7</span><span class="pill">✓ Bolsa de trabajo</span></div>'+
+      '</div>'},
+    {key:'camino',label:'Cómo funciona',cls:'sec-cream',html:
+      '<div class="face-inner">'+
+      '<span class="eyebrow" style="color:var(--teal)">El camino UPD</span>'+
+      '<h2>Tres pasos, una sola plataforma</h2>'+
+      '<div class="cards">'+
+      '<div class="card"><div class="ic">📝</div><h3>1 · Inscríbete</h3><p>Completa tu inscripción 100% en línea y asegura tu lugar hoy mismo.</p></div>'+
+      '<div class="card"><div class="ic">💡</div><h3>2 · Aprende</h3><p>Lecciones cortas, rutas guiadas y un tutor con IA disponible 24/7.</p></div>'+
+      '<div class="card"><div class="ic">🎓</div><h3>3 · Titúlate</h3><p>Licenciatura con RVOE en trámite ante la SEP.</p></div>'+
+      '</div></div>'},
+    {key:'planes',label:'Planes',cls:'sec-navy',html:
+      '<div class="face-inner">'+
+      '<span class="eyebrow" style="color:var(--gold-l)">Planes 2026</span>'+
+      '<h2>Tu carrera, a tu ritmo</h2>'+
+      '<div class="cards">'+
+      '<div class="card"><h3>Exprés</h3><div class="price">$3,400<small>/mes</small></div><p>1 año · carga intensiva. Para quien necesita el título ya.</p></div>'+
+      '<div class="card" style="border-color:var(--gold);background:rgba(201,161,59,.14)"><span class="pill" style="background:var(--gold);color:var(--navy)">Más elegido</span><h3 style="margin-top:10px">Estándar</h3><div class="price">$2,650<small>/mes</small></div><p>3 años · 9 cuatrimestres. El ritmo universitario clásico.</p></div>'+
+      '<div class="card"><h3>Flexible</h3><div class="price">$1,950<small>/mes</small></div><p>Hasta 5 años. Avanza materia por materia, sin presión.</p></div>'+
+      '</div></div>'},
+    {key:'carreras',label:'Carreras',cls:'sec-cream',html:
+      '<div class="face-inner">'+
+      '<span class="eyebrow" style="color:var(--teal)">Oferta académica</span>'+
+      '<h2>Seis carreras para el mercado digital</h2>'+
+      '<div class="cards">'+
+      '<div class="card"><div class="ic">📊</div><h3>Administración</h3><p>$14k–$40k/mes · 9 cuatr.</p></div>'+
+      '<div class="card"><div class="ic">⚖️</div><h3>Derecho</h3><p>$15k–$45k/mes · 9 cuatr.</p></div>'+
+      '<div class="card"><div class="ic">🧠</div><h3>Psicología</h3><p>$12k–$35k/mes · 9 cuatr.</p></div>'+
+      '<div class="card"><div class="ic">💻</div><h3>Ing. en Sistemas</h3><p>$18k–$50k/mes · 9 cuatr.</p></div>'+
+      '<div class="card"><div class="ic">📣</div><h3>Mercadotecnia</h3><p>$12k–$35k/mes · 8 cuatr.</p></div>'+
+      '<div class="card"><div class="ic">📒</div><h3>Contaduría</h3><p>$13k–$38k/mes · 9 cuatr.</p></div>'+
+      '</div></div>'},
+    {key:'contacto',label:'Contacto',cls:'sec-gold',html:
+      '<div class="face-inner" style="text-align:center">'+
+      '<h2>¿Listo para empezar?</h2>'+
+      '<p class="lead" style="margin:16px auto 26px">Un asesor revisa tu perfil y te contacta el mismo día. Sin compromiso.</p>'+
+      '<button class="btn btn-dark">Quiero que me contacten →</button> '+
+      '<button class="btn btn-teal">WhatsApp</button>'+
+      '</div>'}
+  ];
+
+  var stage=document.getElementById('stage'),
+      deck=document.getElementById('deck'),
+      faceA=document.getElementById('faceA'),
+      faceB=document.getElementById('faceB'),
+      dotsBox=document.getElementById('dots'),
+      bar=document.getElementById('bar'),
+      hint=document.getElementById('hint'),
+      navBox=document.getElementById('nav');
+  var N=SECTIONS.length, index=0, animating=false, pending=0;
+  var DUR=980;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasWAAPI=typeof deck.animate==='function';
+
+  /* -- 2. Fallback plano: reduce-motion o navegador sin Web Animations ---- */
+  if(reduce||!hasWAAPI){
+    document.body.classList.add('plain');
+    if(reduce)document.getElementById('rm-note').style.display='block';
+    var frag=document.createDocumentFragment();
+    SECTIONS.forEach(function(s){
+      var f=document.createElement('div');
+      f.className='face '+s.cls; f.id='plain-'+s.key; f.innerHTML=s.html;
+      frag.appendChild(f);
+    });
+    deck.innerHTML=''; deck.appendChild(frag);
+    buildNav(function(i){document.getElementById('plain-'+SECTIONS[i].key).scrollIntoView({behavior:reduce?'auto':'smooth'});});
+    return;
+  }
+
+  /* -- 3. Geometría --------------------------------------------------------
+     El truco de las "dos caras recicladas": la cara frontal está en
+     rotate(0) translateZ(D) y el deck en translateZ(-D) -> se cancelan y la
+     ves plana. La cara entrante se coloca en la arista correcta y el deck
+     gira 90°; al terminar, intercambiamos referencias y reseteamos a reposo
+     (visualmente idéntico, sin salto).
+
+     El eje varía por FRONTERA entre secciones (no por gesto), así el giro de
+     regreso deshace exactamente el de ida:
+       frontera 0→1: rueda desde abajo   (rotateX)
+       frontera 1→2: rueda desde la derecha (rotateY)
+       frontera 2→3: rueda desde abajo
+       frontera 3→4: rueda desde la izquierda
+     D = mitad de la altura (eje X) o de la anchura (eje Y), para que las
+     caras se toquen exactamente en la arista de la pantalla. */
+  var AXES=['X','Y','X','Yl'];
+  function axisFor(boundary){return AXES[boundary%AXES.length];}
+  /* Por eje y dirección: rotación de la arista donde nace la cara entrante,
+     y ángulo final del deck. */
+  var GEO={
+    X :{fwd:{edge:-90,deck: 90},back:{edge: 90,deck:-90},D:function(){return innerHeight/2;},ax:'X'},
+    Y :{fwd:{edge: 90,deck:-90},back:{edge:-90,deck: 90},D:function(){return innerWidth /2;},ax:'Y'},
+    Yl:{fwd:{edge:-90,deck: 90},back:{edge: 90,deck:-90},D:function(){return innerWidth /2;},ax:'Y'}
+  };
+
+  var faceFront=faceA, faceSpare=faceB;
+
+  function setFace(el,sec){
+    el.className='face '+sec.cls;
+    el.innerHTML=sec.html;
+    var sh=document.createElement('div');sh.className='shade';el.appendChild(sh);
+    return sh;
+  }
+  function rest(){
+    var D=innerHeight/2;
+    stage.style.perspective=Math.round(D*3.4)+'px';
+    deck.style.transform='translateZ('+(-D)+'px)';
+    faceFront.style.transform='translateZ('+D+'px)';
+    faceSpare.style.transform='rotateX(-90deg) translateZ('+D+'px)'; /* estacionada fuera de vista */
+    faceFront.style.zIndex=2;faceSpare.style.zIndex=1;
+  }
+
+  /* -- 4. El giro ----------------------------------------------------------
+     spin(): UN giro de 90° hacia `target` rodando en la dirección `dir`.
+     Lo usan tanto el scroll (sección adyacente) como el menú (salto directo:
+     también un solo giro, sin dar todas las vueltas intermedias). */
+  function spin(target,dir){
+    animating=true;
+    if(hint)hint.style.opacity='0';
+
+    var g=GEO[axisFor(Math.min(index,index+dir))],
+        mv=dir>0?g.fwd:g.back,
+        D=g.D();
+
+    stage.style.perspective=Math.round(D*3.4)+'px';
+    deck.style.transform='translateZ('+(-D)+'px)';
+    faceFront.style.transform='translateZ('+D+'px)';
+    faceSpare.style.transform='rotate'+g.ax+'('+mv.edge+'deg) translateZ('+D+'px)';
+    var shIn=setFace(faceSpare,SECTIONS[target]),
+        shOut=faceFront.querySelector('.shade')||setFace(faceFront,SECTIONS[index]);
+
+    /* Cámara: retrocede a mitad del giro y vuelve (keyframe intermedio) */
+    var anim=deck.animate([
+      {transform:'translateZ('+(-D)+'px) rotate'+g.ax+'(0deg)',easing:'cubic-bezier(.5,.05,.4,.96)'},
+      {transform:'translateZ('+(-D*1.32)+'px) rotate'+g.ax+'('+(mv.deck/2)+'deg)',offset:.5,easing:'cubic-bezier(.35,.02,.25,1)'},
+      {transform:'translateZ('+(-D)+'px) rotate'+g.ax+'('+mv.deck+'deg)'}
+    ],{duration:DUR,fill:'forwards'});
+    /* Sombreado: la cara que sale se oscurece, la que entra se aclara */
+    shOut.animate([{opacity:0},{opacity:.5}],{duration:DUR,easing:'ease-in',fill:'forwards'});
+    shIn.animate([{opacity:.55},{opacity:0}],{duration:DUR,easing:'ease-out',fill:'forwards'});
+
+    anim.onfinish=function(){
+      var tmp=faceFront;faceFront=faceSpare;faceSpare=tmp;
+      index=target;
+      rest();          /* estado de reposo idéntico al final del giro: sin salto */
+      anim.cancel();
+      syncHUD();
+      animating=false;
+      if(pending){var p=pending;pending=0;setTimeout(function(){go(p);},70);}
+    };
+    syncHUD(target);   /* la barra y los puntos avanzan junto con el giro */
+  }
+
+  function go(dir){
+    var target=index+dir;
+    if(target<0||target>=N){bounce(dir);return;}
+    if(animating){pending=dir;return;} /* el gesto no se pierde: se encola */
+    spin(target,dir);
+  }
+
+  /* Tope elástico en los extremos: un empujoncito de 6° que regresa */
+  function bounce(dir){
+    if(animating)return;animating=true;
+    var D=innerHeight/2,a=dir>0?7:-7;
+    var anim=deck.animate([
+      {transform:'translateZ('+(-D)+'px) rotateX(0deg)'},
+      {transform:'translateZ('+(-D*1.05)+'px) rotateX('+a+'deg)',offset:.4},
+      {transform:'translateZ('+(-D)+'px) rotateX(0deg)'}
+    ],{duration:420,easing:'ease-out'});
+    anim.onfinish=function(){anim.cancel();animating=false;};
+  }
+
+  /* Salto desde el menú/puntos: un solo giro hacia el destino (sin vueltas) */
+  function jumpSmart(i){
+    if(i===index||animating)return;
+    spin(i,i>index?1:-1);
+  }
+
+  /* -- 5. HUD --------------------------------------------------------------- */
+  function buildNav(onClick){
+    SECTIONS.forEach(function(s,i){
+      var a=document.createElement('a');
+      a.textContent=s.label;a.href='#'+s.key;
+      a.addEventListener('click',function(e){e.preventDefault();onClick(i);});
+      navBox.appendChild(a);
+    });
+  }
+  SECTIONS.forEach(function(s,i){
+    var b=document.createElement('button');
+    b.type='button';b.setAttribute('aria-label',s.label);
+    b.addEventListener('click',function(){jumpSmart(i);});
+    dotsBox.appendChild(b);
+  });
+  function syncHUD(i){
+    if(i===undefined)i=index;
+    [].forEach.call(dotsBox.children,function(b,k){b.setAttribute('aria-current',String(k===i));});
+    bar.style.width=(i/(N-1)*100)+'%';
+  }
+
+  buildNav(jumpSmart);
+  setFace(faceFront,SECTIONS[0]);
+  setFace(faceSpare,SECTIONS[1%N]);
+  rest();syncHUD();
+
+  /* -- 6. Entradas ----------------------------------------------------------
+     Rueda/trackpad: acumulamos deltas con caducidad, en vez de disparar al
+     primer tick — así un trackpad no salta dos secciones por inercia. */
+  var acc=0,lastWheel=0;
+  window.addEventListener('wheel',function(e){
+    e.preventDefault();
+    var now=Date.now();
+    if(now-lastWheel>190)acc=0;      /* ráfaga nueva */
+    lastWheel=now;
+    if(animating){return;}           /* la inercia del trackpad no encola giros dobles */
+    acc+=e.deltaY;
+    if(Math.abs(acc)>70){var d=acc>0?1:-1;acc=0;go(d);}
+  },{passive:false});
+
+  /* Teclado (accesibilidad) */
+  window.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(1);}
+    else if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();go(-1);}
+    else if(e.key==='Home'){e.preventDefault();jumpSmart(0);}
+    else if(e.key==='End'){e.preventDefault();jumpSmart(N-1);}
+  });
+
+  /* Táctil: un swipe = un giro */
+  var touchY=null;
+  window.addEventListener('touchstart',function(e){touchY=e.touches[0].clientY;},{passive:true});
+  window.addEventListener('touchmove',function(e){
+    if(touchY===null)return;
+    var dy=touchY-e.touches[0].clientY;
+    if(Math.abs(dy)>46){go(dy>0?1:-1);touchY=null;}
+  },{passive:true});
+  window.addEventListener('touchend',function(){touchY=null;});
+
+  window.addEventListener('resize',function(){if(!animating)rest();});
+})();
+</script>
+</body>
+</html>
